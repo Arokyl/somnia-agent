@@ -1,0 +1,16 @@
+{
+  "name": "@somnia-agent/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build":      "forge build",
+    "test":       "forge test -vvv",
+    "fuzz":       "forge test --fuzz-runs 5000",
+    "deploy":     "forge script script/Deploy.s.sol --broadcast --verify",
+    "deploy:somnia": "forge script script/DeployDirect.s.sol:DeployDirect --rpc-url somnia --chain-id 50312 --broadcast",
+    "lint":       "forge fmt --check",
+    "format":     "forge fmt",
+    "size":       "forge build --sizes",
+    "slither":    "slither src/"
+  }
+}
