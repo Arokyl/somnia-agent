@@ -11,6 +11,7 @@
     "lint":       "forge fmt --check",
     "format":     "forge fmt",
     "size":       "forge build --sizes",
-    "slither":    "slither src/"
+    "slither":    "slither src/",
+   "packageManager": "pnpm@9.0.0"
   }
 }

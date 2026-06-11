@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: somnia-agent-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile=false && pnpm build:api
+    startCommand: pnpm --filter @somnia-agent/api start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20.20.2
+      - key: FRONTEND_URL
+        value: https://somnia-agent.vercel.app
+      - key: SOMNIA_RPC
+        value: https://api.infra.testnet.somnia.network/
+      - key: SOMNIA_CHAIN_ID
+        value: "50312"
+      - key: SOMNIA_EXPLORER_URL
+        value: https://shannon-explorer.somnia.network
+
+  - type: web
+    name: somnia-agent-agent
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile=false && pnpm build:agent
+    startCommand: pnpm --filter @somnia-agent/agent start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20.20.2
+      - key: FRONTEND_URL
+        value: https://somnia-agent.vercel.app
+      - key: SOMNIA_RPC
+        value: https://api.infra.testnet.somnia.network/
+      - key: SOMNIA_CHAIN_ID
+        value: "50312"
+      - key: SOMNIA_EXPLORER_URL
+        value: https://shannon-explorer.somnia.network
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: EXECUTION_PROXY_ADDRESS
+        value: 0x62ABDCFab87fbE9D66893C389C7D1B8AF6ffb9E5

@@ -8,12 +8,13 @@ import { gasRoutes } from './routes/gas'
 import { historyRoutes } from './routes/history'
 import { ordersRoutes } from './routes/orders'
 import { connectRedis } from './lib/redis'
+import { getAllowedOrigins } from './lib/cors'
 
 const app = Fastify({ logger: true })
 
 async function main() {
   // Plugins
-  await app.register(cors, { origin: process.env.FRONTEND_URL || 'http://localhost:3000' })
+  await app.register(cors, { origin: getAllowedOrigins() })
 
   const rateLimitOptions: any = {
     max: 60,
@@ -47,10 +48,21 @@ async function main() {
     reply.code(statusCode).send({ error: message })
   })
 
-  const port = parseInt(process.env.API_PORT || '3001')
+  const port = parseInt(process.env.PORT || process.env.API_PORT || '3001')
   await app.listen({ port, host: '0.0.0.0' })
   console.log(`API running on port ${port}`)
 }
+
+async function shutdown() {
+  try {
+    await app.close()
+  } finally {
+    process.exit(0)
+  }
+}
+
+process.on('SIGINT', shutdown)
+process.on('SIGTERM', shutdown)
 
 main().catch((err) => {
   console.error(err)

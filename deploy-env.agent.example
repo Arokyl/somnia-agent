@@ -1,14 +1,9 @@
-# OpenAI-compatible LLM provider
-OPENAI_API_KEY=your_openai_or_compatible_api_key
+OPENAI_API_KEY=
 OPENAI_BASE_URL=https://api.openai.com/v1
 OPENAI_MODEL=gpt-4o-mini
-
-# Agent service
-AGENT_PORT=3002
-FRONTEND_URL=http://localhost:3000
-CORS_ORIGINS=http://localhost:3000,https://somnia-agent.vercel.app
-API_URL=http://localhost:3001
-NEXT_PUBLIC_API_URL=http://localhost:3001
+FRONTEND_URL=https://somnia-agent.vercel.app
+CORS_ORIGINS=https://somnia-agent.vercel.app
+API_URL=https://your-api-service-url
 SOMNIA_RPC=https://api.infra.testnet.somnia.network/
 SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
 SOMNIA_CHAIN_ID=50312

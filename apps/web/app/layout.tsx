@@ -1,5 +1,6 @@
 import '@rainbow-me/rainbowkit/styles.css'
 import './globals.css'
+import type { ReactNode } from 'react'
 import Providers from '@/components/Providers'
 
 export const metadata = {
@@ -11,7 +12,7 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>

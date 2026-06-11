@@ -5,9 +5,14 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "build:web": "pnpm --filter @somnia-agent/web build",
+    "build:api": "pnpm --filter @somnia-agent/shared build && pnpm --filter @somnia-agent/api build",
+    "build:agent": "pnpm --filter @somnia-agent/shared build && pnpm --filter @somnia-agent/agent build",
+    "build:backend": "pnpm build:api && pnpm build:agent",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
+    "typecheck:web": "pnpm --filter @somnia-agent/web typecheck",
     "clean": "turbo run clean"
   },
   "devDependencies": {

@@ -1,0 +1,14 @@
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=
+NEXT_PUBLIC_SOMNIA_RPC=https://api.infra.testnet.somnia.network/
+NEXT_PUBLIC_SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
+NEXT_PUBLIC_SOMNIA_CHAIN_ID=50312
+NEXT_PUBLIC_SOMNIA_EXPLORER_URL=https://shannon-explorer.somnia.network
+NEXT_PUBLIC_ETH_RPC=https://rpc.ankr.com/eth
+NEXT_PUBLIC_BASE_RPC=https://rpc.ankr.com/base
+NEXT_PUBLIC_ARB_RPC=https://rpc.ankr.com/arbitrum
+NEXT_PUBLIC_EXECUTION_PROXY_SOMNIA=0x62ABDCFab87fbE9D66893C389C7D1B8AF6ffb9E5
+NEXT_PUBLIC_EXECUTION_PROXY_ETH=0x
+AGENT_URL=https://your-agent-service-url
+NEXT_PUBLIC_AGENT_URL=https://your-agent-service-url
+API_URL=https://your-api-service-url
+NEXT_PUBLIC_API_URL=https://your-api-service-url
