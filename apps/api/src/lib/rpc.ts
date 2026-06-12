@@ -3,6 +3,12 @@ import { mainnet, base, arbitrum } from 'viem/chains'
 
 const SOMNIA_RPC = process.env.SOMNIA_RPC || process.env.NEXT_PUBLIC_SOMNIA_RPC || 'https://api.infra.testnet.somnia.network/'
 const SOMNIA_RPC_FALLBACK = process.env.SOMNIA_RPC_FALLBACK || process.env.NEXT_PUBLIC_SOMNIA_RPC_FALLBACK
+const ETH_RPC = process.env.NEXT_PUBLIC_ETH_RPC || 'https://rpc.ankr.com/eth'
+const ETH_RPC_FALLBACK = process.env.NEXT_PUBLIC_ETH_RPC_FALLBACK
+const BASE_RPC = process.env.NEXT_PUBLIC_BASE_RPC || 'https://rpc.ankr.com/base'
+const BASE_RPC_FALLBACK = process.env.NEXT_PUBLIC_BASE_RPC_FALLBACK
+const ARB_RPC = process.env.NEXT_PUBLIC_ARB_RPC || 'https://rpc.ankr.com/arbitrum'
+const ARB_RPC_FALLBACK = process.env.NEXT_PUBLIC_ARB_RPC_FALLBACK
 
 type RpcClient = {
   getGasPrice: ReturnType<typeof createPublicClient>['getGasPrice']
@@ -63,16 +69,16 @@ export const clients: Record<number, RpcClient> = {
     SOMNIA_RPC_FALLBACK,
   ]),
   [mainnet.id]: createFailoverClient(mainnet, [
-    process.env.NEXT_PUBLIC_ETH_RPC,
-    process.env.NEXT_PUBLIC_ETH_RPC_FALLBACK,
+    ETH_RPC,
+    ETH_RPC_FALLBACK,
   ]),
   [base.id]: createFailoverClient(base, [
-    process.env.NEXT_PUBLIC_BASE_RPC,
-    process.env.NEXT_PUBLIC_BASE_RPC_FALLBACK,
+    BASE_RPC,
+    BASE_RPC_FALLBACK,
   ]),
   [arbitrum.id]: createFailoverClient(arbitrum, [
-    process.env.NEXT_PUBLIC_ARB_RPC,
-    process.env.NEXT_PUBLIC_ARB_RPC_FALLBACK,
+    ARB_RPC,
+    ARB_RPC_FALLBACK,
   ]),
 }
 

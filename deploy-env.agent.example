@@ -1,9 +1,9 @@
 OPENAI_API_KEY=
-OPENAI_BASE_URL=https://api.openai.com/v1
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_BASE_URL=https://api.groq.com/openai/v1
+OPENAI_MODEL=llama-3.3-70b-versatile
 FRONTEND_URL=https://somnia-agent.vercel.app
 CORS_ORIGINS=https://somnia-agent.vercel.app
-API_URL=https://your-api-service-url
+API_URL=https://somnia-agent.onrender.com
 SOMNIA_RPC=https://api.infra.testnet.somnia.network/
 SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
 SOMNIA_CHAIN_ID=50312
