@@ -58,6 +58,11 @@ Or from repo root with pnpm:
 ```bash
 pnpm --filter @somnia-agent/contracts run deploy:somnia
 ```
+
+## Frontend Deployment
+
+Deploy the frontend as a Vercel project with `apps/web` as the Root Directory. Do not deploy the monorepo root as the frontend project; see `DEPLOY_FRONTEND.md` for the exact settings and environment variables.
+
 ## Project Structure
 
 ```

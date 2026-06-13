@@ -158,7 +158,7 @@ export default function CommandBar({ address }: { address: string }) {
           {messages.map((msg, index) => (
             <div key={`${msg.role}-${index}`} className={`message-wrap ${msg.role === 'user' ? 'user' : ''}`}>
               <div className={`message-card ${msg.role === 'user' ? 'user' : ''}`}>
-                <p className="message-meta">{msg.role === 'user' ? 'You' : msg.demo ? 'Agent demo fallback' : 'Somnia agent'}</p>
+                <p className="message-meta">{msg.role === 'user' ? 'You' : 'Somnia agent'}</p>
                 <p className="message-text">{msg.content}</p>
                 {msg.plan && <PlanSummary plan={msg.plan} onReview={() => setPendingPlan(msg.plan!)} />}
               </div>

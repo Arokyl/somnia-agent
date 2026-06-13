@@ -12,3 +12,4 @@ AGENT_URL=https://somnia-agent-agent.onrender.com
 NEXT_PUBLIC_AGENT_URL=https://somnia-agent-agent.onrender.com
 API_URL=https://somnia-agent.onrender.com
 NEXT_PUBLIC_API_URL=https://somnia-agent.onrender.com
+ALLOW_DEMO_AGENT=false

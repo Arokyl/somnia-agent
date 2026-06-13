@@ -8,7 +8,7 @@ import WalletButton from '@/components/WalletButton'
 const statusItems = [
   ['Network', 'Somnia testnet'],
   ['Mode', 'Wallet-reviewed execution'],
-  ['Routing', 'Odos demo fallback'],
+  ['Routing', 'Live agent service'],
 ]
 
 const recentIntents = [
@@ -47,7 +47,7 @@ export default function Dashboard() {
             <p className="sidebar-copy">
               {isConnected
                 ? 'The agent can prepare plans for this wallet. You approve every transaction before anything is sent.'
-                : 'You can try the agent in demo mode now, then connect your wallet when you are ready to review a transaction.'}
+                : 'Connect your wallet when you are ready to review a transaction. The agent will never submit anything without your approval.'}
             </p>
           </section>
 

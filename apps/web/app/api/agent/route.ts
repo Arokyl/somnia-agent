@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+const allowDemoAgent =
+  process.env.ALLOW_DEMO_AGENT === 'true' ||
+  (process.env.NODE_ENV !== 'production' && process.env.ALLOW_DEMO_AGENT !== 'false')
+
 const demoPlan = {
   intent: {
     tokenIn: 'STT',
@@ -34,12 +38,19 @@ const demoPlan = {
   },
   shouldExecuteNow: false,
   estimatedOutput: '18.42 USDC',
-  warnings: ['Demo mode: connect backend services before signing real transactions.'],
+  warnings: ['Local demo mode is enabled. Connect backend services before signing real transactions.'],
 }
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
   const agentUrl = process.env.AGENT_URL || process.env.NEXT_PUBLIC_AGENT_URL
+
+  if (!agentUrl && !allowDemoAgent) {
+    return NextResponse.json(
+      { error: 'Agent service is not configured. Set AGENT_URL in Vercel to your deployed agent service.' },
+      { status: 503 }
+    )
+  }
 
   if (agentUrl) {
     try {
@@ -53,14 +64,30 @@ export async function POST(req: NextRequest) {
         const data = await res.json()
         return NextResponse.json({ ok: true, ...data })
       }
-    } catch {
-      // Fall through to demo response.
+
+      if (!allowDemoAgent) {
+        return NextResponse.json(
+          { error: `Agent service returned HTTP ${res.status}. Check the deployed agent logs and AGENT_URL.` },
+          { status: 502 }
+        )
+      }
+    } catch (error) {
+      if (!allowDemoAgent) {
+        return NextResponse.json(
+          {
+            error: error instanceof Error
+              ? `Agent service request failed: ${error.message}`
+              : 'Agent service request failed.',
+          },
+          { status: 502 }
+        )
+      }
     }
   }
 
   return NextResponse.json({
     ok: true,
-    reply: `Demo agent parsed: "${body.message}". Best route is Odos, gas is favorable, and the plan is ready for review.`,
+    reply: `Local demo parsed: "${body.message}". Best route is Odos, gas is favorable, and the plan is ready for review.`,
     plan: {
       ...demoPlan,
       intent: {

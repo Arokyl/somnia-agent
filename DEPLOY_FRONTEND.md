@@ -37,9 +37,36 @@ API_URL=
 AGENT_URL=
 NEXT_PUBLIC_API_URL=
 NEXT_PUBLIC_AGENT_URL=
+ALLOW_DEMO_AGENT=false
 ```
 
+`AGENT_URL` must point at the deployed agent service. In production, the web app will not create demo chat plans unless `ALLOW_DEMO_AGENT=true` is explicitly set.
+
 Do not add private keys to Vercel for the frontend project.
+
+## Fixing Vercel 404 / Wrong Project Root
+
+If Vercel shows a platform page like `404: NOT_FOUND` at `/`, the frontend project is probably deploying the monorepo root instead of `apps/web`, or it is deploying an older GitHub commit.
+
+Check these before redeploying:
+
+```bash
+git status --short
+git log -1 --oneline
+git grep -n "Live agent service"
+git grep -n "ALLOW_DEMO_AGENT"
+```
+
+Then confirm the Vercel project uses:
+
+```text
+Root Directory: apps/web
+Install Command: cd ../.. && pnpm install --frozen-lockfile=false
+Build Command: pnpm build
+Output Directory: default / empty
+```
+
+The root `vercel.json` intentionally fails with a clear message if the monorepo root is deployed as the frontend. The working frontend Vercel config is `apps/web/vercel.json`.
 
 ## CLI Deploy
 
