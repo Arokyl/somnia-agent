@@ -6,16 +6,19 @@ import CommandBar from '@/components/CommandBar'
 import WalletButton from '@/components/WalletButton'
 
 const statusItems = [
-  ['Network', 'Somnia testnet'],
-  ['Mode', 'Wallet-reviewed execution'],
-  ['Routing', 'Live agent service'],
+  ['Network', 'Somnia testnet', 'Live execution context'],
+  ['Mode', 'Wallet-reviewed', 'No hidden signing'],
+  ['Routing', 'Agent assisted', 'Plans before action'],
 ]
 
 const recentIntents = [
+  'Hello, give me a quick orientation',
+  'Teach me how to think before signing',
   'Swap 0.1 STT to USDC when gas is cheap',
   'Compare routes before I sign',
-  'Queue the trade below 8 gwei',
 ]
+
+const trustSignals = ['No auto-execution', 'Human final approval', 'Plain-language risk notes']
 
 export default function Dashboard() {
   const { address, isConnected } = useAccount()
@@ -24,6 +27,11 @@ export default function Dashboard() {
 
   return (
     <main className="chat-app-shell">
+      <div className="motion-field" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
       <header className="chat-app-header">
         <div className="brand-mark">
           <Image
@@ -41,6 +49,19 @@ export default function Dashboard() {
 
       <div className="chat-layout">
         <aside className="chat-sidebar" aria-label="Agent context">
+          <section className="sidebar-section command-orb-section">
+            <div className="command-orb" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <p className="eyebrow">Agent State</p>
+            <h1 className="sidebar-title">Calm execution intelligence</h1>
+            <p className="sidebar-copy">
+              Conversational guidance, route planning, and wallet review are separated so every answer feels clear before it becomes actionable.
+            </p>
+          </section>
+
           <section className="sidebar-section">
             <p className="eyebrow">Wallet</p>
             <h1 className="sidebar-title">{isConnected ? shortAddress : 'Connect to trade'}</h1>
@@ -54,11 +75,23 @@ export default function Dashboard() {
           <section className="sidebar-section">
             <p className="eyebrow">Session</p>
             <div className="sidebar-list">
-              {statusItems.map(([label, value]) => (
+              {statusItems.map(([label, value, note]) => (
                 <div className="sidebar-row" key={label}>
-                  <span>{label}</span>
+                  <span>
+                    {label}
+                    <small>{note}</small>
+                  </span>
                   <strong>{value}</strong>
                 </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="sidebar-section trust-section">
+            <p className="eyebrow">Guardrails</p>
+            <div className="trust-list">
+              {trustSignals.map((signal) => (
+                <span key={signal}>{signal}</span>
               ))}
             </div>
           </section>

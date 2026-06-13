@@ -10,13 +10,29 @@ interface Message {
   content: string
   plan?: ExecutionPlan
   demo?: boolean
+  reaction?: string
+}
+
+const REACTION_LABELS: Record<string, string> = {
+  greeting: 'Warm signal',
+  thanks: 'Acknowledged',
+  teacher: 'Teacher mode',
+  help: 'Capability map',
+  'market-education': 'Market note',
 }
 
 const EXAMPLE_COMMANDS = [
-  'Swap 0.1 STT to USDC at the cheapest gas',
-  'Find the safest route for 1 STT to USDC',
+  'Hello, what can you help me do?',
+  'Teach me how to review a swap safely',
   'Compare routes for 0.5 STT to USDC',
   'Wait until gas is below 8 gwei before swapping',
+]
+
+const SAFETY_SIGNALS = [
+  ['Intent', 'Parse the goal'],
+  ['Risk', 'Explain tradeoffs'],
+  ['Gas', 'Time the route'],
+  ['Review', 'You approve'],
 ]
 
 function PlanSummary({ plan, onReview }: { plan: ExecutionPlan; onReview: () => void }) {
@@ -53,6 +69,24 @@ function PlanSummary({ plan, onReview }: { plan: ExecutionPlan; onReview: () => 
         <button type="button" className="primary-button" onClick={onReview}>
           Review plan
         </button>
+      </div>
+    </div>
+  )
+}
+
+function AgentSignal({ reaction, demo }: { reaction?: string; demo?: boolean }) {
+  const label = reaction ? REACTION_LABELS[reaction] ?? reaction : demo ? 'Demo route' : 'Live reasoning'
+
+  return (
+    <div className="agent-signal" aria-label={`Agent response signal: ${label}`}>
+      <div className="signal-core">
+        <span />
+        <span />
+        <span />
+      </div>
+      <div>
+        <p className="signal-label">{label}</p>
+        <p className="signal-caption">{reaction ? 'Common response handled instantly' : 'Wallet-safe planning layer'}</p>
       </div>
     </div>
   )
@@ -100,6 +134,7 @@ export default function CommandBar({ address }: { address: string }) {
           content: data.reply ?? 'I prepared an execution plan for review.',
           plan: data.plan,
           demo: Boolean(data.demo),
+          reaction: data.reaction,
         },
       ])
     } catch (error) {
@@ -108,8 +143,8 @@ export default function CommandBar({ address }: { address: string }) {
         {
           role: 'assistant',
           content: error instanceof Error
-            ? `Agent request failed: ${error.message}`
-            : 'Agent request failed. Check the Agent API status panel and retry.',
+            ? `The live agent service is not answering cleanly yet: ${error.message}. Simple greetings and teacher-style guidance still work locally, but swap planning needs the deployed AGENT_URL service logs checked.`
+            : 'The live agent service is not answering cleanly yet. Check the deployed agent logs and AGENT_URL, then retry the trade plan.',
         },
       ])
     } finally {
@@ -123,14 +158,15 @@ export default function CommandBar({ address }: { address: string }) {
         <div className="chat-header-row">
           <div>
             <p className="eyebrow">AI Agent Chat</p>
-            <h2 className="chat-title">What should your Somnia agent do?</h2>
+            <h2 className="chat-title">Command the agent. Keep the signature.</h2>
             <p className="chat-copy">
-              The agent can analyze intent and prepare a transaction plan. You stay in control of every wallet signature.
+              Ask naturally. The agent separates conversation, teaching, route planning, gas timing, and wallet review into clear signals.
             </p>
           </div>
           <div className="network-card">
             <p className="muted">Network</p>
             <p className="mono">{chainId === 50312 ? 'Somnia 50312' : `Chain ${chainId}`}</p>
+            <span className="network-pulse">Ready</span>
           </div>
         </div>
       </div>
@@ -141,12 +177,21 @@ export default function CommandBar({ address }: { address: string }) {
             <div className="intro-card">
               <h3 className="panel-title">{isConnected ? 'Start with a natural command' : 'Try the agent, then connect'}</h3>
               <p className="panel-subtitle">
-                Pick a prompt or type your own trade request. Wallet signing stays disabled until you connect.
+                Ask for guidance, route comparison, gas timing, or a wallet-reviewed transaction plan.
               </p>
+              <div className="signal-strip" aria-label="Agent safeguards">
+                {SAFETY_SIGNALS.map(([label, detail]) => (
+                  <span key={label}>
+                    <strong>{label}</strong>
+                    <small>{detail}</small>
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="prompt-grid">
               {EXAMPLE_COMMANDS.map((cmd) => (
                 <button key={cmd} type="button" className="prompt-button" onClick={() => sendCommand(cmd)}>
+                  <span />
                   {cmd}
                 </button>
               ))}
@@ -157,8 +202,11 @@ export default function CommandBar({ address }: { address: string }) {
         <div className="message-list">
           {messages.map((msg, index) => (
             <div key={`${msg.role}-${index}`} className={`message-wrap ${msg.role === 'user' ? 'user' : ''}`}>
-              <div className={`message-card ${msg.role === 'user' ? 'user' : ''}`}>
-                <p className="message-meta">{msg.role === 'user' ? 'You' : 'Somnia agent'}</p>
+              <div className={`message-card ${msg.role === 'user' ? 'user' : 'assistant'}`}>
+                <div className="message-head">
+                  <p className="message-meta">{msg.role === 'user' ? 'You' : 'Somnia agent'}</p>
+                  {msg.role === 'assistant' && <AgentSignal reaction={msg.reaction} demo={msg.demo} />}
+                </div>
                 <p className="message-text">{msg.content}</p>
                 {msg.plan && <PlanSummary plan={msg.plan} onReview={() => setPendingPlan(msg.plan!)} />}
               </div>
@@ -168,7 +216,13 @@ export default function CommandBar({ address }: { address: string }) {
           {loading && (
             <div className="message-wrap">
               <div className="message-card">
-                <p className="message-text">Agent is analyzing route and gas...</p>
+                <p className="message-meta">Somnia agent</p>
+                <div className="thinking-row">
+                  <span />
+                  <span />
+                  <span />
+                  <p>Analyzing route, risk, and gas...</p>
+                </div>
               </div>
             </div>
           )}
