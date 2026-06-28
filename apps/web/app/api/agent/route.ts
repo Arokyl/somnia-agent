@@ -41,6 +41,60 @@ const demoPlan = {
   warnings: ['Local demo mode is enabled. Connect backend services before signing real transactions.'],
 }
 
+const demoOrchestration = {
+  mode: 'plan',
+  depth: 'standard',
+  selectedAgents: ['agentAuditor', 'slippageWatcher', 'transactionMonitor'],
+  reason: 'Local demo orchestration for swap planning and wallet review.',
+  runs: [
+    {
+      id: 'slippageWatcher',
+      name: 'Slippage Watcher',
+      depth: 'standard',
+      goal: 'Track slippage, price impact, and best swap timing.',
+      status: 'completed',
+      confidence: 0.86,
+      findings: [{
+        title: 'Swap quality checks',
+        detail: 'Compare quotes, flag price impact above 1%, verify minimum received, and suggest waiting if route quality is weak.',
+        severity: 'info',
+        confidence: 0.86,
+      }],
+      nextActions: ['Compare routes before signing.'],
+    },
+    {
+      id: 'transactionMonitor',
+      name: 'Transaction Monitor',
+      depth: 'standard',
+      goal: 'Monitor transactions and improve execution behavior.',
+      status: 'completed',
+      confidence: 0.72,
+      findings: [{
+        title: 'Review loop',
+        detail: 'Compare plan details against the wallet confirmation before signing.',
+        severity: 'info',
+        confidence: 0.72,
+      }],
+      nextActions: ['Classify transaction outcome after execution.'],
+    },
+    {
+      id: 'agentAuditor',
+      name: 'Agent Auditor',
+      depth: 'standard',
+      goal: 'Check other agents for stale or unsafe activity.',
+      status: 'completed',
+      confidence: 0.84,
+      findings: [{
+        title: 'Safety audit',
+        detail: 'Avoid stale live-market claims and keep final wallet approval with the user.',
+        severity: 'info',
+        confidence: 0.84,
+      }],
+      nextActions: ['Block execution if quote or chain data is incomplete.'],
+    },
+  ],
+}
+
 function getCommonReply(message?: string) {
   const text = message?.trim().toLowerCase() ?? ''
   if (!text) return null
@@ -65,6 +119,14 @@ function getCommonReply(message?: string) {
     return {
       reply:
         'Teacher mode: begin with the outcome, then inspect the risk. For every swap, check six things: token in, token out, amount, expected output, price impact, and gas. Then compare those details against the wallet confirmation. If one line feels unclear, do not sign yet.',
+      reaction: 'teacher',
+    }
+  }
+
+  if (/\b(what should i buy|what to buy|buy now|should i buy|invest|investment|pick a token|which token)\b/.test(text)) {
+    return {
+      reply:
+        'Teacher mode: I cannot tell you what to buy, but I can help you make a disciplined decision. Start with your time horizon, maximum loss, liquidity, catalyst, and whether the trade still makes sense after fees and slippage. If you name two or three tokens, I can help compare their risks in plain language before you decide.',
       reaction: 'teacher',
     }
   }
@@ -94,7 +156,7 @@ export async function POST(req: NextRequest) {
   const commonReply = getCommonReply(body.message)
 
   if (commonReply) {
-    return NextResponse.json({ ok: true, ...commonReply })
+    return NextResponse.json({ ok: true, ...commonReply, orchestration: demoOrchestration })
   }
 
   if (!agentUrl && !allowDemoAgent) {
@@ -118,8 +180,13 @@ export async function POST(req: NextRequest) {
       }
 
       if (!allowDemoAgent) {
+        const detail =
+          res.status === 404
+            ? 'Agent service returned HTTP 404. The frontend reached AGENT_URL, but that service does not expose POST /chat. Check that AGENT_URL points to the deployed agent backend, not the frontend or API service.'
+            : `Agent service returned HTTP ${res.status}. Check the deployed agent logs and AGENT_URL.`
+
         return NextResponse.json(
-          { error: `Agent service returned HTTP ${res.status}. Check the deployed agent logs and AGENT_URL.` },
+          { error: detail },
           { status: 502 }
         )
       }
@@ -147,6 +214,7 @@ export async function POST(req: NextRequest) {
         raw: body.message,
       },
     },
+    orchestration: demoOrchestration,
     demo: true,
   })
 }

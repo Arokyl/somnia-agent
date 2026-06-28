@@ -1,4 +1,4 @@
-# Deploy Backend Services
+﻿# Deploy Backend Services
 
 The frontend is on Vercel. Deploy these two services separately:
 
@@ -24,8 +24,8 @@ Copy environment variables from:
 
 ```txt
 Root Directory: .
-Build Command: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile=false && pnpm build:agent
-Start Command: pnpm --filter @somnia-agent/agent start
+Build Command: corepack pnpm install --frozen-lockfile=false && corepack pnpm build:agent
+Start Command: corepack pnpm --filter @somnia-agent/agent start
 Health Check Path: /health
 ```
 
@@ -33,8 +33,8 @@ Required env vars:
 
 ```bash
 OPENAI_API_KEY=
-OPENAI_BASE_URL=https://api.openai.com/v1
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_BASE_URL=https://integrate.api.nvidia.com/v1
+OPENAI_MODEL=moonshotai/kimi-k2.6
 FRONTEND_URL=https://somnia-agent.vercel.app
 CORS_ORIGINS=https://somnia-agent.vercel.app
 API_URL=https://your-api-service.onrender.com
@@ -42,14 +42,28 @@ SOMNIA_RPC=https://api.infra.testnet.somnia.network/
 SOMNIA_CHAIN_ID=50312
 SOMNIA_EXPLORER_URL=https://shannon-explorer.somnia.network
 EXECUTION_PROXY_ADDRESS=0x62ABDCFab87fbE9D66893C389C7D1B8AF6ffb9E5
+MARKET_NEWS_API_URL=
+MARKET_NEWS_API_KEY=
+AIRDROP_FEED_URL=
+AIRDROP_FEED_API_KEY=
+WALLET_HISTORY_API_URL=
+WALLET_HISTORY_API_KEY=
+TRADE_IDEAS_API_URL=
+TRADE_IDEAS_API_KEY=
+TRANSACTION_MONITOR_API_URL=
+TRANSACTION_MONITOR_API_KEY=
+USER_PROBLEM_FEED_URL=
+USER_PROBLEM_FEED_API_KEY=
+AGENT_AUDIT_FEED_URL=
+AGENT_AUDIT_FEED_API_KEY=
 ```
 
 ### API Service
 
 ```txt
 Root Directory: .
-Build Command: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile=false && pnpm build:api
-Start Command: pnpm --filter @somnia-agent/api start
+Build Command: corepack pnpm install --frozen-lockfile=false && corepack pnpm build:api
+Start Command: corepack pnpm --filter @somnia-agent/api start
 Health Check Path: /health
 ```
 
@@ -72,6 +86,8 @@ REDIS_URL=
 ONEINCH_API_KEY=
 ZEROX_API_KEY=
 ```
+
+The subagent data API URLs are optional JSON feeds. Leave them empty until you have trusted providers. URLs can include `{address}`, `{chainId}`, `{chainHex}`, `{query}`, and `{apiKey}` placeholders.
 
 ## Railway
 

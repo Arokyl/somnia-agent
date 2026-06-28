@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
-import type { ExecutionPlan } from '@somnia-agent/shared'
+import type { ExecutionPlan, OrchestrationPlan } from '@somnia-agent/shared'
 import SwapConfirmModal from './SwapConfirmModal'
 
 interface Message {
   role: 'user' | 'assistant'
   content: string
   plan?: ExecutionPlan
+  orchestration?: OrchestrationPlan
   demo?: boolean
   reaction?: string
 }
@@ -92,6 +93,32 @@ function AgentSignal({ reaction, demo }: { reaction?: string; demo?: boolean }) 
   )
 }
 
+function OrchestrationSummary({ orchestration }: { orchestration: OrchestrationPlan }) {
+  const activeRuns = orchestration.runs.filter((run) => run.status === 'completed')
+
+  return (
+    <div className="orchestration-card">
+      <div className="plan-head">
+        <p className="eyebrow">Subagent orchestration</p>
+        <p className="orchestration-meta">
+          {orchestration.mode} mode | {orchestration.depth} depth | {activeRuns.length} active
+        </p>
+      </div>
+      <div className="subagent-grid">
+        {activeRuns.map((run) => (
+          <div className="subagent-tile" key={run.id}>
+            <div className="subagent-row">
+              <strong>{run.name}</strong>
+              <span>{Math.round(run.confidence * 100)}%</span>
+            </div>
+            <p>{run.findings[0]?.detail ?? run.goal}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function CommandBar({ address }: { address: string }) {
   const chainId = useChainId()
   const { isConnected } = useAccount()
@@ -133,6 +160,7 @@ export default function CommandBar({ address }: { address: string }) {
           role: 'assistant',
           content: data.reply ?? 'I prepared an execution plan for review.',
           plan: data.plan,
+          orchestration: data.orchestration,
           demo: Boolean(data.demo),
           reaction: data.reaction,
         },
@@ -153,7 +181,7 @@ export default function CommandBar({ address }: { address: string }) {
   }
 
   return (
-    <section className="chat-panel">
+    <section className="chat-panel" id="somnia-agent-chat">
       <div className="chat-header">
         <div className="chat-header-row">
           <div>
@@ -208,6 +236,7 @@ export default function CommandBar({ address }: { address: string }) {
                   {msg.role === 'assistant' && <AgentSignal reaction={msg.reaction} demo={msg.demo} />}
                 </div>
                 <p className="message-text">{msg.content}</p>
+                {msg.orchestration && <OrchestrationSummary orchestration={msg.orchestration} />}
                 {msg.plan && <PlanSummary plan={msg.plan} onReview={() => setPendingPlan(msg.plan!)} />}
               </div>
             </div>

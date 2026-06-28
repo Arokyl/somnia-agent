@@ -833,6 +833,60 @@ button:disabled {
     rgba(8, 10, 13, 0.72);
 }
 
+.orchestration-card {
+  margin-top: 0.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(101, 214, 255, 0.24);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(145deg, rgba(101, 214, 255, 0.07), transparent 46%),
+    rgba(8, 10, 13, 0.72);
+}
+
+.orchestration-meta {
+  margin-top: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.subagent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  padding: 0.9rem;
+}
+
+.subagent-tile {
+  min-height: 6rem;
+  border: 1px solid rgba(110, 128, 148, 0.28);
+  border-radius: 0.45rem;
+  background: rgba(16, 21, 27, 0.78);
+  padding: 0.75rem;
+}
+
+.subagent-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: #fff;
+  font-size: 0.78rem;
+}
+
+.subagent-row span {
+  color: var(--accent-hover);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.subagent-tile p {
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
 .plan-head,
 .plan-actions {
   padding: 0.85rem 1rem;
@@ -893,6 +947,43 @@ button:disabled {
   border-width: 1px 0 0;
   background: rgba(16, 21, 27, 0.94);
   padding: 1rem;
+}
+
+.floating-agent-launcher {
+  position: fixed;
+  right: clamp(1rem, 2vw, 1.5rem);
+  bottom: clamp(1rem, 2vw, 1.5rem);
+  z-index: 50;
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  border: 1px solid rgba(101, 214, 255, 0.42);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 42% 34%, rgba(255, 255, 255, 0.18), transparent 42%),
+    rgba(8, 10, 13, 0.88);
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.32),
+    0 0 34px rgba(102, 216, 162, 0.28);
+  backdrop-filter: blur(16px);
+}
+
+.floating-agent-launcher > span {
+  position: absolute;
+  inset: 0.38rem;
+  border: 1px solid rgba(102, 216, 162, 0.38);
+  border-radius: 999px;
+  animation: signal-wave 2.4s ease-in-out infinite;
+}
+
+.floating-agent-logo {
+  position: relative;
+  z-index: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  object-fit: cover;
 }
 
 .input-row {
@@ -1198,6 +1289,7 @@ button:disabled {
   .empty-chat,
   .prompt-grid,
   .plan-grid,
+  .subagent-grid,
   .side-column {
     grid-template-columns: 1fr;
   }

@@ -108,6 +108,17 @@ export default function Dashboard() {
 
         <CommandBar address={demoAddress} />
       </div>
+
+      <a className="floating-agent-launcher" href="#somnia-agent-chat" aria-label="Open Somnia Agent">
+        <Image
+          src="/somnia-agent-logo.png"
+          alt=""
+          width={44}
+          height={44}
+          className="floating-agent-logo"
+        />
+        <span aria-hidden="true" />
+      </a>
     </main>
   )
 }

@@ -3,6 +3,7 @@ import type { Request, Response } from 'express'
 import { encodeFunctionData, isAddress, zeroAddress } from 'viem'
 import { SYSTEM_PROMPT } from './prompts/system'
 import { tools, executeTool } from './tools'
+import { orchestrateSubAgents, summarizeOrchestration } from './orchestrator'
 import { CHAIN_NAMES } from '@somnia-agent/shared'
 import type { ExecutionPlan } from '@somnia-agent/shared'
 
@@ -66,6 +67,14 @@ function getCommonReply(message?: string) {
     }
   }
 
+  if (/\b(what should i buy|what to buy|buy now|should i buy|invest|investment|pick a token|which token)\b/.test(text)) {
+    return {
+      reply:
+        'Teacher mode: I cannot tell you what to buy, but I can help you make a disciplined decision. Start with your time horizon, maximum loss, liquidity, catalyst, and whether the trade still makes sense after fees and slippage. If you name two or three tokens, I can help compare their risks in plain language before you decide.',
+      reaction: 'teacher',
+    }
+  }
+
   if (/\b(help|what can you do|commands?)\b/.test(text)) {
     return {
       reply:
@@ -88,17 +97,18 @@ function getCommonReply(message?: string) {
 export async function chatHandler(req: Request, res: Response) {
   const { message, walletContext, history = [] } = req.body as ChatRequest
 
-  const commonReply = getCommonReply(message)
-  if (commonReply) {
-    return res.json(commonReply)
-  }
-
   if (!message || !walletContext?.address) {
     return res.status(400).json({ error: 'Missing message or walletContext' })
   }
 
   const { address, chainId } = walletContext
   const chainName = CHAIN_NAMES[chainId as keyof typeof CHAIN_NAMES] ?? `Chain ${chainId}`
+  const orchestration = await orchestrateSubAgents({ message, address, chainId })
+  const orchestrationSummary = summarizeOrchestration(orchestration)
+  const commonReply = getCommonReply(message)
+  if (commonReply) {
+    return res.json({ ...commonReply, orchestration })
+  }
 
   // Build system prompt with current context
   const systemContent = SYSTEM_PROMPT
@@ -106,6 +116,7 @@ export async function chatHandler(req: Request, res: Response) {
     .replace('{address}',   address)
     .replace('{chainId}',   chainId.toString())
     .replace('{chainName}', chainName)
+    + orchestrationSummary
 
   // Build message history
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
@@ -219,7 +230,7 @@ export async function chatHandler(req: Request, res: Response) {
       }
     }
 
-    return res.json({ reply, plan, usage: { iterations, cumulativeCostUsd, cumulativeTokens } })
+    return res.json({ reply, plan, orchestration, usage: { iterations, cumulativeCostUsd, cumulativeTokens } })
   } catch (err: any) {
     console.error('Agent error:', err)
     return res.status(500).json({ error: 'Agent error', detail: err.message })
@@ -305,7 +316,7 @@ function normalizeTokenAddress(value?: string): `0x${string}` | null {
   if (!value) return null
   const normalized = value.trim()
   if (['eth', 'stt', 'native', '0x'].includes(normalized.toLowerCase())) return zeroAddress
-  return isAddress(normalized) ? normalized : null
+  return isAddress(normalized) ? normalized as `0x${string}` : null
 }
 
 function applySlippage(amountOut: bigint, slippageBps: number): bigint {

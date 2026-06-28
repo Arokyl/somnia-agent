@@ -107,6 +107,56 @@ export interface ExecutionPlan {
   unsignedTx?: UnsignedTransaction
 }
 
+export type SubAgentId =
+  | 'analyst'
+  | 'marketScout'
+  | 'walletStrategist'
+  | 'tradeScout'
+  | 'slippageWatcher'
+  | 'transactionMonitor'
+  | 'problemSolver'
+  | 'agentAuditor'
+
+export type SubAgentDepth = 'off' | 'light' | 'standard' | 'deep'
+
+export interface SubAgentFinding {
+  title: string
+  detail: string
+  severity: 'info' | 'warning' | 'critical'
+  confidence: number
+  source?: string
+}
+
+export interface SubAgentRun {
+  id: SubAgentId
+  name: string
+  depth: SubAgentDepth
+  goal: string
+  status: 'skipped' | 'completed' | 'failed'
+  confidence: number
+  findings: SubAgentFinding[]
+  nextActions: string[]
+}
+
+export interface OrchestrationPlan {
+  mode: 'observe' | 'advise' | 'plan' | 'monitor'
+  depth: SubAgentDepth
+  selectedAgents: SubAgentId[]
+  reason: string
+  runs: SubAgentRun[]
+}
+
+export interface ChatAgentResponse {
+  reply: string
+  plan?: ExecutionPlan
+  orchestration?: OrchestrationPlan
+  usage?: {
+    iterations: number
+    cumulativeCostUsd: number
+    cumulativeTokens: { input: number; output: number }
+  }
+}
+
 export interface UnsignedTransaction {
   to: string
   data: string

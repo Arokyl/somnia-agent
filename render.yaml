@@ -1,4 +1,4 @@
-services:
+﻿services:
   - type: web
     name: somnia-agent-api
     runtime: node
@@ -29,9 +29,9 @@ services:
       - key: SOMNIA_EXPLORER_URL
         value: https://shannon-explorer.somnia.network
       - key: OPENAI_MODEL
-        value: llama-3.3-70b-versatile
+        value: moonshotai/kimi-k2.6
       - key: OPENAI_BASE_URL
-        value: https://api.groq.com/openai/v1
+        value: https://integrate.api.nvidia.com/v1
       - key: OPENAI_API_KEY
         sync: false
       - key: ETH_USD_PRICE
@@ -61,7 +61,7 @@ services:
       - key: CORS_ORIGINS
         value: https://somnia-agent.vercel.app
       - key: API_URL
-        value: https://somnia-agent.onrender.com
+        value: https://somnia-agent-api.onrender.com
       - key: SOMNIA_RPC
         value: https://api.infra.testnet.somnia.network/
       - key: SOMNIA_RPC_FALLBACK
@@ -77,10 +77,38 @@ services:
       - key: SOMNIA_EXPLORER_URL
         value: https://shannon-explorer.somnia.network
       - key: OPENAI_MODEL
-        value: llama-3.3-70b-versatile
+        value: moonshotai/kimi-k2.6
       - key: OPENAI_BASE_URL
-        value: https://api.groq.com/openai/v1
+        value: https://integrate.api.nvidia.com/v1
       - key: OPENAI_API_KEY
         sync: false
       - key: EXECUTION_PROXY_ADDRESS
         value: 0x62ABDCFab87fbE9D66893C389C7D1B8AF6ffb9E5
+      - key: MARKET_NEWS_API_URL
+        sync: false
+      - key: MARKET_NEWS_API_KEY
+        sync: false
+      - key: AIRDROP_FEED_URL
+        sync: false
+      - key: AIRDROP_FEED_API_KEY
+        sync: false
+      - key: WALLET_HISTORY_API_URL
+        value: https://deep-index.moralis.io/api/v2.2/wallets/{address}/history?chain={chainHex}
+      - key: WALLET_HISTORY_API_KEY
+        sync: false
+      - key: TRADE_IDEAS_API_URL
+        value: https://api.llama.fi/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true
+      - key: TRADE_IDEAS_API_KEY
+        sync: false
+      - key: TRANSACTION_MONITOR_API_URL
+        value: https://deep-index.moralis.io/api/v2.2/wallets/{address}/history?chain={chainHex}
+      - key: TRANSACTION_MONITOR_API_KEY
+        sync: false
+      - key: USER_PROBLEM_FEED_URL
+        sync: false
+      - key: USER_PROBLEM_FEED_API_KEY
+        sync: false
+      - key: AGENT_AUDIT_FEED_URL
+        sync: false
+      - key: AGENT_AUDIT_FEED_API_KEY
+        sync: false
