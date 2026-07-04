@@ -10,11 +10,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@somnia-agent/shared": ["../../packages/shared/src/index.ts"]
-    }
+    "resolveJsonModule": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

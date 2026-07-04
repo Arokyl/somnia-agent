@@ -20,9 +20,6 @@
     "paths": {
       "@/*": [
         "./*"
-      ],
-      "@somnia-agent/shared": [
-        "../../packages/shared/src/index.ts"
       ]
     },
     "plugins": [
