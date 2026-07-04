@@ -38,16 +38,38 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
     { onRequest: withAuth },
     async (req, reply) => {
       const auth = (req as any).auth
-      const { address, tokenIn, tokenOut, amountIn, condition, originalCommand, expiresAt } = req.body
-        chainId,
-        tokenIn,
-        tokenOut,
-        amountIn,
-        condition: condition as any,
-        originalCommand,
-        expiresAt: new Date(expiresAt),
-        status: 'active',
-      }).returning()
+      const { address, tokenIn, tokenOut, amountIn, condition, originalCommand, expiresAt, chainId = 50312 } = req.body
+
+      let requestedAddress: string
+      try {
+        requestedAddress = validateAddress(address)
+      } catch (err: any) {
+        return reply.code(400).send({ error: err.message })
+      }
+
+      if (auth.address !== requestedAddress) {
+        return reply.code(403).send({ error: 'Forbidden: can only create orders for your own address' })
+      }
+
+      const user = await db.query.users.findFirst({ where: eq(users.address, requestedAddress) })
+      if (!user) {
+        return reply.code(404).send({ error: 'User not found' })
+      }
+
+      const [order] = await db
+        .insert(conditionalOrders)
+        .values({
+          userId: user.id,
+          chainId,
+          tokenIn,
+          tokenOut,
+          amountIn,
+          condition: condition as any,
+          originalCommand,
+          expiresAt: new Date(expiresAt),
+          status: 'active',
+        })
+        .returning()
 
       return { order }
     }
