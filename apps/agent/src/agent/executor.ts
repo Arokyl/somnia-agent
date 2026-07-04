@@ -7,17 +7,10 @@ import { orchestrateSubAgents, summarizeOrchestration } from './orchestrator'
 import { CHAIN_NAMES } from '@somnia-agent/shared'
 import type { ExecutionPlan } from '@somnia-agent/shared'
 
-<<<<<<< HEAD
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   baseURL: process.env.OPENAI_BASE_URL,
 })
-=======
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: process.env.OPENAI_BASE_URL,
-})
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 const openaiModel = process.env.OPENAI_MODEL || 'gpt-4o-mini'
 const DEFAULT_SLIPPAGE_BPS = 50
 const DEFAULT_DEADLINE_SECONDS = 20 * 60
@@ -42,11 +35,7 @@ const executionProxyAbi = [
 
 interface ChatRequest {
   message: string
-<<<<<<< HEAD
-  walletContext: { address: string; chainId: number }
-=======
   walletContext: { address: string; chainId: number; authMessage?: string; authSignature?: string }
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
   history?: Array<{ role: 'user' | 'assistant'; content: string }>
 }
 
@@ -112,11 +101,7 @@ export async function chatHandler(req: Request, res: Response) {
     return res.status(400).json({ error: 'Missing message or walletContext' })
   }
 
-<<<<<<< HEAD
-  const { address, chainId } = walletContext
-=======
   const { address, chainId, authMessage, authSignature } = walletContext
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
   const chainName = CHAIN_NAMES[chainId as keyof typeof CHAIN_NAMES] ?? `Chain ${chainId}`
   const orchestration = await orchestrateSubAgents({ message, address, chainId })
   const orchestrationSummary = summarizeOrchestration(orchestration)
@@ -231,16 +216,12 @@ export async function chatHandler(req: Request, res: Response) {
 
         let toolResult: string
         try {
-<<<<<<< HEAD
-          const result = await executeTool(toolName, { ...toolArgs, address, chainId })
-=======
           const result = await executeTool(toolName, {
             ...toolArgs,
             address,
             chainId,
             auth: authMessage && authSignature ? { address, message: authMessage, signature: authSignature } : undefined,
           })
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
           toolResult = JSON.stringify(result)
         } catch (err: any) {
           toolResult = JSON.stringify({ error: err.message })

@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import Providers from '@/components/Providers'
 
 export const metadata = {
-  title: 'Somnia Agent',
+  title: 'Arokyl',
   description: 'AI wallet agent for Somnia trading workflows.',
   icons: {
     icon: '/somnia-agent-logo.png',

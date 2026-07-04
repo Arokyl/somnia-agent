@@ -5,13 +5,13 @@ import { buildAuthHeaders } from './index'
 test('buildAuthHeaders returns signed-wallet headers when auth context is present', () => {
   const headers = buildAuthHeaders({
     address: '0x1234',
-    message: 'Somnia Agent auth',
+    message: 'Arokyl auth',
     signature: '0xabc',
   })
 
   assert.deepEqual(headers, {
     'x-user-address': '0x1234',
-    'x-message': 'Somnia Agent auth',
+    'x-message': 'Arokyl auth',
     'x-signature': '0xabc',
   })
 })

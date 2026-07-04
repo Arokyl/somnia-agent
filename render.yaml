@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿services:
+services:
   - type: web
     name: somnia-agent-api
     runtime: node
@@ -77,6 +76,14 @@
         value: "50312"
       - key: SOMNIA_EXPLORER_URL
         value: https://shannon-explorer.somnia.network
+      - key: DREAMDEX_API_URL
+        value: https://stg.api.dreamdex.io/v0
+      - key: DREAMDEX_PUBLIC_WS_URL
+        value: wss://stg.api.dreamdex.io/v0/ws/public
+      - key: DREAMDEX_APP_URL
+        value: https://app.dreamdex.io
+      - key: DREAMDEX_DOCS_URL
+        value: https://docs.dreamdex.io
       - key: OPENAI_MODEL
         value: moonshotai/kimi-k2.6
       - key: OPENAI_BASE_URL
@@ -113,119 +120,3 @@
         sync: false
       - key: AGENT_AUDIT_FEED_API_KEY
         sync: false
-=======
-﻿services:
-  - type: web
-    name: somnia-agent-api
-    runtime: node
-    plan: free
-    rootDir: .
-    buildCommand: corepack pnpm install --frozen-lockfile=false && corepack pnpm build:api
-    startCommand: corepack pnpm --filter @somnia-agent/api start
-    healthCheckPath: /health
-    envVars:
-      - key: NODE_VERSION
-        value: 20.20.2
-      - key: FRONTEND_URL
-        value: https://somnia-agent.vercel.app
-      - key: CORS_ORIGINS
-        value: https://somnia-agent.vercel.app
-      - key: SOMNIA_RPC
-        value: https://api.infra.testnet.somnia.network/
-      - key: SOMNIA_RPC_FALLBACK
-        value: https://dream-rpc.somnia.network
-      - key: NEXT_PUBLIC_ETH_RPC
-        value: https://rpc.ankr.com/eth
-      - key: NEXT_PUBLIC_BASE_RPC
-        value: https://rpc.ankr.com/base
-      - key: NEXT_PUBLIC_ARB_RPC
-        value: https://rpc.ankr.com/arbitrum
-      - key: SOMNIA_CHAIN_ID
-        value: "50312"
-      - key: SOMNIA_EXPLORER_URL
-        value: https://shannon-explorer.somnia.network
-      - key: OPENAI_MODEL
-        value: moonshotai/kimi-k2.6
-      - key: OPENAI_BASE_URL
-        value: https://integrate.api.nvidia.com/v1
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: ETH_USD_PRICE
-        value: "3000"
-      - key: DATABASE_URL
-        sync: false
-      - key: REDIS_URL
-        sync: false
-      - key: ONEINCH_API_KEY
-        sync: false
-      - key: ZEROX_API_KEY
-        sync: false
-
-  - type: web
-    name: somnia-agent-agent
-    runtime: node
-    plan: free
-    rootDir: .
-    buildCommand: corepack pnpm install --frozen-lockfile=false && corepack pnpm build:agent
-    startCommand: corepack pnpm --filter @somnia-agent/agent start
-    healthCheckPath: /health
-    envVars:
-      - key: NODE_VERSION
-        value: 20.20.2
-      - key: FRONTEND_URL
-        value: https://somnia-agent.vercel.app
-      - key: CORS_ORIGINS
-        value: https://somnia-agent.vercel.app
-      - key: API_URL
-        value: https://somnia-agent-api.onrender.com
-      - key: SOMNIA_RPC
-        value: https://api.infra.testnet.somnia.network/
-      - key: SOMNIA_RPC_FALLBACK
-        value: https://dream-rpc.somnia.network
-      - key: NEXT_PUBLIC_ETH_RPC
-        value: https://rpc.ankr.com/eth
-      - key: NEXT_PUBLIC_BASE_RPC
-        value: https://rpc.ankr.com/base
-      - key: NEXT_PUBLIC_ARB_RPC
-        value: https://rpc.ankr.com/arbitrum
-      - key: SOMNIA_CHAIN_ID
-        value: "50312"
-      - key: SOMNIA_EXPLORER_URL
-        value: https://shannon-explorer.somnia.network
-      - key: OPENAI_MODEL
-        value: moonshotai/kimi-k2.6
-      - key: OPENAI_BASE_URL
-        value: https://integrate.api.nvidia.com/v1
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: EXECUTION_PROXY_ADDRESS
-        value: 0x62ABDCFab87fbE9D66893C389C7D1B8AF6ffb9E5
-      - key: MARKET_NEWS_API_URL
-        sync: false
-      - key: MARKET_NEWS_API_KEY
-        sync: false
-      - key: AIRDROP_FEED_URL
-        sync: false
-      - key: AIRDROP_FEED_API_KEY
-        sync: false
-      - key: WALLET_HISTORY_API_URL
-        value: https://deep-index.moralis.io/api/v2.2/wallets/{address}/history?chain={chainHex}
-      - key: WALLET_HISTORY_API_KEY
-        sync: false
-      - key: TRADE_IDEAS_API_URL
-        value: https://api.llama.fi/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true
-      - key: TRADE_IDEAS_API_KEY
-        sync: false
-      - key: TRANSACTION_MONITOR_API_URL
-        value: https://deep-index.moralis.io/api/v2.2/wallets/{address}/history?chain={chainHex}
-      - key: TRANSACTION_MONITOR_API_KEY
-        sync: false
-      - key: USER_PROBLEM_FEED_URL
-        sync: false
-      - key: USER_PROBLEM_FEED_API_KEY
-        sync: false
-      - key: AGENT_AUDIT_FEED_URL
-        sync: false
-      - key: AGENT_AUDIT_FEED_API_KEY
-        sync: false
->>>>>>> e29240b (Initialize repository with Somnia agent updates)

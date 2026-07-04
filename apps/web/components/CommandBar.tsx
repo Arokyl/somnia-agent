@@ -1,11 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-<<<<<<< HEAD
-import { useAccount, useChainId } from 'wagmi'
-=======
 import { useAccount, useChainId, useSignMessage } from 'wagmi'
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 import type { ExecutionPlan, OrchestrationPlan } from '@somnia-agent/shared'
 import SwapConfirmModal from './SwapConfirmModal'
 
@@ -125,12 +121,8 @@ function OrchestrationSummary({ orchestration }: { orchestration: OrchestrationP
 
 export default function CommandBar({ address }: { address: string }) {
   const chainId = useChainId()
-<<<<<<< HEAD
-  const { isConnected } = useAccount()
-=======
   const { isConnected, address: walletAddress } = useAccount()
   const { signMessageAsync } = useSignMessage()
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -150,32 +142,25 @@ export default function CommandBar({ address }: { address: string }) {
     setLoading(true)
 
     try {
-<<<<<<< HEAD
-=======
       let authMessage: string | undefined
       let authSignature: string | undefined
 
       if (walletAddress) {
-        authMessage = `Somnia Agent auth ${Date.now()}`
+        authMessage = `Arokyl auth ${Date.now()}`
         authSignature = await signMessageAsync({ message: authMessage })
       }
 
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       const res = await fetch('/api/agent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: command,
-<<<<<<< HEAD
-          walletContext: { address, chainId },
-=======
           walletContext: {
             address: walletAddress ?? address,
             chainId,
             authMessage,
             authSignature,
           },
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
           history: messages.map(({ role, content }) => ({ role, content })),
         }),
       })
@@ -261,7 +246,7 @@ export default function CommandBar({ address }: { address: string }) {
             <div key={`${msg.role}-${index}`} className={`message-wrap ${msg.role === 'user' ? 'user' : ''}`}>
               <div className={`message-card ${msg.role === 'user' ? 'user' : 'assistant'}`}>
                 <div className="message-head">
-                  <p className="message-meta">{msg.role === 'user' ? 'You' : 'Somnia agent'}</p>
+                  <p className="message-meta">{msg.role === 'user' ? 'You' : 'Arokyl'}</p>
                   {msg.role === 'assistant' && <AgentSignal reaction={msg.reaction} demo={msg.demo} />}
                 </div>
                 <p className="message-text">{msg.content}</p>
@@ -274,7 +259,7 @@ export default function CommandBar({ address }: { address: string }) {
           {loading && (
             <div className="message-wrap">
               <div className="message-card">
-                <p className="message-meta">Somnia agent</p>
+                <p className="message-meta">Arokyl</p>
                 <div className="thinking-row">
                   <span />
                   <span />

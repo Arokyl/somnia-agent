@@ -24,7 +24,7 @@ export const somnia = defineChain({
 })
 
 export const wagmiConfig = getDefaultConfig({
-  appName: 'Somnia Agent',
+  appName: 'Arokyl',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo-project-id',
   chains: [somnia, mainnet, base, arbitrum],
   transports: {

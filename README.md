@@ -1,4 +1,4 @@
-# Somnia Agent — AI-Powered DeFi Trading Agent
+# Arokyl — AI-Powered DeFi Trading Agent
 
 An AI agent that helps users swap tokens on Somnia (and EVM chains) using natural language commands.
 

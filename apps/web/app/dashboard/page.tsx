@@ -36,13 +36,13 @@ export default function Dashboard() {
         <div className="brand-mark">
           <Image
             src="/somnia-agent-logo.png"
-            alt="Somnia Agent logo"
+            alt="Arokyl logo"
             width={40}
             height={40}
             className="brand-logo"
             priority
           />
-          <span>Somnia Agent</span>
+          <span>Arokyl</span>
         </div>
         <WalletButton />
       </header>
@@ -109,7 +109,7 @@ export default function Dashboard() {
         <CommandBar address={demoAddress} />
       </div>
 
-      <a className="floating-agent-launcher" href="#somnia-agent-chat" aria-label="Open Somnia Agent">
+      <a className="floating-agent-launcher" href="#somnia-agent-chat" aria-label="Open Arokyl">
         <Image
           src="/somnia-agent-logo.png"
           alt=""

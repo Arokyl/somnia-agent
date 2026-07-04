@@ -13,8 +13,6 @@ interface QuoteRequest {
   slippageBps?: number
 }
 
-<<<<<<< HEAD
-=======
 const ZEROX_SUPPORTED_CHAIN_IDS = new Set([
   1, 10, 56, 130, 137, 146, 480, 999, 2741, 4217, 5000, 8453, 9745, 42161,
   43114, 57073, 59144, 80094, 534352,
@@ -81,7 +79,6 @@ export function resolveDreamDexRoute(tokenIn: string, tokenOut: string): DreamDe
   ]
 }
 
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 export class QuoteService {
   async getBestQuote(req: QuoteRequest): Promise<AggregatedQuote> {
     const cacheKey = `quote:${req.chainId}:${req.tokenIn}:${req.tokenOut}:${req.amountIn}`
@@ -90,28 +87,16 @@ export class QuoteService {
 
     const amountInWei = parseUnits(req.amountIn, req.tokenInDecimals)
 
-<<<<<<< HEAD
-    // Fetch from all aggregators in parallel, ignore failures
-    const results = await Promise.allSettled([
-      this.fetch1inch(req, amountInWei),
-      this.fetch0x(req, amountInWei),
-    ])
-=======
     // Fetch from configured and chain-supported aggregators in parallel, ignore failures.
     const fetchers = this.getQuoteFetchers(req, amountInWei)
     if (fetchers.length === 0) throw new Error(this.unsupportedChainMessage(req.chainId))
     const results = await Promise.allSettled(fetchers)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
     const quotes: AggregatedQuote[] = results
       .filter((r): r is PromiseFulfilledResult<AggregatedQuote> => r.status === 'fulfilled')
       .map((r) => r.value)
 
-<<<<<<< HEAD
-    if (quotes.length === 0) throw new Error('No quotes available from any aggregator')
-=======
     if (quotes.length === 0) throw new Error(this.unsupportedChainMessage(req.chainId))
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
     // Sort by effectiveRate (output minus estimated gas cost)
     quotes.sort((a, b) => b.effectiveRate - a.effectiveRate)
@@ -123,24 +108,15 @@ export class QuoteService {
 
   async getAllQuotes(req: QuoteRequest): Promise<AggregatedQuote[]> {
     const amountInWei = parseUnits(req.amountIn, req.tokenInDecimals)
-<<<<<<< HEAD
-    const results = await Promise.allSettled([
-      this.fetch1inch(req, amountInWei),
-      this.fetch0x(req, amountInWei),
-    ])
-=======
     const fetchers = this.getQuoteFetchers(req, amountInWei)
     if (fetchers.length === 0) return []
     const results = await Promise.allSettled(fetchers)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     return results
       .filter((r): r is PromiseFulfilledResult<AggregatedQuote> => r.status === 'fulfilled')
       .map((r) => r.value)
       .sort((a, b) => b.effectiveRate - a.effectiveRate)
   }
 
-<<<<<<< HEAD
-=======
   private getQuoteFetchers(req: QuoteRequest, amountInWei: bigint): Array<Promise<AggregatedQuote>> {
     const fetchers: Array<Promise<AggregatedQuote>> = []
 
@@ -234,7 +210,6 @@ export class QuoteService {
     return `No configured quote aggregator is available for chain ${chainId}. Add a supported quote provider API key or switch to a supported chain.`
   }
 
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
   private async fetch1inch(req: QuoteRequest, amountInWei: bigint): Promise<AggregatedQuote> {
     const apiKey = process.env.ONEINCH_API_KEY
     if (!apiKey) throw new Error('1inch API key not set')

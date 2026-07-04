@@ -16,11 +16,7 @@ importers:
         version: 8.57.1
       turbo:
         specifier: ^2.0.0
-<<<<<<< HEAD
-        version: 2.9.18
-=======
         version: 2.10.0
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
@@ -44,11 +40,7 @@ importers:
         version: 4.104.0(ws@8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@3.25.76)
       viem:
         specifier: ^2.17.0
-<<<<<<< HEAD
-        version: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
         version: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zod:
         specifier: ^3.23.0
         version: 3.25.76
@@ -100,11 +92,7 @@ importers:
         version: 3.4.9
       viem:
         specifier: ^2.17.0
-<<<<<<< HEAD
-        version: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
         version: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zod:
         specifier: ^3.23.0
         version: 3.25.76
@@ -126,25 +114,12 @@ importers:
     dependencies:
       '@rainbow-me/rainbowkit':
         specifier: ^2.1.0
-<<<<<<< HEAD
-        version: 2.2.11(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))
-=======
         version: 2.2.11(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       '@somnia-agent/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@supabase/supabase-js':
         specifier: ^2.44.0
-<<<<<<< HEAD
-        version: 2.108.1
-      '@tanstack/react-query':
-        specifier: ^5.51.0
-        version: 5.101.0(react@18.3.1)
-      ai:
-        specifier: ^3.3.0
-        version: 3.4.33(openai@4.104.0(ws@8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@3.25.76))(react@18.3.1)(sswr@2.2.0(svelte@5.56.3))(svelte@5.56.3)(vue@3.5.37(typescript@5.9.3))(zod@3.25.76)
-=======
         version: 2.108.2
       '@tanstack/react-query':
         specifier: ^5.51.0
@@ -152,7 +127,6 @@ importers:
       ai:
         specifier: ^3.3.0
         version: 3.4.33(openai@4.104.0(ws@8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@3.25.76))(react@18.3.1)(sswr@2.2.0(svelte@5.56.4))(svelte@5.56.4)(vue@3.5.38(typescript@5.9.3))(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       clsx:
         specifier: ^2.1.0
         version: 2.1.1
@@ -170,17 +144,10 @@ importers:
         version: 2.6.1
       viem:
         specifier: ^2.17.0
-<<<<<<< HEAD
-        version: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      wagmi:
-        specifier: ^2.12.0
-        version: 2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
-=======
         version: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       wagmi:
         specifier: ^2.12.0
         version: 2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zustand:
         specifier: ^4.5.0
         version: 4.5.7(@types/react@18.3.31)(react@18.3.1)
@@ -193,11 +160,7 @@ importers:
         version: 18.3.7(@types/react@18.3.31)
       autoprefixer:
         specifier: ^10.4.0
-<<<<<<< HEAD
-        version: 10.5.0(postcss@8.5.15)
-=======
         version: 10.5.2(postcss@8.5.15)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       postcss:
         specifier: ^8.4.0
         version: 8.5.15
@@ -310,13 +273,8 @@ packages:
   '@base-org/account@2.4.0':
     resolution: {integrity: sha512-A4Umpi8B9/pqR78D1Yoze4xHyQaujioVRqqO3d6xuDFw9VRtjg6tK3bPlwE0aW+nVH/ntllCpPa2PbI8Rnjcug==}
 
-<<<<<<< HEAD
-  '@coinbase/cdp-sdk@1.51.0':
-    resolution: {integrity: sha512-XK8+OXDER1jirYpuiOct4ij65ODQ31LsmyRrZi/J7zF4GB89qxWZ0KPfAdsqJMP7VvE4no+Q++MKkQtAJUBoyg==}
-=======
   '@coinbase/cdp-sdk@1.51.2':
     resolution: {integrity: sha512-o4IEwXbyAjfhPQWoFBuqnV1JQGLk4NlUVMzH/ur4voPSjYZvlYFVuOoE/eEcsoPFN28xaWTBvqebwncQL8h8fQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   '@coinbase/wallet-sdk@3.9.3':
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
@@ -347,13 +305,8 @@ packages:
     cpu: [ppc64]
     os: [aix]
 
-<<<<<<< HEAD
-  '@esbuild/aix-ppc64@0.28.0':
-    resolution: {integrity: sha512-lhRUCeuOyJQURhTxl4WkpFTjIsbDayJHih5kZC1giwE+MhIzAb7mEsQMqMf18rHLsrb5qI1tafG20mLxEWcWlA==}
-=======
   '@esbuild/aix-ppc64@0.28.1':
     resolution: {integrity: sha512-Svl7tq8k/08+p6CXPpRjQ1fKX+1odH/BQbb48fV6fj3CWHhsoIOoY87w1oHXm0qEpkIK3ZfVgp0hed3XBXzXMQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [ppc64]
     os: [aix]
@@ -370,13 +323,8 @@ packages:
     cpu: [arm64]
     os: [android]
 
-<<<<<<< HEAD
-  '@esbuild/android-arm64@0.28.0':
-    resolution: {integrity: sha512-+WzIXQOSaGs33tLEgYPYe/yQHf0WTU0X42Jca3y8NWMbUVhp7rUnw+vAsRC/QiDrdD31IszMrZy+qwPOPjd+rw==}
-=======
   '@esbuild/android-arm64@0.28.1':
     resolution: {integrity: sha512-34EGEbCIAgosYz6goLcopX6Mo7NyGv9tfwEM2/7Ce2VcVRk568iSvniGWcUXIy7wEDR1wzolcxcriFVrWYcwBg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [android]
@@ -393,13 +341,8 @@ packages:
     cpu: [arm]
     os: [android]
 
-<<<<<<< HEAD
-  '@esbuild/android-arm@0.28.0':
-    resolution: {integrity: sha512-wqh0ByljabXLKHeWXYLqoJ5jKC4XBaw6Hk08OfMrCRd2nP2ZQ5eleDZC41XHyCNgktBGYMbqnrJKq/K/lzPMSQ==}
-=======
   '@esbuild/android-arm@0.28.1':
     resolution: {integrity: sha512-0k2F129Xdio1TdJfzJ8sy1Q47vUD2NnwdhiAf7drUN1EBTfPf4hsFCtmMgu/6m8JSzsBrlmVjudMBQqOfG8usQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm]
     os: [android]
@@ -416,13 +359,8 @@ packages:
     cpu: [x64]
     os: [android]
 
-<<<<<<< HEAD
-  '@esbuild/android-x64@0.28.0':
-    resolution: {integrity: sha512-+VJggoaKhk2VNNqVL7f6S189UzShHC/mR9EE8rDdSkdpN0KflSwWY/gWjDrNxxisg8Fp1ZCD9jLMo4m0OUfeUA==}
-=======
   '@esbuild/android-x64@0.28.1':
     resolution: {integrity: sha512-dbwY7ltSMDWsRatcRpCnES4F+im88OCUgGZjy52shC7GqHRE/cYlxNbB4Z4UpJswpcc4Qxd2oE/ufM0p61IKng==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [android]
@@ -439,13 +377,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-<<<<<<< HEAD
-  '@esbuild/darwin-arm64@0.28.0':
-    resolution: {integrity: sha512-0T+A9WZm+bZ84nZBtk1ckYsOvyA3x7e2Acj1KdVfV4/2tdG4fzUp91YHx+GArWLtwqp77pBXVCPn2We7Letr0Q==}
-=======
   '@esbuild/darwin-arm64@0.28.1':
     resolution: {integrity: sha512-TZbWkQY7kvTAXbXUT7uVACR5cMHsDiSz9z7ZKAX/RTq/WJEk3QyRr0wZpNhBDX+/0CtdqUIJlOiodQcta6tY3Q==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [darwin]
@@ -462,13 +395,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-<<<<<<< HEAD
-  '@esbuild/darwin-x64@0.28.0':
-    resolution: {integrity: sha512-fyzLm/DLDl/84OCfp2f/XQ4flmORsjU7VKt8HLjvIXChJoFFOIL6pLJPH4Yhd1n1gGFF9mPwtlN5Wf82DZs+LQ==}
-=======
   '@esbuild/darwin-x64@0.28.1':
     resolution: {integrity: sha512-zfdzgK9ACBNZLI/CyHTOx81SyNbM6YXn7rxSgX97VjyiPl9W1i4Ka4fgKECEoFCKGpvBj5qArWIGgQjOwkgskQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [darwin]
@@ -485,13 +413,8 @@ packages:
     cpu: [arm64]
     os: [freebsd]
 
-<<<<<<< HEAD
-  '@esbuild/freebsd-arm64@0.28.0':
-    resolution: {integrity: sha512-l9GeW5UZBT9k9brBYI+0WDffcRxgHQD8ShN2Ur4xWq/NFzUKm3k5lsH4PdaRgb2w7mI9u61nr2gI2mLI27Nh3Q==}
-=======
   '@esbuild/freebsd-arm64@0.28.1':
     resolution: {integrity: sha512-wG2EA8ENdEI0qhkSZMjfqrdY+ziCYCPMmtZjjIwOmXFjmyzEHn+UUxk5of+SYsjtfs3VpnlC7QLzSI5hY/rOAw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [freebsd]
@@ -508,13 +431,8 @@ packages:
     cpu: [x64]
     os: [freebsd]
 
-<<<<<<< HEAD
-  '@esbuild/freebsd-x64@0.28.0':
-    resolution: {integrity: sha512-BXoQai/A0wPO6Es3yFJ7APCiKGc1tdAEOgeTNy3SsB491S3aHn4S4r3e976eUnPdU+NbdtmBuLncYir2tMU9Nw==}
-=======
   '@esbuild/freebsd-x64@0.28.1':
     resolution: {integrity: sha512-i7dZ9vQgnvSCzi/rYCXNgtF/U+eKZNJBzu3eTQbRgHnM7tNSizLOkRFAl3qzVc/Op/u5YkHHa4pf/3DOYHthLQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [freebsd]
@@ -531,13 +449,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-arm64@0.28.0':
-    resolution: {integrity: sha512-RVyzfb3FWsGA55n6WY0MEIEPURL1FcbhFE6BffZEMEekfCzCIMtB5yyDcFnVbTnwk+CLAgTujmV/Lgvih56W+A==}
-=======
   '@esbuild/linux-arm64@0.28.1':
     resolution: {integrity: sha512-yHs+0uc8+nvEAfAfxrWQKK5peSNzBc4PegcMO0EJ2hT71uA7vB8Ihg2e77R2P7SG5uYjPbHlLLmve4LLLRCf0g==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [linux]
@@ -554,13 +467,8 @@ packages:
     cpu: [arm]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-arm@0.28.0':
-    resolution: {integrity: sha512-CjaaREJagqJp7iTaNQjjidaNbCKYcd4IDkzbwwxtSvjI7NZm79qiHc8HqciMddQ6CKvJT6aBd8lO9kN/ZudLlw==}
-=======
   '@esbuild/linux-arm@0.28.1':
     resolution: {integrity: sha512-qVXBOHQS+d5Y722GwJzJUtOLlX7km3CraOaGormF1pDtPd2C/l1SHRPgjLunLGe51Sh5YYWKMFDyV4SxgMQYTQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm]
     os: [linux]
@@ -577,13 +485,8 @@ packages:
     cpu: [ia32]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-ia32@0.28.0':
-    resolution: {integrity: sha512-KBnSTt1kxl9x70q+ydterVdl+Cn0H18ngRMRCEQfrbqdUuntQQ0LoMZv47uB97NljZFzY6HcfqEZ2SAyIUTQBQ==}
-=======
   '@esbuild/linux-ia32@0.28.1':
     resolution: {integrity: sha512-d1z4ZuP0ajrfz/FhGT4vv278rX8KnPPJx8i5+AtK7TYbx9Le9F1hyzurZpkEyjkGa9dUGhQow4C1NmeGvqxN2w==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [ia32]
     os: [linux]
@@ -600,13 +503,8 @@ packages:
     cpu: [loong64]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-loong64@0.28.0':
-    resolution: {integrity: sha512-zpSlUce1mnxzgBADvxKXX5sl8aYQHo2ezvMNI8I0lbblJtp8V4odlm3Yzlj7gPyt3T8ReksE6bK+pT3WD+aJRg==}
-=======
   '@esbuild/linux-loong64@0.28.1':
     resolution: {integrity: sha512-M5sRjUVZrkm1OAPR3dlOYzNmN+loZKGVi1VUQGrwuqLcbR6qeAz+famMhjASeH3YVKvZz+zT1jlh/keC3Rj/lg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [loong64]
     os: [linux]
@@ -623,13 +521,8 @@ packages:
     cpu: [mips64el]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-mips64el@0.28.0':
-    resolution: {integrity: sha512-2jIfP6mmjkdmeTlsX/9vmdmhBmKADrWqN7zcdtHIeNSCH1SqIoNI63cYsjQR8J+wGa4Y5izRcSHSm8K3QWmk3w==}
-=======
   '@esbuild/linux-mips64el@0.28.1':
     resolution: {integrity: sha512-mRObBZeHh2OxcBFPWE/FjylkRgZdYuiTR3vaTozquCGOH14iP9oN4x4Ge81CoIDYQrXmIxpFumJBu5MtZpnQJQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [mips64el]
     os: [linux]
@@ -646,13 +539,8 @@ packages:
     cpu: [ppc64]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-ppc64@0.28.0':
-    resolution: {integrity: sha512-bc0FE9wWeC0WBm49IQMPSPILRocGTQt3j5KPCA8os6VprfuJ7KD+5PzESSrJ6GmPIPJK965ZJHTUlSA6GNYEhg==}
-=======
   '@esbuild/linux-ppc64@0.28.1':
     resolution: {integrity: sha512-slScBsMAb3GFDcdrCgLwZtPYRoH2H/youv10QiZyRjmsP48fznoveWytSgCI/R0ZcUgpc0ZhIUEx6LHts8yrfQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [ppc64]
     os: [linux]
@@ -669,13 +557,8 @@ packages:
     cpu: [riscv64]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-riscv64@0.28.0':
-    resolution: {integrity: sha512-SQPZOwoTTT/HXFXQJG/vBX8sOFagGqvZyXcgLA3NhIqcBv1BJU1d46c0rGcrij2B56Z2rNiSLaZOYW5cUk7yLQ==}
-=======
   '@esbuild/linux-riscv64@0.28.1':
     resolution: {integrity: sha512-kw0owk1o0GFETUJyW0jc0G4Yzs0BHZn0JDZ8JRT088vjJYX777BAs1fDGxAC+q831qOs2DTC96mNsG2opdfyyQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [riscv64]
     os: [linux]
@@ -692,13 +575,8 @@ packages:
     cpu: [s390x]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-s390x@0.28.0':
-    resolution: {integrity: sha512-SCfR0HN8CEEjnYnySJTd2cw0k9OHB/YFzt5zgJEwa+wL/T/raGWYMBqwDNAC6dqFKmJYZoQBRfHjgwLHGSrn3Q==}
-=======
   '@esbuild/linux-s390x@0.28.1':
     resolution: {integrity: sha512-/lAIjX8aYFRByhh6L5rYtPEDRqa9de/4V/juOXcta5frjvzXO4/sqEtyytse0g3zZFuWu5cDN0MkLz2qRDD2Ag==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [s390x]
     os: [linux]
@@ -715,24 +593,14 @@ packages:
     cpu: [x64]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/linux-x64@0.28.0':
-    resolution: {integrity: sha512-us0dSb9iFxIi8srnpl931Nvs65it/Jd2a2K3qs7fz2WfGPHqzfzZTfec7oxZJRNPXPnNYZtanmRc4AL/JwVzHQ==}
-=======
   '@esbuild/linux-x64@0.28.1':
     resolution: {integrity: sha512-u/anNYF2mmVOEDwLtnQ1wOr3EZ9sTNGLWrsYGYwHWzGA3Si84IOkHXlbWTD1NB+9/1lcnweYKO54uhxZydNzfA==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [linux]
 
-<<<<<<< HEAD
-  '@esbuild/netbsd-arm64@0.28.0':
-    resolution: {integrity: sha512-CR/RYotgtCKwtftMwJlUU7xCVNg3lMYZ0RzTmAHSfLCXw3NtZtNpswLEj/Kkf6kEL3Gw+BpOekRX0BYCtklhUw==}
-=======
   '@esbuild/netbsd-arm64@0.28.1':
     resolution: {integrity: sha512-oks0DYbLwWMmaakTsCb+zL4E+aHRVLom9IJZOAthMQEPiQmydXHkziYEsGYRx0uNV/IjEKGAV941JzH02pflqw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [netbsd]
@@ -749,24 +617,14 @@ packages:
     cpu: [x64]
     os: [netbsd]
 
-<<<<<<< HEAD
-  '@esbuild/netbsd-x64@0.28.0':
-    resolution: {integrity: sha512-nU1yhmYutL+fQ71Kxnhg8uEOdC0pwEW9entHykTgEbna2pw2dkbFSMeqjjyHZoCmt8SBkOSvV+yNmm94aUrrqw==}
-=======
   '@esbuild/netbsd-x64@0.28.1':
     resolution: {integrity: sha512-aeL6lAnN89Hz43Mlh1G8ARasbuoYvSITDEx0tHh5b7jJnHcssqgjy9Yx430GDpmCa6OyrKoS0aNRjKundRizGg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [netbsd]
 
-<<<<<<< HEAD
-  '@esbuild/openbsd-arm64@0.28.0':
-    resolution: {integrity: sha512-cXb5vApOsRsxsEl4mcZ1XY3D4DzcoMxR/nnc4IyqYs0rTI8ZKmW6kyyg+11Z8yvgMfAEldKzP7AdP64HnSC/6g==}
-=======
   '@esbuild/openbsd-arm64@0.28.1':
     resolution: {integrity: sha512-MEFJe5C3R8pwXdZ5Y21oo6m7ePiS0d9pWucn99O/wvyJZChoIQKrQDxKrGeW8F5+T0okTHesAmDeiHDTIq0V/Q==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [openbsd]
@@ -783,24 +641,14 @@ packages:
     cpu: [x64]
     os: [openbsd]
 
-<<<<<<< HEAD
-  '@esbuild/openbsd-x64@0.28.0':
-    resolution: {integrity: sha512-8wZM2qqtv9UP3mzy7HiGYNH/zjTA355mpeuA+859TyR+e+Tc08IHYpLJuMsfpDJwoLo1ikIJI8jC3GFjnRClzA==}
-=======
   '@esbuild/openbsd-x64@0.28.1':
     resolution: {integrity: sha512-i/ZLIOafE0Z8cI/XANJAixoJL/uRAoS2xOA3rb0xN+KK0K177cMAsQYkzHtBrtMXAKuAc7HGgcWiZ/sRC1Nxgw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [openbsd]
 
-<<<<<<< HEAD
-  '@esbuild/openharmony-arm64@0.28.0':
-    resolution: {integrity: sha512-FLGfyizszcef5C3YtoyQDACyg95+dndv79i2EekILBofh5wpCa1KuBqOWKrEHZg3zrL3t5ouE5jgr94vA+Wb2w==}
-=======
   '@esbuild/openharmony-arm64@0.28.1':
     resolution: {integrity: sha512-ge+Z7EXFNt2BO1oAMsVpiQ8EwndV9i1xXerAeTIK7AtPs3bKFXQM7nlRxDSIUIMeueR1CNXxqztLzdNeReKBJg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [openharmony]
@@ -817,13 +665,8 @@ packages:
     cpu: [x64]
     os: [sunos]
 
-<<<<<<< HEAD
-  '@esbuild/sunos-x64@0.28.0':
-    resolution: {integrity: sha512-1ZgjUoEdHZZl/YlV76TSCz9Hqj9h9YmMGAgAPYd+q4SicWNX3G5GCyx9uhQWSLcbvPW8Ni7lj4gDa1T40akdlw==}
-=======
   '@esbuild/sunos-x64@0.28.1':
     resolution: {integrity: sha512-BEjgtECkL3vY+SaSQ6nzVfiALUeFxpawyp8Jmf5PtYhf1Ug40N1h/hxlhts+f1FvSvarEigdxS3BlSMI2PJLcQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [sunos]
@@ -840,13 +683,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-<<<<<<< HEAD
-  '@esbuild/win32-arm64@0.28.0':
-    resolution: {integrity: sha512-Q9StnDmQ/enxnpxCCLSg0oo4+34B9TdXpuyPeTedN/6+iXBJ4J+zwfQI28u/Jl40nOYAxGoNi7mFP40RUtkmUA==}
-=======
   '@esbuild/win32-arm64@0.28.1':
     resolution: {integrity: sha512-lCv9eK/H6ZJWbE7bh2nw54CZ9M2nupBxJcTsdk/QQnWkdSjKGuxmmH8/GWrlT1eMmZfn4dGcCjRte397WqfQXA==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [win32]
@@ -863,13 +701,8 @@ packages:
     cpu: [ia32]
     os: [win32]
 
-<<<<<<< HEAD
-  '@esbuild/win32-ia32@0.28.0':
-    resolution: {integrity: sha512-zF3ag/gfiCe6U2iczcRzSYJKH1DCI+ByzSENHlM2FcDbEeo5Zd2C86Aq0tKUYAJJ1obRP84ymxIAksZUcdztHA==}
-=======
   '@esbuild/win32-ia32@0.28.1':
     resolution: {integrity: sha512-zvb/mB2bSCoJOpoCBgYKKpX6YM6mJBlBUVUtVj41DlZJVEB6/0CKlRYxP5wWl1C1ILiCoAU5wZZ4q1P3qeS6Eg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [ia32]
     os: [win32]
@@ -886,13 +719,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-<<<<<<< HEAD
-  '@esbuild/win32-x64@0.28.0':
-    resolution: {integrity: sha512-pEl1bO9mfAmIC+tW5btTmrKaujg3zGtUmWNdCw/xs70FBjwAL3o9OEKNHvNmnyylD6ubxUERiEhdsL0xBQ9efw==}
-=======
   '@esbuild/win32-x64@0.28.1':
     resolution: {integrity: sha512-bm4Mowrv+GXMlpWX++EcXw/iLyd1o3+bJkC2DkWXYVvgZCqD/bSj9ctZeAMC3cIxgjRVR2Dufaiu4YPxr5gW1A==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
@@ -1645,33 +1473,6 @@ packages:
       typescript:
         optional: true
 
-<<<<<<< HEAD
-  '@supabase/auth-js@2.108.1':
-    resolution: {integrity: sha512-Lle5rKU8f9LF3K5dDd8Or8mkkG+ptzRZZWKPVMm9B9UuovH65Ss2+iFnQqRsCqaGouvJEcTWyl0cj2riNrrDLQ==}
-    engines: {node: '>=20.0.0'}
-
-  '@supabase/functions-js@2.108.1':
-    resolution: {integrity: sha512-fxBRW/A4IG7ADQztVt0NaEy5ysiO1WJ2pbldsnBchrkHuyepX0Krek9qA9T4gUQBVVTCE9Ea4pdsM5hfn3nc4A==}
-    engines: {node: '>=20.0.0'}
-
-  '@supabase/phoenix@0.4.2':
-    resolution: {integrity: sha512-YSAGnmDAfuleFCVt3CeurQZAhxRfXWeZIIkwp7NhYzQ1UwW6ePSnzsFAiUm/mbCkfoCf70QQHKW/K6RKh52a4A==}
-
-  '@supabase/postgrest-js@2.108.1':
-    resolution: {integrity: sha512-9lj2MCPPMgSTaJ5y+amnhb3TWPtMFVlbDn2hmX/VV91xQU4j0AauwfMaBErHBJ+zzsSwjc0jLU+zLIZFLQzfig==}
-    engines: {node: '>=20.0.0'}
-
-  '@supabase/realtime-js@2.108.1':
-    resolution: {integrity: sha512-mHGGqOjwd1XTydcoffUqEMsbFQHUi6A3uhQ0EXr3iqzpLqItxKA9nbN6gIQxrZ7JRRnuUe/iOFPUkYV9Tdc5lg==}
-    engines: {node: '>=20.0.0'}
-
-  '@supabase/storage-js@2.108.1':
-    resolution: {integrity: sha512-Er0SGGt85iT6ye+SSh98Az6L2CesoZJuyzEZYH2oBOAnIxa9Nn4CtwUC3veGxYggoT56X+3tVuuQeDBP8kR8sg==}
-    engines: {node: '>=20.0.0'}
-
-  '@supabase/supabase-js@2.108.1':
-    resolution: {integrity: sha512-V/1hRKLSCJ0zEL+9QFRBUtivvePfOsaAYQmC0HhFNSHC2F3xFs4jSF3YhkLmzex6E4V4FGvmBDOP72D/53NnZA==}
-=======
   '@supabase/auth-js@2.108.2':
     resolution: {integrity: sha512-tNaQmBgodDZwgB40mRwVbxFy8IDYwjdpcZ0BYrWiwlULCSQoJj4QoG4zgJT7QRPXcqipefNOzvO/qAu4dF98ag==}
     engines: {node: '>=20.0.0'}
@@ -1697,7 +1498,6 @@ packages:
 
   '@supabase/supabase-js@2.108.2':
     resolution: {integrity: sha512-hFhnPveb5JQg4a0QYicM0swT253YHMdfeRAl2BKHOlI5VAzuHxUGSr8RbwNLYNPauWOgQMS1H8sz8bvYlgwUfQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=20.0.0'}
 
   '@sveltejs/acorn-typescript@1.0.10':
@@ -1711,43 +1511,6 @@ packages:
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
 
-<<<<<<< HEAD
-  '@tanstack/query-core@5.101.0':
-    resolution: {integrity: sha512-cQetA74EB+seWySv1TTKr828TnP0u39m6LykwDXIo84SNortpDkp30TMEjkqtYCNP9c40uT/iwl6MLiufEt0Ow==}
-
-  '@tanstack/react-query@5.101.0':
-    resolution: {integrity: sha512-rLlJXSpkqfizLWgkR5+eLeIk0MvTx/meEIR7LRjxic+qxiQP8zVjq7BqQkiCMNLQBlLfuOLqqr6KO5GtrDlmSg==}
-    peerDependencies:
-      react: ^18 || ^19
-
-  '@turbo/darwin-64@2.9.18':
-    resolution: {integrity: sha512-9f27peFu16ur8c0v9nUFUEyBnbKuuFsUTjHFWfmwGfzySBXbHwzU44QhZon6Mznz0cHsIr3984NQj/bVrnGSRw==}
-    cpu: [x64]
-    os: [darwin]
-
-  '@turbo/darwin-arm64@2.9.18':
-    resolution: {integrity: sha512-9A6TMRq/Ib+QnbhLlgkhOm+624wO4pzSQ/yQviQfWHOlFvaYxdnIAYmu2H6TS6y7kSVL0DvzNe04NbESTOzFVQ==}
-    cpu: [arm64]
-    os: [darwin]
-
-  '@turbo/linux-64@2.9.18':
-    resolution: {integrity: sha512-zCdIDtz69AnbYh913elJRRoF3QY5aa2HNnf+4rAkc7bQ+tWujiDkCNV7stazOUPggaDvhKIf2Z87qHftTeXSkw==}
-    cpu: [x64]
-    os: [linux]
-
-  '@turbo/linux-arm64@2.9.18':
-    resolution: {integrity: sha512-Va1kXI04naMgYwqv/5Dfa36dTDx8015U7oaQAjrXa45ua9OoFjSV4OmvkML4EmXvUclQHCiBRbY8bvd0jV7eAg==}
-    cpu: [arm64]
-    os: [linux]
-
-  '@turbo/windows-64@2.9.18':
-    resolution: {integrity: sha512-m0kDhZANxSNz9ck1ybogFscHabriAsp4eDFNrN/1H5WrgTF7b3VlcPZnhuO3v2+E2KnCbeAc+UUT10BZZHdDKw==}
-    cpu: [x64]
-    os: [win32]
-
-  '@turbo/windows-arm64@2.9.18':
-    resolution: {integrity: sha512-nUdR8WqoomUys9iIQmG45TMiizJ+5BV8egSeLLZba/AWblyp3fVBcIH1kSE58OtK4g2YzbMJEth6Ttv9w5rqMA==}
-=======
   '@tanstack/query-core@5.101.1':
     resolution: {integrity: sha512-Y6Y92dkXtNqx67m2pMSxUsA3zOCwv862JexZRP8/EPwvKXMPu9m8rv43spiXWzOUIggQ3SQApttALStzhA8B4g==}
 
@@ -1783,7 +1546,6 @@ packages:
 
   '@turbo/windows-arm64@2.10.0':
     resolution: {integrity: sha512-dVHGaf9F8twzgibcBqKoADT/LLqf9++jDb+hq/LPWWaOmRpp4M+/pVOm7vy4z9D++xg8eaxWLT0+wQxFwhYu9A==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     cpu: [arm64]
     os: [win32]
 
@@ -1861,13 +1623,8 @@ packages:
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
-<<<<<<< HEAD
-  '@ungap/structured-clone@1.3.1':
-    resolution: {integrity: sha512-mUFwbeTqrVgDQxFveS+df2yfap6iuP20NAKAsBt5jDEoOTDew+zwLAOilHCeQJOVSvmgCX4ogqIrA0mnyr08yQ==}
-=======
   '@ungap/structured-clone@1.3.2':
     resolution: {integrity: sha512-5jsZFwgR5rTdKwidH9Qmat75RKwqfpKlWWB1frDkljN127mwqBu8K0PYo7/hFpF03IEJpfVPpCQDY/eDx3iHvA==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   '@vanilla-extract/css@1.20.1':
     resolution: {integrity: sha512-5I9RNo5uZW9tsBnqrWzJqELegOqTHBrZyDFnES0gR9gJJHBB9dom1N0bwITM9tKwBcfKrTX4a6DHVeQdJ2ubQA==}
@@ -1883,36 +1640,6 @@ packages:
     peerDependencies:
       '@vanilla-extract/css': ^1.0.0
 
-<<<<<<< HEAD
-  '@vue/compiler-core@3.5.37':
-    resolution: {integrity: sha512-TfQz4bsBQTPoTeBWTUPJPq+4FCTTXg2pbp8TjjAyrGaLAu9nfrZTxKLf6mdAlclnwtyUToFaMQu7QRS63Qek1g==}
-
-  '@vue/compiler-dom@3.5.37':
-    resolution: {integrity: sha512-oqfl/QaCVEWxphALFEZ7m+q9z+Sghz9ZCcoJ/oplTGxsOgx2czVzSZxkMkzQrWIahywOeyGHdg9ml/WUz3DMzw==}
-
-  '@vue/compiler-sfc@3.5.37':
-    resolution: {integrity: sha512-hYu+efs678xaPHYxhFRK3ZhkQ/FueMVnROooZqemOYlyQBQg06qkIrpyAUrUWWqMLfifgOdWwU6CL6FuTRvP4A==}
-
-  '@vue/compiler-ssr@3.5.37':
-    resolution: {integrity: sha512-ihbdCLJLXFKV3efEQlFfzy6TLHRuOQ/+dze2vZfg0DIncVxkcUxwCqPewCiSVdWXFeoiuMMON87wpt+G+yT22A==}
-
-  '@vue/reactivity@3.5.37':
-    resolution: {integrity: sha512-M7j7YF68IUd2uFNIqhwybpzUG/Sk9HUtk+ULmC+g6JeZ80LyCyGnjv6SYBR86t3fyyuYlZUSb18yu4UYLgw5jg==}
-
-  '@vue/runtime-core@3.5.37':
-    resolution: {integrity: sha512-N0IWRirNPzJp/DuUCR9M+obVUHZArMkmldRApKsJRIWA+XDO6iwF4Zh94HP6uCzYVgWVwr8YuKeWF4H52VxTbw==}
-
-  '@vue/runtime-dom@3.5.37':
-    resolution: {integrity: sha512-9VkutCFwfVOiMRH7mgi7QapsqC8Hxcow3DLvBKf+mRH88P94Ib/D/u6l/ln62ST+fIvmsOO7+Db99LzWv9slJg==}
-
-  '@vue/server-renderer@3.5.37':
-    resolution: {integrity: sha512-CP7nbxJb1Zc0/oeBqu6CtMf9TN64fz6qE75BZ8mWh04zAEya8EAZmqH2gRQWkoUUjFqv9i7h/mV+E4/LL4JXXw==}
-    peerDependencies:
-      vue: 3.5.37
-
-  '@vue/shared@3.5.37':
-    resolution: {integrity: sha512-JzFx4aYGz+EtBl8zzw8XECNWSmNXTrU5jpub3T1lQ+2X5Ys9QzHWafxhE+E5qS2Ry/mVl8o2QqrwRGYYOFYguw==}
-=======
   '@vue/compiler-core@3.5.38':
     resolution: {integrity: sha512-s99aGxWYig9ErHbct27KXEGhrBYlRI6c4MwAgXErOAbX9xiW37/uMa+XUDO69zLz83dng8UUZ70CTOJrLrYrEQ==}
 
@@ -1941,7 +1668,6 @@ packages:
 
   '@vue/shared@3.5.38':
     resolution: {integrity: sha512-FTW0AFZNaK5/mOqvGBwVfUlNLU38TiQn4+DQgIFUnrBBJQ1crMJ82yeGQLV5jyKFsO8yRukpbuP7x+nRbH6aug==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   '@wagmi/connectors@6.2.0':
     resolution: {integrity: sha512-2NfkbqhNWdjfibb4abRMrn7u6rPjEGolMfApXss6HCDVt9AW2oVC6k8Q5FouzpJezElxLJSagWz9FW1zaRlanA==}
@@ -2118,13 +1844,8 @@ packages:
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
 
-<<<<<<< HEAD
-  acorn@8.16.0:
-    resolution: {integrity: sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3+82K6JgJlm/Y+KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5+4jh9sw==}
-=======
   acorn@8.17.0:
     resolution: {integrity: sha512-xRQbDb9BnwDafYNn6Vwl839DYVjqXYb1XVGtWAZ1kcDc6iwAL4hg3B1dZlRiuENFeO2H53gFG3in621AdERVAg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -2213,13 +1934,8 @@ packages:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
 
-<<<<<<< HEAD
-  autoprefixer@10.5.0:
-    resolution: {integrity: sha512-FMhOoZV4+qR6aTUALKX2rEqGG+oyATvwBt9IIzVR5rMa2HRWPkxf+P+PAJLD1I/H5/II+HuZcBJYEFBpq39ong==}
-=======
   autoprefixer@10.5.2:
     resolution: {integrity: sha512-rD5t5DwOjJdmSORcTq64j8MawTC+tbQ+HHqjR4NDumamy/ambn1UJrlKL+KdwujWxMkFjPM3pPHOEA9tl4767Q==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -2253,13 +1969,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-<<<<<<< HEAD
-  baseline-browser-mapping@2.10.35:
-    resolution: {integrity: sha512-honAfLBde0HAFLdNyBEfuuENkF6zR+ozxqxa/2zJKHBe1qzLqyTSeRKpdPEHAP03rlDGyQOPnCSxnVpVqQo9Mg==}
-=======
   baseline-browser-mapping@2.10.38:
     resolution: {integrity: sha512-31/02mVB4yuQU6adKk5SlY6m+mxDwUq5KZkyYgnLrrKl7TEm1+3PyDtDBz2kOv/wxZz41GHsvV1A/u6RmiyBvw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2287,13 +1998,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-<<<<<<< HEAD
-  browserslist@4.28.2:
-    resolution: {integrity: sha512-48xSriZYYg+8qXna9kwqjIVzuQxi+KYWp2+5nCYnYKPTr0LvD89Jqk2Or5ogxz0NUMfIjhh2lIUX/LyX9B4oIg==}
-=======
   browserslist@4.28.4:
     resolution: {integrity: sha512-MTc8i/x9jBQd1iMw2CFGS+rwMa07eYjLR0CCTLDACl9xhxy+nIs3KeML/biicXtk9JrZ6dnnTatmc7ErPXIxqw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -2342,13 +2048,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-<<<<<<< HEAD
-  caniuse-lite@1.0.30001797:
-    resolution: {integrity: sha512-l8xKG+gwAIExZGl9FrF7KUwuOmk6wbEPC9Xoy/RtnWv1XG0Q4LFlagaLpUv3Kiza3W/wm27zy0yWJEieYKAP6w==}
-=======
   caniuse-lite@1.0.30001799:
     resolution: {integrity: sha512-hG1bReV+OUU+MOqK4t/ZWI0tZOyz3rqS9XuhOUz1cIcbwBKjOyJEJuw9ER5JuNyqxNk8u/JUVbGibBOL1yrjFw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -2710,13 +2411,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-<<<<<<< HEAD
-  electron-to-chromium@1.5.371:
-    resolution: {integrity: sha512-e9htk9mAYL6AzmkEhSvVVw7IWGSBJ/Bqdn2eRyRLrj1g6sncN4WbFt5qnILYoCktktr45pyjIrOiRvBThQ808w==}
-=======
   electron-to-chromium@1.5.378:
     resolution: {integrity: sha512-VinvOAuuPmdD1guEgGv5f2Qp7/vlfqOrUOMYNnOD4wj3pit8kRsQHzfIf6teyUGWo15Tg5+bOJaRunvyltpVWQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -2731,13 +2427,8 @@ packages:
   end-of-stream@1.4.5:
     resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
 
-<<<<<<< HEAD
-  engine.io-client@6.6.5:
-    resolution: {integrity: sha512-QCwxUDULPlXv8F6tqMMKx5dNkTe6OaBYRMPYeXKBlyOoKvAmE0ac6pW7fFhSscJ/5SI7666/U/B+MElbsrJlIg==}
-=======
   engine.io-client@6.6.6:
     resolution: {integrity: sha512-iY6QdftLQ9pyiPoX082bpf/u1UewnOaJrtJIF9T0++QB34lZrj0uP+Q/bj8AlUsAxqhnkTV2BS8SBZSxOmoV5Q==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   engine.io-parser@5.2.3:
     resolution: {integrity: sha512-HqD3yTBfnBxIrbnM1DoD6Pcq8NECnh8d4As1Qgh0z5Gg3jRRIqijury0CL3ghu/edArpUYiYqQiDUQBIs4np3Q==}
@@ -2781,13 +2472,8 @@ packages:
     engines: {node: '>=12'}
     hasBin: true
 
-<<<<<<< HEAD
-  esbuild@0.28.0:
-    resolution: {integrity: sha512-sNR9MHpXSUV/XB4zmsFKN+QgVG82Cc7+/aaxJ8Adi8hyOac+EXptIp45QBPaVyX3N70664wRbTcLTOemCAnyqw==}
-=======
   esbuild@0.28.1:
     resolution: {integrity: sha512-HrJrvZv5ayxBzPfwphOoNzkzOIIlifzk0KJrGK2c8R4+LKpMtpYLQeUdjnwjWv/LZlkH2laZk+4w78pi99D4Vw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2827,13 +2513,8 @@ packages:
     resolution: {integrity: sha512-Ap6G0WQwcU/LHsvLwON1fAQX9Zp0A2Y6Y/cJBl9r/JbW90Zyg4/zbG6zzKa2OTALELarYHmKu0GhpM5EO+7T0g==}
     engines: {node: '>=0.10'}
 
-<<<<<<< HEAD
-  esrap@2.2.11:
-    resolution: {integrity: sha512-gPdx+I+BjYEinNMQaBXFjbaJVyoPMU4ZODg5mE+M4DqVG9VusAVHHjcBX+zqyITlI0DIARwDMMzZwAWj36dRoQ==}
-=======
   esrap@2.2.12:
     resolution: {integrity: sha512-On0QbLyaiAkVC4eXtgnXK9Kh2opit+3rcUSOc45DqJ2s/X2eXAHsGOKRSJ6IDagQEW5vPyivANfXUiqgXC67Rw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     peerDependencies:
       '@typescript-eslint/types': ^8.2.0
     peerDependenciesMeta:
@@ -3012,13 +2693,8 @@ packages:
   form-data-encoder@1.7.2:
     resolution: {integrity: sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==}
 
-<<<<<<< HEAD
-  form-data@4.0.5:
-    resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
-=======
   form-data@4.0.6:
     resolution: {integrity: sha512-vKatAh4SlVfgbv+YtmhiRjhEMJsYpsG1Y2rMQtR+SVSbytsSD1YGzDIcrAJmdFec88u/+VoGmxnl+80gL1tRCQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>= 6'}
 
   formdata-node@4.4.1:
@@ -3118,13 +2794,8 @@ packages:
     resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
 
-<<<<<<< HEAD
-  hono@4.12.25:
-    resolution: {integrity: sha512-2NFaIyNVgJmBs/ecmtGzlmluTFs5cHEWGTdu0t1HBwYzoGXOL5nUQBRMXsXWla5i4KkG//QMzVP88m1+I3fdAQ==}
-=======
   hono@4.12.27:
     resolution: {integrity: sha512-1yrb/+w6HWQJrUCLkJ2IF5jNIPvvFkblV5RNOYl6bV+OA6p9GLcMpHFFGTosSvHvcAUibuUukRqhlYI4z32C7Q==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=16.9.0'}
 
   http-errors@2.0.1:
@@ -3450,13 +3121,8 @@ packages:
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
-<<<<<<< HEAD
-  nanoid@3.3.12:
-    resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
-=======
   nanoid@3.3.15:
     resolution: {integrity: sha512-y7Wygv/7mEOvxTuEQDB8StXdMRBWf1kR/tlhAzBRUFkB2jfcLOAxO/SHmOO2zgz1pVgK29/kyupn059/bCHdjA==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -3512,13 +3178,8 @@ packages:
   node-mock-http@1.0.4:
     resolution: {integrity: sha512-8DY+kFsDkNXy1sJglUfuODx1/opAGJGyrTuFqEoN90oRc2Vk0ZbD4K2qmKXBBEhZQzdKHIVfEJpDU8Ak2NJEvQ==}
 
-<<<<<<< HEAD
-  node-releases@2.0.47:
-    resolution: {integrity: sha512-Uzmd6LXpouKo8EUK68IjH4+E01w/hXyV3R3g/geCJo+rXLNfh1xucB+LOzYEOQPSiUK3h/xZf0cQGcSsmyL2Og==}
-=======
   node-releases@2.0.50:
     resolution: {integrity: sha512-J6l92tKHX6w8Jy5nO1Vuc01NoIiRGi/d6qBKVxh+IQ8Cr3b6HbVNfKiF8ZpFKufTwpwxMmce2W3iQZ861ZRyTg==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=18'}
 
   normalize-path@3.0.0:
@@ -3787,13 +3448,8 @@ packages:
     peerDependencies:
       postcss: ^8.2.14
 
-<<<<<<< HEAD
-  postcss-selector-parser@6.1.2:
-    resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
-=======
   postcss-selector-parser@6.1.4:
     resolution: {integrity: sha512-bIoJLOmjCO1S9XdY/DcnR5hJxvrDir1PbGChrzXG3vw0/FOliy/fA3dmdhQ441kah4gKv+TwckGzex6wNS5cnQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=4'}
 
   postcss-value-parser@4.2.0:
@@ -3860,13 +3516,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-<<<<<<< HEAD
-  qs@6.15.2:
-    resolution: {integrity: sha512-Rzq0KEyX/w/tEybncDgdkZrJgVUsUMk3xjh3t5bv3S1HTAtg+uOYt72+ZfwiQwKdysThkTBdL/rTi6HDmX9Ddw==}
-=======
   qs@6.15.3:
     resolution: {integrity: sha512-O9gl3zCl5h5blw1KGUzQKhA5oUXSl8rwUIM5o0S3nCXMliSvy5Dzx7/DJcI+SwgICv+IneSZwhBh1oSyEHA71A==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=0.6'}
 
   query-string@7.1.3:
@@ -4031,13 +3682,8 @@ packages:
   secure-json-parse@2.7.0:
     resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
 
-<<<<<<< HEAD
-  semver@7.8.4:
-    resolution: {integrity: sha512-rUCObTnP32Q08R2uuIrt7r9PlEonuTmtuXYcW6s5kjdlj3xbnwe+21yXptAUYcMAABLkYYTtnmzb3w3EDZfueA==}
-=======
   semver@7.8.5:
     resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     engines: {node: '>=10'}
     hasBin: true
 
@@ -4195,21 +3841,12 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-<<<<<<< HEAD
-  svelte@5.56.3:
-    resolution: {integrity: sha512-w7JvrM5IFl5cmfbY0TLik9o7mjRUJmRMhOR51tBPu708Gr/MjbGs7VnJnr/B0CaXeI4vtnOh7RKxDr0cwhMdDA==}
-    engines: {node: '>=18'}
-
-  swr@2.4.1:
-    resolution: {integrity: sha512-2CC6CiKQtEwaEeNiqWTAw9PGykW8SR5zZX8MZk6TeAvEAnVS7Visz8WzphqgtQ8v2xz/4Q5K+j+SeMaKXeeQIA==}
-=======
   svelte@5.56.4:
     resolution: {integrity: sha512-/d0QHehmRuJW8gVz395MTkPcPozxzdjBMBE8oEYGz8O3b9KTMzzQ9ZHJQLuFKOHOPQbU6kx/X4iid/EBBzH7iw==}
     engines: {node: '>=18'}
 
   swr@2.4.2:
     resolution: {integrity: sha512-ej644Y2bvkIajfR32KGeSSdBXQW+ScjGjkybZgSE7kFpk9eGnV44XY9FJylXi+W75pavSX1PVNB57W5EbhGIYw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -4286,13 +3923,8 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-<<<<<<< HEAD
-  turbo@2.9.18:
-    resolution: {integrity: sha512-bwabv6PupzeavybzEoArBAkwq5fnzwf8OFnRtpHwnviFWuwJPFxtyH+aVp36TmIqK3aYYgtTJ3J0m2ysxxSzQg==}
-=======
   turbo@2.10.0:
     resolution: {integrity: sha512-o016H9PPtuH2deb3mh3Vci3Avfi9UYgM/RONQisY7HnloupP0IFSbFS3gFYJgFJP8nwBrByHWFQIDa8T2zIXPw==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     hasBin: true
 
   type-check@0.4.0:
@@ -4338,13 +3970,8 @@ packages:
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
-<<<<<<< HEAD
-  undici-types@7.27.2:
-    resolution: {integrity: sha512-cH9f42mHuljpNuoS47sWDDWXVxWnJgYCzHVUlr3tn7+HVx0L6QSO+VG5qgzT4kXkR2K8ZsReaT5bupam6RNAEQ==}
-=======
   undici-types@7.28.0:
     resolution: {integrity: sha512-LJAfY+2w6HGeT8d8J1wNQsUGUEGio6NWWpwdwurQe4f6oojzCFuGLizl1KSve4irsTxyLly1QhEeE6iapdaIvQ==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -4504,26 +4131,16 @@ packages:
       typescript:
         optional: true
 
-<<<<<<< HEAD
-  viem@2.52.2:
-    resolution: {integrity: sha512-HSU12p5aD/kAPZfrlbCUqdiP4P/c6hQ9AhfTS51VbLUQIjkWd1d5EjrCx/SCxZ0zhZVRn4Iv5X5WDqXPG8Ubew==}
-=======
   viem@2.53.1:
     resolution: {integrity: sha512-FhfJ/SW73CVosiyVLmIMVgKDRKYV1AGCLzZoHYvmNayyVff63Qi1ocPCk59LqC/cNw244RbBJjHnmxqXkE7NpA==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
       typescript:
         optional: true
 
-<<<<<<< HEAD
-  vue@3.5.37:
-    resolution: {integrity: sha512-So4bMq165gsD4+hDVC1/bcbsOpTlUFGGkpuH2sx9vCflChIWahy4C0K4ZcX/COe0ad1IToIRT3VQz0dl4XPihg==}
-=======
   vue@3.5.38:
     resolution: {integrity: sha512-vAMKHfImQlYSy0C+PBue4s3ERZ2xGKfgZg5GXAsLInq1dyh2H78ILVP5sK0KPFPVW4kv+OGCIvBEondcjpZp7A==}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -4742,11 +4359,7 @@ snapshots:
     dependencies:
       '@ai-sdk/provider': 0.0.26
       eventsource-parser: 1.1.2
-<<<<<<< HEAD
-      nanoid: 3.3.12
-=======
       nanoid: 3.3.15
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       secure-json-parse: 2.7.0
     optionalDependencies:
       zod: 3.25.76
@@ -4759,11 +4372,7 @@ snapshots:
     dependencies:
       '@ai-sdk/provider-utils': 1.0.22(zod@3.25.76)
       '@ai-sdk/ui-utils': 0.0.50(zod@3.25.76)
-<<<<<<< HEAD
-      swr: 2.4.1(react@18.3.1)
-=======
       swr: 2.4.2(react@18.3.1)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       throttleit: 2.1.0
     optionalDependencies:
       react: 18.3.1
@@ -4776,15 +4385,6 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-<<<<<<< HEAD
-  '@ai-sdk/svelte@0.0.57(svelte@5.56.3)(zod@3.25.76)':
-    dependencies:
-      '@ai-sdk/provider-utils': 1.0.22(zod@3.25.76)
-      '@ai-sdk/ui-utils': 0.0.50(zod@3.25.76)
-      sswr: 2.2.0(svelte@5.56.3)
-    optionalDependencies:
-      svelte: 5.56.3
-=======
   '@ai-sdk/svelte@0.0.57(svelte@5.56.4)(zod@3.25.76)':
     dependencies:
       '@ai-sdk/provider-utils': 1.0.22(zod@3.25.76)
@@ -4792,7 +4392,6 @@ snapshots:
       sswr: 2.2.0(svelte@5.56.4)
     optionalDependencies:
       svelte: 5.56.4
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - zod
 
@@ -4806,15 +4405,6 @@ snapshots:
     optionalDependencies:
       zod: 3.25.76
 
-<<<<<<< HEAD
-  '@ai-sdk/vue@0.0.59(vue@3.5.37(typescript@5.9.3))(zod@3.25.76)':
-    dependencies:
-      '@ai-sdk/provider-utils': 1.0.22(zod@3.25.76)
-      '@ai-sdk/ui-utils': 0.0.50(zod@3.25.76)
-      swrv: 1.2.0(vue@3.5.37(typescript@5.9.3))
-    optionalDependencies:
-      vue: 3.5.37(typescript@5.9.3)
-=======
   '@ai-sdk/vue@0.0.59(vue@3.5.38(typescript@5.9.3))(zod@3.25.76)':
     dependencies:
       '@ai-sdk/provider-utils': 1.0.22(zod@3.25.76)
@@ -4822,7 +4412,6 @@ snapshots:
       swrv: 1.2.0(vue@3.5.38(typescript@5.9.3))
     optionalDependencies:
       vue: 3.5.38(typescript@5.9.3)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - zod
 
@@ -4845,22 +4434,14 @@ snapshots:
 
   '@base-org/account@2.4.0(@types/react@18.3.31)(bufferutil@4.1.0)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(utf-8-validate@5.0.10)(zod@3.25.76)':
     dependencies:
-<<<<<<< HEAD
-      '@coinbase/cdp-sdk': 1.51.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)
-=======
       '@coinbase/cdp-sdk': 1.51.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       '@noble/hashes': 1.4.0
       clsx: 1.2.1
       eventemitter3: 5.0.1
       idb-keyval: 6.2.1
       ox: 0.6.9(typescript@5.9.3)(zod@3.25.76)
       preact: 10.24.2
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zustand: 5.0.3(@types/react@18.3.31)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     transitivePeerDependencies:
       - '@types/react'
@@ -4874,11 +4455,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-<<<<<<< HEAD
-  '@coinbase/cdp-sdk@1.51.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)':
-=======
   '@coinbase/cdp-sdk@1.51.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       '@solana-program/system': 0.10.0(@solana/kit@5.5.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10))
       '@solana-program/token': 0.9.0(@solana/kit@5.5.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10))
@@ -4890,11 +4467,7 @@ snapshots:
       jose: 6.2.3
       md5: 2.3.0
       uncrypto: 0.1.3
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zod: 3.25.76
     transitivePeerDependencies:
       - bufferutil
@@ -4925,11 +4498,7 @@ snapshots:
       idb-keyval: 6.2.1
       ox: 0.6.9(typescript@5.9.3)(zod@3.25.76)
       preact: 10.24.2
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zustand: 5.0.3(@types/react@18.3.31)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     transitivePeerDependencies:
       - '@types/react'
@@ -4960,11 +4529,7 @@ snapshots:
   '@esbuild/aix-ppc64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/aix-ppc64@0.28.0':
-=======
   '@esbuild/aix-ppc64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/android-arm64@0.18.20':
@@ -4973,11 +4538,7 @@ snapshots:
   '@esbuild/android-arm64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/android-arm64@0.28.0':
-=======
   '@esbuild/android-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/android-arm@0.18.20':
@@ -4986,11 +4547,7 @@ snapshots:
   '@esbuild/android-arm@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/android-arm@0.28.0':
-=======
   '@esbuild/android-arm@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/android-x64@0.18.20':
@@ -4999,11 +4556,7 @@ snapshots:
   '@esbuild/android-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/android-x64@0.28.0':
-=======
   '@esbuild/android-x64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/darwin-arm64@0.18.20':
@@ -5012,11 +4565,7 @@ snapshots:
   '@esbuild/darwin-arm64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/darwin-arm64@0.28.0':
-=======
   '@esbuild/darwin-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/darwin-x64@0.18.20':
@@ -5025,11 +4574,7 @@ snapshots:
   '@esbuild/darwin-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/darwin-x64@0.28.0':
-=======
   '@esbuild/darwin-x64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/freebsd-arm64@0.18.20':
@@ -5038,11 +4583,7 @@ snapshots:
   '@esbuild/freebsd-arm64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/freebsd-arm64@0.28.0':
-=======
   '@esbuild/freebsd-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/freebsd-x64@0.18.20':
@@ -5051,11 +4592,7 @@ snapshots:
   '@esbuild/freebsd-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/freebsd-x64@0.28.0':
-=======
   '@esbuild/freebsd-x64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-arm64@0.18.20':
@@ -5064,11 +4601,7 @@ snapshots:
   '@esbuild/linux-arm64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-arm64@0.28.0':
-=======
   '@esbuild/linux-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-arm@0.18.20':
@@ -5077,11 +4610,7 @@ snapshots:
   '@esbuild/linux-arm@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-arm@0.28.0':
-=======
   '@esbuild/linux-arm@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-ia32@0.18.20':
@@ -5090,11 +4619,7 @@ snapshots:
   '@esbuild/linux-ia32@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-ia32@0.28.0':
-=======
   '@esbuild/linux-ia32@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-loong64@0.18.20':
@@ -5103,11 +4628,7 @@ snapshots:
   '@esbuild/linux-loong64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-loong64@0.28.0':
-=======
   '@esbuild/linux-loong64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-mips64el@0.18.20':
@@ -5116,11 +4637,7 @@ snapshots:
   '@esbuild/linux-mips64el@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-mips64el@0.28.0':
-=======
   '@esbuild/linux-mips64el@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-ppc64@0.18.20':
@@ -5129,11 +4646,7 @@ snapshots:
   '@esbuild/linux-ppc64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-ppc64@0.28.0':
-=======
   '@esbuild/linux-ppc64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-riscv64@0.18.20':
@@ -5142,11 +4655,7 @@ snapshots:
   '@esbuild/linux-riscv64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-riscv64@0.28.0':
-=======
   '@esbuild/linux-riscv64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-s390x@0.18.20':
@@ -5155,11 +4664,7 @@ snapshots:
   '@esbuild/linux-s390x@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-s390x@0.28.0':
-=======
   '@esbuild/linux-s390x@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/linux-x64@0.18.20':
@@ -5168,17 +4673,10 @@ snapshots:
   '@esbuild/linux-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/linux-x64@0.28.0':
-    optional: true
-
-  '@esbuild/netbsd-arm64@0.28.0':
-=======
   '@esbuild/linux-x64@0.28.1':
     optional: true
 
   '@esbuild/netbsd-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/netbsd-x64@0.18.20':
@@ -5187,17 +4685,10 @@ snapshots:
   '@esbuild/netbsd-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/netbsd-x64@0.28.0':
-    optional: true
-
-  '@esbuild/openbsd-arm64@0.28.0':
-=======
   '@esbuild/netbsd-x64@0.28.1':
     optional: true
 
   '@esbuild/openbsd-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/openbsd-x64@0.18.20':
@@ -5206,17 +4697,10 @@ snapshots:
   '@esbuild/openbsd-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/openbsd-x64@0.28.0':
-    optional: true
-
-  '@esbuild/openharmony-arm64@0.28.0':
-=======
   '@esbuild/openbsd-x64@0.28.1':
     optional: true
 
   '@esbuild/openharmony-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/sunos-x64@0.18.20':
@@ -5225,11 +4709,7 @@ snapshots:
   '@esbuild/sunos-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/sunos-x64@0.28.0':
-=======
   '@esbuild/sunos-x64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/win32-arm64@0.18.20':
@@ -5238,11 +4718,7 @@ snapshots:
   '@esbuild/win32-arm64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/win32-arm64@0.28.0':
-=======
   '@esbuild/win32-arm64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/win32-ia32@0.18.20':
@@ -5251,11 +4727,7 @@ snapshots:
   '@esbuild/win32-ia32@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/win32-ia32@0.28.0':
-=======
   '@esbuild/win32-ia32@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@esbuild/win32-x64@0.18.20':
@@ -5264,11 +4736,7 @@ snapshots:
   '@esbuild/win32-x64@0.19.12':
     optional: true
 
-<<<<<<< HEAD
-  '@esbuild/win32-x64@0.28.0':
-=======
   '@esbuild/win32-x64@0.28.1':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@eslint-community/eslint-utils@4.9.1(eslint@8.57.1)':
@@ -5341,19 +4809,11 @@ snapshots:
       fastify-plugin: 4.5.1
       toad-cache: 3.7.1
 
-<<<<<<< HEAD
-  '@gemini-wallet/core@0.3.2(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
-    dependencies:
-      '@metamask/rpc-errors': 7.0.2
-      eventemitter3: 5.0.1
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
   '@gemini-wallet/core@0.3.2(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
     dependencies:
       '@metamask/rpc-errors': 7.0.2
       eventemitter3: 5.0.1
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - supports-color
 
@@ -5540,11 +5000,7 @@ snapshots:
       debug: 4.4.3
       lodash: 4.18.1
       pony-cause: 2.1.11
-<<<<<<< HEAD
-      semver: 7.8.4
-=======
       semver: 7.8.5
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -5554,11 +5010,7 @@ snapshots:
       '@ethereumjs/tx': 4.2.0
       '@types/debug': 4.1.13
       debug: 4.4.3
-<<<<<<< HEAD
-      semver: 7.8.4
-=======
       semver: 7.8.5
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       superstruct: 1.0.4
     transitivePeerDependencies:
       - supports-color
@@ -5572,11 +5024,7 @@ snapshots:
       '@types/debug': 4.1.13
       debug: 4.3.4
       pony-cause: 2.1.11
-<<<<<<< HEAD
-      semver: 7.8.4
-=======
       semver: 7.8.5
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -5590,11 +5038,7 @@ snapshots:
       '@types/debug': 4.1.13
       debug: 4.3.4
       pony-cause: 2.1.11
-<<<<<<< HEAD
-      semver: 7.8.4
-=======
       semver: 7.8.5
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -5678,15 +5122,9 @@ snapshots:
 
   '@pinojs/redact@0.4.0': {}
 
-<<<<<<< HEAD
-  '@rainbow-me/rainbowkit@2.2.11(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))':
-    dependencies:
-      '@tanstack/react-query': 5.101.0(react@18.3.1)
-=======
   '@rainbow-me/rainbowkit@2.2.11(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))':
     dependencies:
       '@tanstack/react-query': 5.101.1(react@18.3.1)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       '@vanilla-extract/css': 1.20.1
       '@vanilla-extract/dynamic': 2.1.5
       '@vanilla-extract/sprinkles': 1.6.5(@vanilla-extract/css@1.20.1)
@@ -5696,13 +5134,8 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-remove-scroll: 2.7.2(@types/react@18.3.31)(react@18.3.1)
       ua-parser-js: 2.0.10
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      wagmi: 2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       wagmi: 2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - '@types/react'
       - babel-plugin-macros
@@ -5712,11 +5145,7 @@ snapshots:
     dependencies:
       big.js: 6.2.2
       dayjs: 1.11.13
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -5727,11 +5156,7 @@ snapshots:
     dependencies:
       big.js: 6.2.2
       dayjs: 1.11.13
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -5744,11 +5169,7 @@ snapshots:
       '@reown/appkit-wallet': 1.7.8(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)
       '@walletconnect/universal-provider': 2.21.0(bufferutil@4.1.0)(ioredis@5.11.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       valtio: 1.13.2(@types/react@18.3.31)(react@18.3.1)
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -5898,11 +5319,7 @@ snapshots:
       '@walletconnect/logger': 2.1.2
       '@walletconnect/universal-provider': 2.21.0(bufferutil@4.1.0)(ioredis@5.11.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       valtio: 1.13.2(@types/react@18.3.31)(react@18.3.1)
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -5956,11 +5373,7 @@ snapshots:
       '@walletconnect/universal-provider': 2.21.0(bufferutil@4.1.0)(ioredis@5.11.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       bs58: 6.0.0
       valtio: 1.13.2(@types/react@18.3.31)(react@18.3.1)
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6002,11 +5415,7 @@ snapshots:
   '@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)':
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.23.1
-<<<<<<< HEAD
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6366,11 +5775,7 @@ snapshots:
       '@solana/errors': 5.5.1(typescript@5.9.3)
       '@solana/rpc-spec': 5.5.1(typescript@5.9.3)
       '@solana/rpc-spec-types': 5.5.1(typescript@5.9.3)
-<<<<<<< HEAD
-      undici-types: 7.27.2
-=======
       undici-types: 7.28.0
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optionalDependencies:
       typescript: 5.9.3
 
@@ -6490,28 +5895,6 @@ snapshots:
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
 
-<<<<<<< HEAD
-  '@supabase/auth-js@2.108.1':
-    dependencies:
-      tslib: 2.8.1
-
-  '@supabase/functions-js@2.108.1':
-    dependencies:
-      tslib: 2.8.1
-
-  '@supabase/phoenix@0.4.2': {}
-
-  '@supabase/postgrest-js@2.108.1':
-    dependencies:
-      tslib: 2.8.1
-
-  '@supabase/realtime-js@2.108.1':
-    dependencies:
-      '@supabase/phoenix': 0.4.2
-      tslib: 2.8.1
-
-  '@supabase/storage-js@2.108.1':
-=======
   '@supabase/auth-js@2.108.2':
     dependencies:
       tslib: 2.8.1
@@ -6532,24 +5915,10 @@ snapshots:
       tslib: 2.8.1
 
   '@supabase/storage-js@2.108.2':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       iceberg-js: 0.8.1
       tslib: 2.8.1
 
-<<<<<<< HEAD
-  '@supabase/supabase-js@2.108.1':
-    dependencies:
-      '@supabase/auth-js': 2.108.1
-      '@supabase/functions-js': 2.108.1
-      '@supabase/postgrest-js': 2.108.1
-      '@supabase/realtime-js': 2.108.1
-      '@supabase/storage-js': 2.108.1
-
-  '@sveltejs/acorn-typescript@1.0.10(acorn@8.16.0)':
-    dependencies:
-      acorn: 8.16.0
-=======
   '@supabase/supabase-js@2.108.2':
     dependencies:
       '@supabase/auth-js': 2.108.2
@@ -6561,7 +5930,6 @@ snapshots:
   '@sveltejs/acorn-typescript@1.0.10(acorn@8.17.0)':
     dependencies:
       acorn: 8.17.0
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   '@swc/counter@0.1.3': {}
 
@@ -6570,31 +5938,6 @@ snapshots:
       '@swc/counter': 0.1.3
       tslib: 2.8.1
 
-<<<<<<< HEAD
-  '@tanstack/query-core@5.101.0': {}
-
-  '@tanstack/react-query@5.101.0(react@18.3.1)':
-    dependencies:
-      '@tanstack/query-core': 5.101.0
-      react: 18.3.1
-
-  '@turbo/darwin-64@2.9.18':
-    optional: true
-
-  '@turbo/darwin-arm64@2.9.18':
-    optional: true
-
-  '@turbo/linux-64@2.9.18':
-    optional: true
-
-  '@turbo/linux-arm64@2.9.18':
-    optional: true
-
-  '@turbo/windows-64@2.9.18':
-    optional: true
-
-  '@turbo/windows-arm64@2.9.18':
-=======
   '@tanstack/query-core@5.101.1': {}
 
   '@tanstack/react-query@5.101.1(react@18.3.1)':
@@ -6618,7 +5961,6 @@ snapshots:
     optional: true
 
   '@turbo/windows-arm64@2.10.0':
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optional: true
 
   '@types/body-parser@1.19.6':
@@ -6667,11 +6009,7 @@ snapshots:
   '@types/node-fetch@2.6.13':
     dependencies:
       '@types/node': 20.19.43
-<<<<<<< HEAD
-      form-data: 4.0.5
-=======
       form-data: 4.0.6
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   '@types/node@18.19.130':
     dependencies:
@@ -6713,11 +6051,7 @@ snapshots:
 
   '@types/trusted-types@2.0.7': {}
 
-<<<<<<< HEAD
-  '@ungap/structured-clone@1.3.1': {}
-=======
   '@ungap/structured-clone@1.3.2': {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   '@vanilla-extract/css@1.20.1':
     dependencies:
@@ -6745,35 +6079,14 @@ snapshots:
     dependencies:
       '@vanilla-extract/css': 1.20.1
 
-<<<<<<< HEAD
-  '@vue/compiler-core@3.5.37':
-    dependencies:
-      '@babel/parser': 7.29.7
-      '@vue/shared': 3.5.37
-=======
   '@vue/compiler-core@3.5.38':
     dependencies:
       '@babel/parser': 7.29.7
       '@vue/shared': 3.5.38
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       entities: 7.0.1
       estree-walker: 2.0.2
       source-map-js: 1.2.1
 
-<<<<<<< HEAD
-  '@vue/compiler-dom@3.5.37':
-    dependencies:
-      '@vue/compiler-core': 3.5.37
-      '@vue/shared': 3.5.37
-
-  '@vue/compiler-sfc@3.5.37':
-    dependencies:
-      '@babel/parser': 7.29.7
-      '@vue/compiler-core': 3.5.37
-      '@vue/compiler-dom': 3.5.37
-      '@vue/compiler-ssr': 3.5.37
-      '@vue/shared': 3.5.37
-=======
   '@vue/compiler-dom@3.5.38':
     dependencies:
       '@vue/compiler-core': 3.5.38
@@ -6786,56 +6099,11 @@ snapshots:
       '@vue/compiler-dom': 3.5.38
       '@vue/compiler-ssr': 3.5.38
       '@vue/shared': 3.5.38
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       estree-walker: 2.0.2
       magic-string: 0.30.21
       postcss: 8.5.15
       source-map-js: 1.2.1
 
-<<<<<<< HEAD
-  '@vue/compiler-ssr@3.5.37':
-    dependencies:
-      '@vue/compiler-dom': 3.5.37
-      '@vue/shared': 3.5.37
-
-  '@vue/reactivity@3.5.37':
-    dependencies:
-      '@vue/shared': 3.5.37
-
-  '@vue/runtime-core@3.5.37':
-    dependencies:
-      '@vue/reactivity': 3.5.37
-      '@vue/shared': 3.5.37
-
-  '@vue/runtime-dom@3.5.37':
-    dependencies:
-      '@vue/reactivity': 3.5.37
-      '@vue/runtime-core': 3.5.37
-      '@vue/shared': 3.5.37
-      csstype: 3.2.3
-
-  '@vue/server-renderer@3.5.37(vue@3.5.37(typescript@5.9.3))':
-    dependencies:
-      '@vue/compiler-ssr': 3.5.37
-      '@vue/shared': 3.5.37
-      vue: 3.5.37(typescript@5.9.3)
-
-  '@vue/shared@3.5.37': {}
-
-  '@wagmi/connectors@6.2.0(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(@wagmi/core@2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))(zod@3.25.76)':
-    dependencies:
-      '@base-org/account': 2.4.0(@types/react@18.3.31)(bufferutil@4.1.0)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(utf-8-validate@5.0.10)(zod@3.25.76)
-      '@coinbase/wallet-sdk': 4.3.6(@types/react@18.3.31)(bufferutil@4.1.0)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(utf-8-validate@5.0.10)(zod@3.25.76)
-      '@gemini-wallet/core': 0.3.2(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
-      '@metamask/sdk': 0.33.1(bufferutil@4.1.0)(utf-8-validate@5.0.10)
-      '@safe-global/safe-apps-provider': 0.18.6(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      '@safe-global/safe-apps-sdk': 9.1.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      '@wagmi/core': 2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
-      '@walletconnect/ethereum-provider': 2.21.1(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      cbw-sdk: '@coinbase/wallet-sdk@3.9.3'
-      porto: 0.2.35(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(@wagmi/core@2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
   '@vue/compiler-ssr@3.5.38':
     dependencies:
       '@vue/compiler-dom': 3.5.38
@@ -6878,7 +6146,6 @@ snapshots:
       cbw-sdk: '@coinbase/wallet-sdk@3.9.3'
       porto: 0.2.35(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(@wagmi/core@2.22.1(@tanstack/query-core@5.101.1)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optionalDependencies:
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -6919,16 +6186,6 @@ snapshots:
       - wagmi
       - zod
 
-<<<<<<< HEAD
-  '@wagmi/core@2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
-    dependencies:
-      eventemitter3: 5.0.1
-      mipd: 0.0.7(typescript@5.9.3)
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      zustand: 5.0.0(@types/react@18.3.31)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
-    optionalDependencies:
-      '@tanstack/query-core': 5.101.0
-=======
   '@wagmi/core@2.22.1(@tanstack/query-core@5.101.1)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
     dependencies:
       eventemitter3: 5.0.1
@@ -6937,7 +6194,6 @@ snapshots:
       zustand: 5.0.0(@types/react@18.3.31)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     optionalDependencies:
       '@tanstack/query-core': 5.101.1
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       typescript: 5.9.3
     transitivePeerDependencies:
       - '@types/react'
@@ -7523,43 +6779,25 @@ snapshots:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-<<<<<<< HEAD
-  acorn-jsx@5.3.2(acorn@8.16.0):
-    dependencies:
-      acorn: 8.16.0
-
-  acorn@8.16.0: {}
-=======
   acorn-jsx@5.3.2(acorn@8.17.0):
     dependencies:
       acorn: 8.17.0
 
   acorn@8.17.0: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   agentkeepalive@4.6.0:
     dependencies:
       humanize-ms: 1.2.1
 
-<<<<<<< HEAD
-  ai@3.4.33(openai@4.104.0(ws@8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@3.25.76))(react@18.3.1)(sswr@2.2.0(svelte@5.56.3))(svelte@5.56.3)(vue@3.5.37(typescript@5.9.3))(zod@3.25.76):
-=======
   ai@3.4.33(openai@4.104.0(ws@8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@3.25.76))(react@18.3.1)(sswr@2.2.0(svelte@5.56.4))(svelte@5.56.4)(vue@3.5.38(typescript@5.9.3))(zod@3.25.76):
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       '@ai-sdk/provider': 0.0.26
       '@ai-sdk/provider-utils': 1.0.22(zod@3.25.76)
       '@ai-sdk/react': 0.0.70(react@18.3.1)(zod@3.25.76)
       '@ai-sdk/solid': 0.0.54(zod@3.25.76)
-<<<<<<< HEAD
-      '@ai-sdk/svelte': 0.0.57(svelte@5.56.3)(zod@3.25.76)
-      '@ai-sdk/ui-utils': 0.0.50(zod@3.25.76)
-      '@ai-sdk/vue': 0.0.59(vue@3.5.37(typescript@5.9.3))(zod@3.25.76)
-=======
       '@ai-sdk/svelte': 0.0.57(svelte@5.56.4)(zod@3.25.76)
       '@ai-sdk/ui-utils': 0.0.50(zod@3.25.76)
       '@ai-sdk/vue': 0.0.59(vue@3.5.38(typescript@5.9.3))(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       '@opentelemetry/api': 1.9.0
       eventsource-parser: 1.1.2
       json-schema: 0.4.0
@@ -7569,13 +6807,8 @@ snapshots:
     optionalDependencies:
       openai: 4.104.0(ws@8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@3.25.76)
       react: 18.3.1
-<<<<<<< HEAD
-      sswr: 2.2.0(svelte@5.56.3)
-      svelte: 5.56.3
-=======
       sswr: 2.2.0(svelte@5.56.4)
       svelte: 5.56.4
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       zod: 3.25.76
     transitivePeerDependencies:
       - solid-js
@@ -7632,17 +6865,10 @@ snapshots:
 
   atomic-sleep@1.0.0: {}
 
-<<<<<<< HEAD
-  autoprefixer@10.5.0(postcss@8.5.15):
-    dependencies:
-      browserslist: 4.28.2
-      caniuse-lite: 1.0.30001797
-=======
   autoprefixer@10.5.2(postcss@8.5.15):
     dependencies:
       browserslist: 4.28.4
       caniuse-lite: 1.0.30001799
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.5.15
@@ -7665,11 +6891,7 @@ snapshots:
   axios@1.16.0:
     dependencies:
       follow-redirects: 1.16.0
-<<<<<<< HEAD
-      form-data: 4.0.5
-=======
       form-data: 4.0.6
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -7682,11 +6904,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-<<<<<<< HEAD
-  baseline-browser-mapping@2.10.35: {}
-=======
   baseline-browser-mapping@2.10.38: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   big.js@6.2.2: {}
 
@@ -7704,11 +6922,7 @@ snapshots:
       http-errors: 2.0.1
       iconv-lite: 0.4.24
       on-finished: 2.4.1
-<<<<<<< HEAD
-      qs: 6.15.2
-=======
       qs: 6.15.3
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       raw-body: 2.5.3
       type-is: 1.6.18
       unpipe: 1.0.0
@@ -7726,15 +6940,6 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-<<<<<<< HEAD
-  browserslist@4.28.2:
-    dependencies:
-      baseline-browser-mapping: 2.10.35
-      caniuse-lite: 1.0.30001797
-      electron-to-chromium: 1.5.371
-      node-releases: 2.0.47
-      update-browserslist-db: 1.2.3(browserslist@4.28.2)
-=======
   browserslist@4.28.4:
     dependencies:
       baseline-browser-mapping: 2.10.38
@@ -7742,7 +6947,6 @@ snapshots:
       electron-to-chromium: 1.5.378
       node-releases: 2.0.50
       update-browserslist-db: 1.2.3(browserslist@4.28.4)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   bs58@6.0.0:
     dependencies:
@@ -7788,11 +6992,7 @@ snapshots:
 
   camelcase@5.3.1: {}
 
-<<<<<<< HEAD
-  caniuse-lite@1.0.30001797: {}
-=======
   caniuse-lite@1.0.30001799: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   chalk@4.1.2:
     dependencies:
@@ -8021,11 +7221,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-<<<<<<< HEAD
-  electron-to-chromium@1.5.371: {}
-=======
   electron-to-chromium@1.5.378: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   emoji-regex@8.0.0: {}
 
@@ -8037,20 +7233,12 @@ snapshots:
     dependencies:
       once: 1.4.0
 
-<<<<<<< HEAD
-  engine.io-client@6.6.5(bufferutil@4.1.0)(utf-8-validate@5.0.10):
-=======
   engine.io-client@6.6.6(bufferutil@4.1.0)(utf-8-validate@5.0.10):
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       '@socket.io/component-emitter': 3.1.2
       debug: 4.4.3
       engine.io-parser: 5.2.3
-<<<<<<< HEAD
-      ws: 8.20.1(bufferutil@4.1.0)(utf-8-validate@5.0.10)
-=======
       ws: 8.21.0(bufferutil@4.1.0)(utf-8-validate@5.0.10)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       xmlhttprequest-ssl: 2.1.2
     transitivePeerDependencies:
       - bufferutil
@@ -8136,36 +7324,6 @@ snapshots:
       '@esbuild/win32-ia32': 0.19.12
       '@esbuild/win32-x64': 0.19.12
 
-<<<<<<< HEAD
-  esbuild@0.28.0:
-    optionalDependencies:
-      '@esbuild/aix-ppc64': 0.28.0
-      '@esbuild/android-arm': 0.28.0
-      '@esbuild/android-arm64': 0.28.0
-      '@esbuild/android-x64': 0.28.0
-      '@esbuild/darwin-arm64': 0.28.0
-      '@esbuild/darwin-x64': 0.28.0
-      '@esbuild/freebsd-arm64': 0.28.0
-      '@esbuild/freebsd-x64': 0.28.0
-      '@esbuild/linux-arm': 0.28.0
-      '@esbuild/linux-arm64': 0.28.0
-      '@esbuild/linux-ia32': 0.28.0
-      '@esbuild/linux-loong64': 0.28.0
-      '@esbuild/linux-mips64el': 0.28.0
-      '@esbuild/linux-ppc64': 0.28.0
-      '@esbuild/linux-riscv64': 0.28.0
-      '@esbuild/linux-s390x': 0.28.0
-      '@esbuild/linux-x64': 0.28.0
-      '@esbuild/netbsd-arm64': 0.28.0
-      '@esbuild/netbsd-x64': 0.28.0
-      '@esbuild/openbsd-arm64': 0.28.0
-      '@esbuild/openbsd-x64': 0.28.0
-      '@esbuild/openharmony-arm64': 0.28.0
-      '@esbuild/sunos-x64': 0.28.0
-      '@esbuild/win32-arm64': 0.28.0
-      '@esbuild/win32-ia32': 0.28.0
-      '@esbuild/win32-x64': 0.28.0
-=======
   esbuild@0.28.1:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.28.1
@@ -8194,7 +7352,6 @@ snapshots:
       '@esbuild/win32-arm64': 0.28.1
       '@esbuild/win32-ia32': 0.28.1
       '@esbuild/win32-x64': 0.28.1
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   escalade@3.2.0: {}
 
@@ -8218,11 +7375,7 @@ snapshots:
       '@humanwhocodes/config-array': 0.13.0
       '@humanwhocodes/module-importer': 1.0.1
       '@nodelib/fs.walk': 1.2.8
-<<<<<<< HEAD
-      '@ungap/structured-clone': 1.3.1
-=======
       '@ungap/structured-clone': 1.3.2
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       ajv: 6.15.0
       chalk: 4.1.2
       cross-spawn: 7.0.6
@@ -8260,24 +7413,15 @@ snapshots:
 
   espree@9.6.1:
     dependencies:
-<<<<<<< HEAD
-      acorn: 8.16.0
-      acorn-jsx: 5.3.2(acorn@8.16.0)
-=======
       acorn: 8.17.0
       acorn-jsx: 5.3.2(acorn@8.17.0)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       eslint-visitor-keys: 3.4.3
 
   esquery@1.7.0:
     dependencies:
       estraverse: 5.3.0
 
-<<<<<<< HEAD
-  esrap@2.2.11:
-=======
   esrap@2.2.12:
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
@@ -8362,11 +7506,7 @@ snapshots:
       parseurl: 1.3.3
       path-to-regexp: 0.1.13
       proxy-addr: 2.0.7
-<<<<<<< HEAD
-      qs: 6.15.2
-=======
       qs: 6.15.3
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       range-parser: 1.2.1
       safe-buffer: 5.2.1
       send: 0.19.2
@@ -8442,11 +7582,7 @@ snapshots:
       proxy-addr: 2.0.7
       rfdc: 1.4.1
       secure-json-parse: 2.7.0
-<<<<<<< HEAD
-      semver: 7.8.4
-=======
       semver: 7.8.5
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       toad-cache: 3.7.1
 
   fastq@1.20.1:
@@ -8511,11 +7647,7 @@ snapshots:
 
   form-data-encoder@1.7.2: {}
 
-<<<<<<< HEAD
-  form-data@4.0.5:
-=======
   form-data@4.0.6:
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -8624,11 +7756,7 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-<<<<<<< HEAD
-  hono@4.12.25: {}
-=======
   hono@4.12.27: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   http-errors@2.0.1:
     dependencies:
@@ -8927,11 +8055,7 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
-<<<<<<< HEAD
-  nanoid@3.3.12: {}
-=======
   nanoid@3.3.15: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   natural-compare@1.4.0: {}
 
@@ -8942,11 +8066,7 @@ snapshots:
       '@next/env': 14.2.35
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-<<<<<<< HEAD
-      caniuse-lite: 1.0.30001797
-=======
       caniuse-lite: 1.0.30001799
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
@@ -8981,11 +8101,7 @@ snapshots:
 
   node-mock-http@1.0.4: {}
 
-<<<<<<< HEAD
-  node-releases@2.0.47: {}
-=======
   node-releases@2.0.50: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   normalize-path@3.0.0: {}
 
@@ -9217,23 +8333,6 @@ snapshots:
 
   pony-cause@2.1.11: {}
 
-<<<<<<< HEAD
-  porto@0.2.35(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(@wagmi/core@2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)):
-    dependencies:
-      '@wagmi/core': 2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
-      hono: 4.12.25
-      idb-keyval: 6.2.5
-      mipd: 0.0.7(typescript@5.9.3)
-      ox: 0.9.17(typescript@5.9.3)(zod@4.4.3)
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      zod: 4.4.3
-      zustand: 5.0.14(@types/react@18.3.31)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
-    optionalDependencies:
-      '@tanstack/react-query': 5.101.0(react@18.3.1)
-      react: 18.3.1
-      typescript: 5.9.3
-      wagmi: 2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
-=======
   porto@0.2.35(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(@wagmi/core@2.22.1(@tanstack/query-core@5.101.1)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)):
     dependencies:
       '@wagmi/core': 2.22.1(@tanstack/query-core@5.101.1)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
@@ -9249,7 +8348,6 @@ snapshots:
       react: 18.3.1
       typescript: 5.9.3
       wagmi: 2.19.5(@tanstack/query-core@5.101.1)(@tanstack/react-query@5.101.1(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     transitivePeerDependencies:
       - '@types/react'
       - immer
@@ -9280,15 +8378,9 @@ snapshots:
   postcss-nested@6.2.0(postcss@8.5.15):
     dependencies:
       postcss: 8.5.15
-<<<<<<< HEAD
-      postcss-selector-parser: 6.1.2
-
-  postcss-selector-parser@6.1.2:
-=======
       postcss-selector-parser: 6.1.4
 
   postcss-selector-parser@6.1.4:
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
@@ -9297,21 +8389,13 @@ snapshots:
 
   postcss@8.4.31:
     dependencies:
-<<<<<<< HEAD
-      nanoid: 3.3.12
-=======
       nanoid: 3.3.15
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
   postcss@8.5.15:
     dependencies:
-<<<<<<< HEAD
-      nanoid: 3.3.12
-=======
       nanoid: 3.3.15
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -9356,14 +8440,9 @@ snapshots:
       pngjs: 5.0.0
       yargs: 15.4.1
 
-<<<<<<< HEAD
-  qs@6.15.2:
-    dependencies:
-=======
   qs@6.15.3:
     dependencies:
       es-define-property: 1.0.1
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       side-channel: 1.1.1
 
   query-string@7.1.3:
@@ -9516,11 +8595,7 @@ snapshots:
 
   secure-json-parse@2.7.0: {}
 
-<<<<<<< HEAD
-  semver@7.8.4: {}
-=======
   semver@7.8.5: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   send@0.19.2:
     dependencies:
@@ -9608,11 +8683,7 @@ snapshots:
     dependencies:
       '@socket.io/component-emitter': 3.1.2
       debug: 4.4.3
-<<<<<<< HEAD
-      engine.io-client: 6.6.5(bufferutil@4.1.0)(utf-8-validate@5.0.10)
-=======
       engine.io-client: 6.6.6(bufferutil@4.1.0)(utf-8-validate@5.0.10)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       socket.io-parser: 4.2.6
     transitivePeerDependencies:
       - bufferutil
@@ -9647,15 +8718,9 @@ snapshots:
 
   split2@4.2.0: {}
 
-<<<<<<< HEAD
-  sswr@2.2.0(svelte@5.56.3):
-    dependencies:
-      svelte: 5.56.3
-=======
   sswr@2.2.0(svelte@5.56.4):
     dependencies:
       svelte: 5.56.4
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       swrev: 4.0.0
 
   standard-as-callback@2.1.0: {}
@@ -9711,16 +8776,6 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-<<<<<<< HEAD
-  svelte@5.56.3:
-    dependencies:
-      '@jridgewell/remapping': 2.3.5
-      '@jridgewell/sourcemap-codec': 1.5.5
-      '@sveltejs/acorn-typescript': 1.0.10(acorn@8.16.0)
-      '@types/estree': 1.0.9
-      '@types/trusted-types': 2.0.7
-      acorn: 8.16.0
-=======
   svelte@5.56.4:
     dependencies:
       '@jridgewell/remapping': 2.3.5
@@ -9729,17 +8784,12 @@ snapshots:
       '@types/estree': 1.0.9
       '@types/trusted-types': 2.0.7
       acorn: 8.17.0
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       aria-query: 5.3.1
       axobject-query: 4.1.0
       clsx: 2.1.1
       devalue: 5.8.1
       esm-env: 1.2.2
-<<<<<<< HEAD
-      esrap: 2.2.11
-=======
       esrap: 2.2.12
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       is-reference: 3.0.3
       locate-character: 3.0.0
       magic-string: 0.30.21
@@ -9747,11 +8797,7 @@ snapshots:
     transitivePeerDependencies:
       - '@typescript-eslint/types'
 
-<<<<<<< HEAD
-  swr@2.4.1(react@18.3.1):
-=======
   swr@2.4.2(react@18.3.1):
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       dequal: 2.0.3
       react: 18.3.1
@@ -9759,15 +8805,9 @@ snapshots:
 
   swrev@4.0.0: {}
 
-<<<<<<< HEAD
-  swrv@1.2.0(vue@3.5.37(typescript@5.9.3)):
-    dependencies:
-      vue: 3.5.37(typescript@5.9.3)
-=======
   swrv@1.2.0(vue@3.5.38(typescript@5.9.3)):
     dependencies:
       vue: 3.5.38(typescript@5.9.3)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   tailwind-merge@2.6.1: {}
 
@@ -9792,11 +8832,7 @@ snapshots:
       postcss-js: 4.1.0(postcss@8.5.15)
       postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.15)(tsx@4.22.4)
       postcss-nested: 6.2.0(postcss@8.5.15)
-<<<<<<< HEAD
-      postcss-selector-parser: 6.1.2
-=======
       postcss-selector-parser: 6.1.4
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       resolve: 1.22.12
       sucrase: 3.35.1
     transitivePeerDependencies:
@@ -9852,20 +8888,6 @@ snapshots:
 
   tsx@4.22.4:
     dependencies:
-<<<<<<< HEAD
-      esbuild: 0.28.0
-    optionalDependencies:
-      fsevents: 2.3.3
-
-  turbo@2.9.18:
-    optionalDependencies:
-      '@turbo/darwin-64': 2.9.18
-      '@turbo/darwin-arm64': 2.9.18
-      '@turbo/linux-64': 2.9.18
-      '@turbo/linux-arm64': 2.9.18
-      '@turbo/windows-64': 2.9.18
-      '@turbo/windows-arm64': 2.9.18
-=======
       esbuild: 0.28.1
     optionalDependencies:
       fsevents: 2.3.3
@@ -9878,7 +8900,6 @@ snapshots:
       '@turbo/linux-arm64': 2.10.0
       '@turbo/windows-64': 2.10.0
       '@turbo/windows-arm64': 2.10.0
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   type-check@0.4.0:
     dependencies:
@@ -9919,11 +8940,7 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-<<<<<<< HEAD
-  undici-types@7.27.2: {}
-=======
   undici-types@7.28.0: {}
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
   unpipe@1.0.0: {}
 
@@ -9941,15 +8958,9 @@ snapshots:
       idb-keyval: 6.2.5
       ioredis: 5.11.1
 
-<<<<<<< HEAD
-  update-browserslist-db@1.2.3(browserslist@4.28.2):
-    dependencies:
-      browserslist: 4.28.2
-=======
   update-browserslist-db@1.2.3(browserslist@4.28.4):
     dependencies:
       browserslist: 4.28.4
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
       escalade: 3.2.0
       picocolors: 1.1.1
 
@@ -10032,11 +9043,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-<<<<<<< HEAD
-  viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4):
-=======
   viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4):
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       '@noble/curves': 1.9.1
       '@noble/hashes': 1.8.0
@@ -10053,11 +9060,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-<<<<<<< HEAD
-  viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76):
-=======
   viem@2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76):
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     dependencies:
       '@noble/curves': 1.9.1
       '@noble/hashes': 1.8.0
@@ -10074,26 +9077,6 @@ snapshots:
       - utf-8-validate
       - zod
 
-<<<<<<< HEAD
-  vue@3.5.37(typescript@5.9.3):
-    dependencies:
-      '@vue/compiler-dom': 3.5.37
-      '@vue/compiler-sfc': 3.5.37
-      '@vue/runtime-dom': 3.5.37
-      '@vue/server-renderer': 3.5.37(vue@3.5.37(typescript@5.9.3))
-      '@vue/shared': 3.5.37
-    optionalDependencies:
-      typescript: 5.9.3
-
-  wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76):
-    dependencies:
-      '@tanstack/react-query': 5.101.0(react@18.3.1)
-      '@wagmi/connectors': 6.2.0(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(@wagmi/core@2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(wagmi@2.19.5(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@18.3.1))(@types/react@18.3.31)(bufferutil@4.1.0)(ioredis@5.11.1)(react@18.3.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76))(zod@3.25.76)
-      '@wagmi/core': 2.22.1(@tanstack/query-core@5.101.0)(@types/react@18.3.31)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(viem@2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
-      react: 18.3.1
-      use-sync-external-store: 1.4.0(react@18.3.1)
-      viem: 2.52.2(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-=======
   vue@3.5.38(typescript@5.9.3):
     dependencies:
       '@vue/compiler-dom': 3.5.38
@@ -10112,7 +9095,6 @@ snapshots:
       react: 18.3.1
       use-sync-external-store: 1.4.0(react@18.3.1)
       viem: 2.53.1(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
->>>>>>> e29240b (Initialize repository with Somnia agent updates)
     optionalDependencies:
       typescript: 5.9.3
     transitivePeerDependencies:
