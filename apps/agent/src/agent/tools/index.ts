@@ -2,6 +2,27 @@ import type OpenAI from 'openai'
 
 const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
 
+<<<<<<< HEAD
+=======
+interface AuthContext {
+  address: string
+  message: string
+  signature: string
+}
+
+export function buildAuthHeaders(auth?: AuthContext): Record<string, string> {
+  if (!auth?.address || !auth.message || !auth.signature) {
+    return {}
+  }
+
+  return {
+    'x-user-address': auth.address,
+    'x-message': auth.message,
+    'x-signature': auth.signature,
+  }
+}
+
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 export const tools: OpenAI.Chat.ChatCompletionTool[] = [
   {
     type: 'function',
@@ -96,6 +117,7 @@ export const tools: OpenAI.Chat.ChatCompletionTool[] = [
 export async function executeTool(name: string, args: Record<string, any>): Promise<unknown> {
   switch (name) {
     case 'get_portfolio':
+<<<<<<< HEAD
       return fetchApi(`/portfolio/${encodeURIComponent(args.address)}?chainId=${encodeURIComponent(args.chainId)}`)
 
     case 'get_quote':
@@ -106,17 +128,37 @@ export async function executeTool(name: string, args: Record<string, any>): Prom
 
     case 'get_gas_price':
       return fetchApi(`/gas/${encodeURIComponent(args.chainId)}`)
+=======
+      return fetchApi(`/portfolio/${encodeURIComponent(args.address)}?chainId=${encodeURIComponent(args.chainId)}`, 'GET', undefined, args.auth)
+
+    case 'get_quote':
+      return fetchApi(`/quotes?${quoteParams(args)}`, 'GET', undefined, args.auth).then((data: any) => data.bestQuote)
+
+    case 'get_all_quotes':
+      return fetchApi(`/quotes?${quoteParams(args)}`, 'GET', undefined, args.auth).then((data: any) => data.quotes)
+
+    case 'get_gas_price':
+      return fetchApi(`/gas/${encodeURIComponent(args.chainId)}`, 'GET', undefined, args.auth)
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
     case 'schedule_order':
       return fetchApi('/orders', 'POST', {
         address: args.address,
+<<<<<<< HEAD
+=======
+        chainId: args.chainId,
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
         tokenIn: args.tokenIn,
         tokenOut: args.tokenOut,
         amountIn: args.amountIn,
         condition: { type: args.conditionType, value: args.conditionValue },
         originalCommand: args.originalCommand,
         expiresAt: new Date(Date.now() + (args.expiresInHours ?? 24) * 3600 * 1000).toISOString(),
+<<<<<<< HEAD
       })
+=======
+      }, args.auth)
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
     default:
       throw new Error(`Unknown tool: ${name}`)
@@ -134,10 +176,20 @@ function quoteParams(args: Record<string, any>) {
   }).toString()
 }
 
+<<<<<<< HEAD
 async function fetchApi(path: string, method = 'GET', body?: object): Promise<unknown> {
   const res = await fetch(`${API_URL}${path}`, {
     method,
     headers: { 'Content-Type': 'application/json' },
+=======
+async function fetchApi(path: string, method = 'GET', body?: object, auth?: AuthContext): Promise<unknown> {
+  const res = await fetch(`${API_URL}${path}`, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...buildAuthHeaders(auth),
+    },
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
     body: body ? JSON.stringify(body) : undefined,
   })
 

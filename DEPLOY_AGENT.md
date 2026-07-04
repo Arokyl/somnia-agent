@@ -11,7 +11,11 @@ Create `.env` files for services (examples below).
 apps/api/.env.example
 ```
 API_PORT=3001
+<<<<<<< HEAD
 NEXT_PUBLIC_SOMNIA_RPC=https://api.infra.testnet.somnia.network/
+=======
+NEXT_PUBLIC_SOMNIA_RPC=https://api.infra.testnet.somnia.network/
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 NEXT_PUBLIC_SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
 NEXT_PUBLIC_ETH_RPC=https://mainnet.infura.io/v3/YOUR_KEY
 NEXT_PUBLIC_ETH_RPC_FALLBACK=https://eth-mainnet.alchemyapi.io/v2/YOUR_KEY
@@ -30,7 +34,11 @@ OPENAI_MODEL=gpt-4o-mini
 AGENT_PORT=4000
 API_URL=https://api.yourdomain.com
 WALLET_PRIVATE_KEY=0x...
+<<<<<<< HEAD
 SOMNIA_RPC=https://api.infra.testnet.somnia.network/
+=======
+SOMNIA_RPC=https://api.infra.testnet.somnia.network/
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
 ```
 

@@ -7,5 +7,10 @@ dist
 *.log
 .turbo
 coverage
+<<<<<<< HEAD
 
 .vercel
+=======
+
+.vercel
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)

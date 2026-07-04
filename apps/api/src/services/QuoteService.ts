@@ -13,6 +13,75 @@ interface QuoteRequest {
   slippageBps?: number
 }
 
+<<<<<<< HEAD
+=======
+const ZEROX_SUPPORTED_CHAIN_IDS = new Set([
+  1, 10, 56, 130, 137, 146, 480, 999, 2741, 4217, 5000, 8453, 9745, 42161,
+  43114, 57073, 59144, 80094, 534352,
+])
+
+const DREAMDEX_BASE_URLS: Record<number, string> = {
+  50312: 'https://stg.api.dreamdex.io/v0',
+  5031: 'https://api.dreamdex.io/v0',
+}
+
+const DREAMDEX_TOKEN_ALIASES: Record<string, string> = {
+  STT: 'SOMI',
+  SOMI: 'SOMI',
+  SOM: 'SOMI',
+  USD: 'USDso',
+  USDSO: 'USDso',
+  USDC: 'USDso',
+  'USDC.E': 'USDso',
+  USDT: 'USDso',
+  ETH: 'WETH',
+  WETH: 'WETH',
+  WBTC: 'WBTC',
+}
+
+interface DreamDexRouteStep {
+  market: string
+  fromToken: string
+  toToken: string
+}
+
+interface DreamDexOrderBookEntry {
+  symbol?: string
+  bids?: Array<{ price?: string | number; quantity?: string | number }>
+  asks?: Array<{ price?: string | number; quantity?: string | number }>
+}
+
+interface DreamDexOrderBooksResponse {
+  orderbooks?: DreamDexOrderBookEntry[]
+}
+
+export function normalizeDreamDexToken(token: string): string | null {
+  const trimmed = token?.trim()
+  if (!trimmed) return null
+
+  const upper = trimmed.toUpperCase()
+  return DREAMDEX_TOKEN_ALIASES[upper] ?? (['SOMI', 'USDso', 'WBTC', 'WETH'].includes(upper) ? upper : null)
+}
+
+export function resolveDreamDexRoute(tokenIn: string, tokenOut: string): DreamDexRouteStep[] | null {
+  const normalizedIn = normalizeDreamDexToken(tokenIn)
+  const normalizedOut = normalizeDreamDexToken(tokenOut)
+
+  if (!normalizedIn || !normalizedOut || normalizedIn === normalizedOut) return null
+
+  if (normalizedIn === 'USDso' || normalizedOut === 'USDso') {
+    const baseToken = normalizedIn === 'USDso' ? normalizedOut : normalizedIn
+    const quoteToken = normalizedIn === 'USDso' ? normalizedIn : normalizedOut
+    return [{ market: `${baseToken}:USDso`, fromToken: normalizedIn, toToken: normalizedOut }]
+  }
+
+  return [
+    { market: `${normalizedIn}:USDso`, fromToken: normalizedIn, toToken: 'USDso' },
+    { market: `${normalizedOut}:USDso`, fromToken: 'USDso', toToken: normalizedOut },
+  ]
+}
+
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 export class QuoteService {
   async getBestQuote(req: QuoteRequest): Promise<AggregatedQuote> {
     const cacheKey = `quote:${req.chainId}:${req.tokenIn}:${req.tokenOut}:${req.amountIn}`
@@ -21,17 +90,28 @@ export class QuoteService {
 
     const amountInWei = parseUnits(req.amountIn, req.tokenInDecimals)
 
+<<<<<<< HEAD
     // Fetch from all aggregators in parallel, ignore failures
     const results = await Promise.allSettled([
       this.fetch1inch(req, amountInWei),
       this.fetch0x(req, amountInWei),
     ])
+=======
+    // Fetch from configured and chain-supported aggregators in parallel, ignore failures.
+    const fetchers = this.getQuoteFetchers(req, amountInWei)
+    if (fetchers.length === 0) throw new Error(this.unsupportedChainMessage(req.chainId))
+    const results = await Promise.allSettled(fetchers)
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
     const quotes: AggregatedQuote[] = results
       .filter((r): r is PromiseFulfilledResult<AggregatedQuote> => r.status === 'fulfilled')
       .map((r) => r.value)
 
+<<<<<<< HEAD
     if (quotes.length === 0) throw new Error('No quotes available from any aggregator')
+=======
+    if (quotes.length === 0) throw new Error(this.unsupportedChainMessage(req.chainId))
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
     // Sort by effectiveRate (output minus estimated gas cost)
     quotes.sort((a, b) => b.effectiveRate - a.effectiveRate)
@@ -43,16 +123,118 @@ export class QuoteService {
 
   async getAllQuotes(req: QuoteRequest): Promise<AggregatedQuote[]> {
     const amountInWei = parseUnits(req.amountIn, req.tokenInDecimals)
+<<<<<<< HEAD
     const results = await Promise.allSettled([
       this.fetch1inch(req, amountInWei),
       this.fetch0x(req, amountInWei),
     ])
+=======
+    const fetchers = this.getQuoteFetchers(req, amountInWei)
+    if (fetchers.length === 0) return []
+    const results = await Promise.allSettled(fetchers)
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
     return results
       .filter((r): r is PromiseFulfilledResult<AggregatedQuote> => r.status === 'fulfilled')
       .map((r) => r.value)
       .sort((a, b) => b.effectiveRate - a.effectiveRate)
   }
 
+<<<<<<< HEAD
+=======
+  private getQuoteFetchers(req: QuoteRequest, amountInWei: bigint): Array<Promise<AggregatedQuote>> {
+    const fetchers: Array<Promise<AggregatedQuote>> = []
+
+    if (DREAMDEX_BASE_URLS[req.chainId]) {
+      fetchers.push(this.fetchDreamDex(req, amountInWei))
+    }
+
+    if (process.env.ONEINCH_API_KEY) {
+      fetchers.push(this.fetch1inch(req, amountInWei))
+    }
+
+    if (process.env.ZEROX_API_KEY && ZEROX_SUPPORTED_CHAIN_IDS.has(req.chainId)) {
+      fetchers.push(this.fetch0x(req, amountInWei))
+    }
+
+    return fetchers
+  }
+
+  private async fetchDreamDex(req: QuoteRequest, amountInWei: bigint): Promise<AggregatedQuote> {
+    const baseUrl = DREAMDEX_BASE_URLS[req.chainId] || process.env.DREAMDEX_API_URL || 'https://stg.api.dreamdex.io/v0'
+    const route = resolveDreamDexRoute(req.tokenIn, req.tokenOut)
+
+    if (!route) {
+      throw new Error(`DreamDex does not currently expose a direct market route for ${req.tokenIn} -> ${req.tokenOut}`)
+    }
+
+    const amountInFormatted = formatUnits(amountInWei, req.tokenInDecimals)
+    const amountOutFormatted = await this.getDreamDexQuoteAmount(baseUrl, route, amountInFormatted)
+    const amountOut = parseUnits(amountOutFormatted, req.tokenOutDecimals).toString()
+    const gasEst = 200000n
+    const gasUsd = await this.estimateGasUsd(gasEst, req.chainId)
+
+    return {
+      aggregator: 'direct',
+      amountIn: amountInWei.toString(),
+      tokenIn: req.tokenIn,
+      tokenOut: req.tokenOut,
+      amountOut,
+      amountOutFormatted,
+      priceImpact: 0.1,
+      gasEstimate: gasEst.toString(),
+      gasEstimateUsd: gasUsd,
+      route: route.map((step) => ({ protocol: 'dreamDEX', tokenIn: step.fromToken, tokenOut: step.toToken, share: 100 / route.length })),
+      effectiveRate: parseFloat(amountOutFormatted) - gasUsd,
+    }
+  }
+
+  private async getDreamDexQuoteAmount(baseUrl: string, route: DreamDexRouteStep[], amountIn: string): Promise<string> {
+    const symbols = Array.from(new Set(route.map((step) => step.market)))
+    const res = await fetch(`${baseUrl}/orderbooks?symbols=${encodeURIComponent(symbols.join(','))}`)
+
+    if (!res.ok) {
+      throw new Error(`DreamDex orderbook error: ${res.status}`)
+    }
+
+    const data = (await res.json()) as DreamDexOrderBooksResponse
+    const books = new Map<string, { bestBid: number | null; bestAsk: number | null }>()
+
+    for (const entry of data.orderbooks ?? []) {
+      if (!entry.symbol) continue
+      const bids = (entry.bids ?? []).map((bid) => Number(bid.price ?? 0)).filter((value) => Number.isFinite(value) && value > 0)
+      const asks = (entry.asks ?? []).map((ask) => Number(ask.price ?? 0)).filter((value) => Number.isFinite(value) && value > 0)
+      books.set(entry.symbol, { bestBid: bids[0] ?? null, bestAsk: asks[0] ?? null })
+    }
+
+    let currentAmount = Number(amountIn)
+
+    for (const step of route) {
+      const book = books.get(step.market)
+      if (!book) {
+        throw new Error(`DreamDex has no orderbook data for ${step.market}`)
+      }
+
+      if (step.fromToken === 'USDso' && step.toToken !== 'USDso') {
+        if (book.bestAsk == null || book.bestAsk <= 0) throw new Error(`DreamDex has no ask liquidity for ${step.market}`)
+        currentAmount = currentAmount / book.bestAsk
+      } else {
+        if (book.bestBid == null || book.bestBid <= 0) throw new Error(`DreamDex has no bid liquidity for ${step.market}`)
+        currentAmount = currentAmount * book.bestBid
+      }
+    }
+
+    return currentAmount.toFixed(8)
+  }
+
+  private unsupportedChainMessage(chainId: number) {
+    if (chainId === 50312) {
+      return 'No configured quote aggregator currently supports Somnia chain 50312. 0x does not list Somnia as a supported Swap API chain, so Somnia swaps need a Somnia-native DEX/router quote source.'
+    }
+
+    return `No configured quote aggregator is available for chain ${chainId}. Add a supported quote provider API key or switch to a supported chain.`
+  }
+
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
   private async fetch1inch(req: QuoteRequest, amountInWei: bigint): Promise<AggregatedQuote> {
     const apiKey = process.env.ONEINCH_API_KEY
     if (!apiKey) throw new Error('1inch API key not set')

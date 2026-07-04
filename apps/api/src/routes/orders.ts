@@ -3,7 +3,11 @@ import { db } from '../db/client'
 import { conditionalOrders, users } from '../db/schema'
 import { eq } from 'drizzle-orm'
 import { withAuth } from '../lib/auth'
+<<<<<<< HEAD
 import { validateAddress } from '../lib/validation'
+=======
+import { validateAddress, validateChainId } from '../lib/validation'
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
 export const ordersRoutes: FastifyPluginAsync = async (app) => {
   // Get user's orders (requires authentication)
@@ -33,12 +37,25 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
   })
 
   // Create conditional order (requires authentication)
+<<<<<<< HEAD
   app.post<{ Body: { address: string; tokenIn: string; tokenOut: string; amountIn: string; condition: object; originalCommand: string; expiresAt: string } }>(
+=======
+  app.post<{ Body: { address: string; tokenIn: string; tokenOut: string; amountIn: string; condition: object; originalCommand: string; expiresAt: string; chainId?: number } }>(
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
     '/',
     { onRequest: withAuth },
     async (req, reply) => {
       const auth = (req as any).auth
       const { address, tokenIn, tokenOut, amountIn, condition, originalCommand, expiresAt } = req.body
+<<<<<<< HEAD
+=======
+      const chainId = req.body.chainId ?? 50312
+      try {
+        validateChainId(chainId)
+      } catch (err: any) {
+        return reply.code(400).send({ error: err.message })
+      }
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 
       // Verify that the request is for the authenticated user
       if (auth.address !== address.toLowerCase()) {
@@ -60,7 +77,11 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
 
       const [order] = await db.insert(conditionalOrders).values({
         userId: user.id,
+<<<<<<< HEAD
         chainId: 50312,
+=======
+        chainId,
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
         tokenIn,
         tokenOut,
         amountIn,

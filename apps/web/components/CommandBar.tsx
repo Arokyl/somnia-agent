@@ -1,7 +1,11 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+<<<<<<< HEAD
 import { useAccount, useChainId } from 'wagmi'
+=======
+import { useAccount, useChainId, useSignMessage } from 'wagmi'
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 import type { ExecutionPlan, OrchestrationPlan } from '@somnia-agent/shared'
 import SwapConfirmModal from './SwapConfirmModal'
 
@@ -121,7 +125,12 @@ function OrchestrationSummary({ orchestration }: { orchestration: OrchestrationP
 
 export default function CommandBar({ address }: { address: string }) {
   const chainId = useChainId()
+<<<<<<< HEAD
   const { isConnected } = useAccount()
+=======
+  const { isConnected, address: walletAddress } = useAccount()
+  const { signMessageAsync } = useSignMessage()
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -141,12 +150,32 @@ export default function CommandBar({ address }: { address: string }) {
     setLoading(true)
 
     try {
+<<<<<<< HEAD
+=======
+      let authMessage: string | undefined
+      let authSignature: string | undefined
+
+      if (walletAddress) {
+        authMessage = `Somnia Agent auth ${Date.now()}`
+        authSignature = await signMessageAsync({ message: authMessage })
+      }
+
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
       const res = await fetch('/api/agent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: command,
+<<<<<<< HEAD
           walletContext: { address, chainId },
+=======
+          walletContext: {
+            address: walletAddress ?? address,
+            chainId,
+            authMessage,
+            authSignature,
+          },
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
           history: messages.map(({ role, content }) => ({ role, content })),
         }),
       })

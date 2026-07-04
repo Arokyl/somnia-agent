@@ -9,13 +9,21 @@ Deploy `apps/agent` first.
 Build command:
 
 ```bash
+<<<<<<< HEAD
 corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile=false && pnpm build:agent
+=======
+corepack pnpm install --frozen-lockfile=false && corepack pnpm build:agent
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 ```
 
 Start command:
 
 ```bash
+<<<<<<< HEAD
 pnpm --filter @somnia-agent/agent start
+=======
+corepack pnpm --filter @somnia-agent/agent start
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 ```
 
 Health path:
@@ -33,13 +41,21 @@ Deploy `apps/api` second.
 Build command:
 
 ```bash
+<<<<<<< HEAD
 corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile=false && pnpm build:api
+=======
+corepack pnpm install --frozen-lockfile=false && corepack pnpm build:api
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 ```
 
 Start command:
 
 ```bash
+<<<<<<< HEAD
 pnpm --filter @somnia-agent/api start
+=======
+corepack pnpm --filter @somnia-agent/api start
+>>>>>>> e29240b (Initialize repository with Somnia agent updates)
 ```
 
 Health path:
