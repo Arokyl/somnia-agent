@@ -1,9 +1,9 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { db } from '../db/client'
-import { trades, users } from '../db/schema'
-import { eq } from 'drizzle-orm'
-import { withAuth } from '../lib/auth'
-import { validateAddress } from '../lib/validation'
+import { db } from '../db/client.js'
+import { trades, users } from '../db/schema.js'
+import { desc, eq } from 'drizzle-orm'
+import { withAuth } from '../lib/auth.js'
+import { validateAddress } from '../lib/validation.js'
 
 export const historyRoutes: FastifyPluginAsync = async (app) => {
   app.get<{ Params: { address: string } }>('/:address', { onRequest: withAuth }, async (req, reply) => {
@@ -29,7 +29,7 @@ export const historyRoutes: FastifyPluginAsync = async (app) => {
 
     return db.query.trades.findMany({
       where: eq(trades.userId, user.id),
-      orderBy: (t, { desc }) => [desc(t.createdAt)],
+      orderBy: [desc(trades.createdAt)],
       limit: 50,
     })
   })

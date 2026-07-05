@@ -1,6 +1,6 @@
 import { formatGwei, formatUnits, parseUnits } from 'viem'
-import { getClient } from '../lib/rpc'
-import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis'
+import { getClient } from '../lib/rpc.js'
+import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis.js'
 import type { AggregatedQuote, Aggregator } from '@somnia-agent/shared'
 
 interface QuoteRequest {

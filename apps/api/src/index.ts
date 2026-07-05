@@ -1,14 +1,14 @@
-import './env'
+import './env.js'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
-import { portfolioRoutes } from './routes/portfolio'
-import { quotesRoutes } from './routes/quotes'
-import { gasRoutes } from './routes/gas'
-import { historyRoutes } from './routes/history'
-import { ordersRoutes } from './routes/orders'
-import { connectRedis } from './lib/redis'
-import { getAllowedOrigins } from './lib/cors'
+import { portfolioRoutes } from './routes/portfolio.js'
+import { quotesRoutes } from './routes/quotes.js'
+import { gasRoutes } from './routes/gas.js'
+import { historyRoutes } from './routes/history.js'
+import { ordersRoutes } from './routes/orders.js'
+import { connectRedis } from './lib/redis.js'
+import { getAllowedOrigins } from './lib/cors.js'
 
 const app = Fastify({ logger: true })
 

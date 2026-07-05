@@ -1,6 +1,6 @@
 import { formatGwei } from 'viem'
-import { getClient } from '../lib/rpc'
-import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis'
+import { getClient } from '../lib/rpc.js'
+import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis.js'
 import type { GasAssessment, GasTrend } from '@somnia-agent/shared'
 
 export class GasService {

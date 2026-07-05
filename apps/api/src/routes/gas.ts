@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { gasService } from '../services/GasService'
+import { gasService } from '../services/GasService.js'
 
 export const gasRoutes: FastifyPluginAsync = async (app) => {
   app.get<{ Params: { chainId: string } }>('/:chainId', async (req, reply) => {

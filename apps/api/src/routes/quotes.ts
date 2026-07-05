@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { quoteService } from '../services/QuoteService'
+import { quoteService } from '../services/QuoteService.js'
 
 export const quotesRoutes: FastifyPluginAsync = async (app) => {
   app.get<{

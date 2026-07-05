@@ -1,6 +1,6 @@
 import { formatUnits, erc20Abi } from 'viem'
-import { getClient } from '../lib/rpc'
-import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis'
+import { getClient } from '../lib/rpc.js'
+import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis.js'
 import type { Portfolio, TokenBalance } from '@somnia-agent/shared'
 
 // Minimal token list per chain (extend with your own token registry)

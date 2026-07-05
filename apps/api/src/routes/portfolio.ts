@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { portfolioService } from '../services/PortfolioService'
-import { withAuth } from '../lib/auth'
-import { validateAddress, validateChainId } from '../lib/validation'
+import { portfolioService } from '../services/PortfolioService.js'
+import { withAuth } from '../lib/auth.js'
+import { validateAddress, validateChainId } from '../lib/validation.js'
 
 export const portfolioRoutes: FastifyPluginAsync = async (app) => {
   app.get<{ Params: { address: string }; Querystring: { chainId?: string } }>(  

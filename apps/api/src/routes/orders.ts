@@ -1,9 +1,9 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { db } from '../db/client'
-import { conditionalOrders, users } from '../db/schema'
-import { eq } from 'drizzle-orm'
-import { withAuth } from '../lib/auth'
-import { validateAddress, validateChainId } from '../lib/validation'
+import { db } from '../db/client.js'
+import { conditionalOrders, users } from '../db/schema.js'
+import { desc, eq } from 'drizzle-orm'
+import { withAuth } from '../lib/auth.js'
+import { validateAddress, validateChainId } from '../lib/validation.js'
 
 export const ordersRoutes: FastifyPluginAsync = async (app) => {
   // Get user's orders (requires authentication)
@@ -28,7 +28,7 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
 
     return db.query.conditionalOrders.findMany({
       where: eq(conditionalOrders.userId, user.id),
-      orderBy: (o, { desc }) => [desc(o.createdAt)],
+      orderBy: [desc(conditionalOrders.createdAt)],
     })
   })
 
