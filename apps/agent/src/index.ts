@@ -1,9 +1,9 @@
-import './env'
+import './env.js'
 import express from 'express'
 import cors from 'cors'
-import { chatHandler } from './agent/executor'
-import { SUB_AGENT_CATALOG } from './agent/orchestrator'
-import { getAllowedOrigins } from './lib/cors'
+import { chatHandler } from './agent/executor.js'
+import { SUB_AGENT_CATALOG } from './agent/orchestrator.js'
+import { getAllowedOrigins } from './lib/cors.js'
 
 const app = express()
 app.use(cors({ origin: getAllowedOrigins() }))

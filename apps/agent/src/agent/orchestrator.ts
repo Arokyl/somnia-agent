@@ -6,8 +6,8 @@ import type {
   SubAgentId,
   SubAgentRun,
 } from '@somnia-agent/shared'
-import { executeTool } from './tools'
-import { fetchDataSource } from './dataSources'
+import { executeTool } from './tools/index.js'
+import { fetchDataSource } from './dataSources.js'
 
 interface OrchestratorContext {
   message: string

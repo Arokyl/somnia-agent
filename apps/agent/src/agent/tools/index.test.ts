@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { buildAuthHeaders } from './index'
+import { buildAuthHeaders } from './index.js'
 
 test('buildAuthHeaders returns signed-wallet headers when auth context is present', () => {
   const headers = buildAuthHeaders({

@@ -1,9 +1,9 @@
 import OpenAI from 'openai'
 import type { Request, Response } from 'express'
 import { encodeFunctionData, isAddress, zeroAddress } from 'viem'
-import { SYSTEM_PROMPT } from './prompts/system'
-import { tools, executeTool } from './tools'
-import { orchestrateSubAgents, summarizeOrchestration } from './orchestrator'
+import { SYSTEM_PROMPT } from './prompts/system.js'
+import { tools, executeTool } from './tools/index.js'
+import { orchestrateSubAgents, summarizeOrchestration } from './orchestrator.js'
 import { CHAIN_NAMES } from '@somnia-agent/shared'
 import type { ExecutionPlan } from '@somnia-agent/shared'
 
