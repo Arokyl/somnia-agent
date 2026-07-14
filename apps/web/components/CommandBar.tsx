@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useAccount, useChainId, useSignMessage } from 'wagmi'
 import type { ExecutionPlan, OrchestrationPlan } from '@somnia-agent/shared'
 import SwapConfirmModal from './SwapConfirmModal'
@@ -33,8 +33,37 @@ const SAFETY_SIGNALS = [
   ['Intent', 'Parse the goal'],
   ['Risk', 'Explain tradeoffs'],
   ['Gas', 'Time the route'],
-  ['Review', 'You approve'],
+  ['Sign', 'Only for money moves'],
 ]
+
+const MONETARY_ACTION_PATTERN =
+  /\b(swap|buy|sell|send|transfer|bridge|stake|unstake|withdraw|deposit|approve|execute|sign|confirm|schedule|order|trade|convert|pay)\b/i
+
+function needsWalletSignature(command: string) {
+  return MONETARY_ACTION_PATTERN.test(command)
+}
+
+function renderInlineMarkdown(text: string): ReactNode {
+  const nodes: ReactNode[] = []
+  const pattern = /\*\*([^*]+)\*\*/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index))
+    }
+
+    nodes.push(<strong key={`${match.index}-${match[1]}`}>{match[1]}</strong>)
+    lastIndex = pattern.lastIndex
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex))
+  }
+
+  return nodes.length > 0 ? nodes : text
+}
 
 function PlanSummary({ plan, onReview }: { plan: ExecutionPlan; onReview: () => void }) {
   const hasExecutableTx = Boolean(plan.unsignedTx)
@@ -145,8 +174,10 @@ export default function CommandBar({ address }: { address: string }) {
       let authMessage: string | undefined
       let authSignature: string | undefined
 
-      if (walletAddress) {
-        authMessage = `Arokyl auth ${Date.now()}`
+      const shouldSign = Boolean(walletAddress && needsWalletSignature(command))
+
+      if (shouldSign) {
+        authMessage = `Arokyl monetary action review ${Date.now()}`
         authSignature = await signMessageAsync({ message: authMessage })
       }
 
@@ -200,9 +231,9 @@ export default function CommandBar({ address }: { address: string }) {
         <div className="chat-header-row">
           <div>
             <p className="eyebrow">AI Agent Chat</p>
-            <h2 className="chat-title">Command the agent. Keep the signature.</h2>
+            <h2 className="chat-title">Command the agent. Sign only for money moves.</h2>
             <p className="chat-copy">
-              Ask naturally. The agent separates conversation, teaching, route planning, gas timing, and wallet review into clear signals.
+              Ask naturally. Education, wallet checks, and route comparisons do not request a signature; swaps, orders, transfers, and approvals do.
             </p>
           </div>
           <div className="network-card">
@@ -219,7 +250,7 @@ export default function CommandBar({ address }: { address: string }) {
             <div className="intro-card">
               <h3 className="panel-title">{isConnected ? 'Start with a natural command' : 'Try the agent, then connect'}</h3>
               <p className="panel-subtitle">
-                Ask for guidance, route comparison, gas timing, or a wallet-reviewed transaction plan.
+                Ask for guidance, wallet checks, route comparison, or gas timing without signing. Monetary actions ask for wallet review.
               </p>
               <div className="signal-strip" aria-label="Agent safeguards">
                 {SAFETY_SIGNALS.map(([label, detail]) => (
@@ -249,7 +280,7 @@ export default function CommandBar({ address }: { address: string }) {
                   <p className="message-meta">{msg.role === 'user' ? 'You' : 'Arokyl'}</p>
                   {msg.role === 'assistant' && <AgentSignal reaction={msg.reaction} demo={msg.demo} />}
                 </div>
-                <p className="message-text">{msg.content}</p>
+                <p className="message-text">{renderInlineMarkdown(msg.content)}</p>
                 {msg.orchestration && <OrchestrationSummary orchestration={msg.orchestration} />}
                 {msg.plan && <PlanSummary plan={msg.plan} onReview={() => setPendingPlan(msg.plan!)} />}
               </div>

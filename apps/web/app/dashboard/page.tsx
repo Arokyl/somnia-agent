@@ -7,18 +7,18 @@ import WalletButton from '@/components/WalletButton'
 
 const statusItems = [
   ['Network', 'Somnia testnet', 'Live execution context'],
-  ['Mode', 'Wallet-reviewed', 'No hidden signing'],
+  ['Mode', 'Action-reviewed', 'Sign only for value moves'],
   ['Routing', 'Agent assisted', 'Plans before action'],
 ]
 
 const recentIntents = [
   'Hello, give me a quick orientation',
-  'Teach me how to think before signing',
+  'Check my wallet and suggest improvements',
   'Swap 0.1 STT to USDC when gas is cheap',
-  'Compare routes before I sign',
+  'Compare routes without signing',
 ]
 
-const trustSignals = ['No auto-execution', 'Human final approval', 'Plain-language risk notes']
+const trustSignals = ['No auto-execution', 'Sign only for monetary actions', 'Plain-language risk notes']
 
 export default function Dashboard() {
   const { address, isConnected } = useAccount()
@@ -67,8 +67,8 @@ export default function Dashboard() {
             <h1 className="sidebar-title">{isConnected ? shortAddress : 'Connect to trade'}</h1>
             <p className="sidebar-copy">
               {isConnected
-                ? 'The agent can prepare plans for this wallet. You approve every transaction before anything is sent.'
-                : 'Connect your wallet when you are ready to review a transaction. The agent will never submit anything without your approval.'}
+                ? 'The agent can inspect public wallet context and prepare plans. You only sign for swaps, orders, transfers, and approvals.'
+                : 'Connect your wallet to personalize the chat. Signatures are only requested for monetary actions.'}
             </p>
           </section>
 

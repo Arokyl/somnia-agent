@@ -2,12 +2,10 @@ import type { FastifyPluginAsync } from 'fastify'
 import { db } from '../db/client.js'
 import { trades, users } from '../db/schema.js'
 import { desc, eq } from 'drizzle-orm'
-import { withAuth } from '../lib/auth.js'
 import { validateAddress } from '../lib/validation.js'
 
 export const historyRoutes: FastifyPluginAsync = async (app) => {
-  app.get<{ Params: { address: string } }>('/:address', { onRequest: withAuth }, async (req, reply) => {
-    const auth = (req as any).auth
+  app.get<{ Params: { address: string } }>('/:address', async (req, reply) => {
     const { address } = req.params
 
     let validatedAddress: string
@@ -17,13 +15,8 @@ export const historyRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(400).send({ error: err.message })
     }
 
-    // Users can only query their own history
-    if (auth.address !== validatedAddress) {
-      return reply.code(403).send({ error: 'Forbidden: can only query own history' })
-    }
-
     const user = await db.query.users.findFirst({
-      where: eq(users.address, address.toLowerCase()),
+      where: eq(users.address, validatedAddress),
     })
     if (!user) return []
 
