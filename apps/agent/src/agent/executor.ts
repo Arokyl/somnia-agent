@@ -201,14 +201,6 @@ function getCommonReply(message?: string) {
     }
   }
 
-  if (/\b(price|worth|value)\b/.test(text) && /\b(eth|ethereum)\b/.test(text)) {
-    return {
-      reply:
-        'I can explain how ETH pricing works, but this agent is not wired to a live market feed yet. For a live number, use an exchange, oracle, or market API; then bring the intended trade here and I will help reason through route quality, gas, and risk.',
-      reaction: 'market-education',
-    }
-  }
-
   return null
 }
 

@@ -60,6 +60,20 @@ export const tools: OpenAI.Chat.ChatCompletionTool[] = [
   {
     type: 'function',
     function: {
+      name: 'get_market_price',
+      description: 'Get the current USD market price for a token symbol such as ETH, BTC, or STT.',
+      parameters: {
+        type: 'object',
+        properties: {
+          symbol: { type: 'string', description: 'Token symbol, e.g. ETH, BTC, STT' },
+        },
+        required: ['symbol'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
       name: 'get_quote',
       description: 'Get the best swap quote for a token pair. Returns amountOut, price impact, gas cost, and which aggregator is cheapest.',
       parameters: {
@@ -176,6 +190,9 @@ export async function executeTool(name: string, args: Record<string, any>): Prom
   switch (name) {
     case 'get_portfolio':
       return fetchApi(`/portfolio/${encodeURIComponent(args.address)}?chainId=${encodeURIComponent(args.chainId)}`, 'GET', undefined, args.auth)
+
+    case 'get_market_price':
+      return fetchApi(`/market/price/${encodeURIComponent(String(args.symbol))}`, 'GET', undefined, args.auth)
 
     case 'get_quote':
       return fetchApi(`/quotes?${quoteParams(args)}`, 'GET', undefined, args.auth).then((data: any) => data.bestQuote)

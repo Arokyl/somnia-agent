@@ -7,6 +7,7 @@ import { quotesRoutes } from './routes/quotes.js'
 import { gasRoutes } from './routes/gas.js'
 import { historyRoutes } from './routes/history.js'
 import { ordersRoutes } from './routes/orders.js'
+import { marketRoutes } from './routes/market.js'
 import { connectRedis } from './lib/redis.js'
 import { getAllowedOrigins } from './lib/cors.js'
 import { getClient } from './lib/rpc.js'
@@ -52,6 +53,7 @@ async function main() {
   await app.register(gasRoutes,       { prefix: '/gas'       })
   await app.register(historyRoutes,   { prefix: '/history'   })
   await app.register(ordersRoutes,    { prefix: '/orders'    })
+  await app.register(marketRoutes,    { prefix: '/market'    })
 
   // ── Conditional-order keeper (off-chain executor) ────────────────────────
   const keeperPrivateKey = process.env.KEEPER_PRIVATE_KEY
