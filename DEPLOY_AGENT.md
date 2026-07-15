@@ -26,7 +26,7 @@ apps/agent/.env.example
 ```
 OPENAI_API_KEY=sk-...
 OPENAI_BASE_URL=https://api.openai.com/v1
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_MODEL=nvidia/nemotron-3-ultra-550b-a55b
 AGENT_PORT=4000
 API_URL=https://api.yourdomain.com
 WALLET_PRIVATE_KEY=0x...

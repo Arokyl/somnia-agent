@@ -29,7 +29,7 @@ services:
       - key: SOMNIA_EXPLORER_URL
         value: https://shannon-explorer.somnia.network
       - key: OPENAI_MODEL
-        value: moonshotai/kimi-k2.6
+        value: nvidia/nemotron-3-ultra-550b-a55b
       - key: OPENAI_BASE_URL
         value: https://integrate.api.nvidia.com/v1
       - key: OPENAI_API_KEY
@@ -85,7 +85,7 @@ services:
       - key: DREAMDEX_DOCS_URL
         value: https://docs.dreamdex.io
       - key: OPENAI_MODEL
-        value: moonshotai/kimi-k2.6
+        value: nvidia/nemotron-3-ultra-550b-a55b
       - key: OPENAI_BASE_URL
         value: https://integrate.api.nvidia.com/v1
       - key: OPENAI_API_KEY

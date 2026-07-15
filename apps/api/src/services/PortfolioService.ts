@@ -4,9 +4,16 @@ import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis.js'
 import type { Portfolio, TokenBalance } from '@somnia-agent/shared'
 
 // Minimal token list per chain (extend with your own token registry)
-const TOKEN_LIST: Record<number, Array<{ address: string; symbol: string; name: string; decimals: number; logoURI?: string }>> = {
+// NOTE: The native Somnia token is STT. Its address is the zero address on-chain.
+// STT is NOT listed on CoinGecko under a "somnia" id, so we price it via the
+// STT_USD_PRICE env var (see getTokenPrice) instead of a CoinGecko lookup.
+export const TOKEN_LIST: Record<number, Array<{ address: string; symbol: string; name: string; decimals: number; logoURI?: string }>> = {
   50312: [  // Somnia testnet — fill with actual deployed token addresses
     { address: '0x0000000000000000000000000000000000000000', symbol: 'STT',  name: 'Somnia',    decimals: 18 },
+    // USDC on Somnia — placeholder until the canonical deployed address is confirmed.
+    // TODO: replace with the verified Somnia USDC contract address.
+    { address: '0x0000000000000000000000000000000000000001', symbol: 'USDC', name: 'USD Coin',  decimals: 6 },
+    // TODO: add other known Somnia testnet tokens (e.g. USDT, stSTT) once addresses are confirmed.
   ],
   1: [      // Ethereum mainnet
     { address: '0x0000000000000000000000000000000000000000', symbol: 'ETH',  name: 'Ethereum',  decimals: 18 },
@@ -78,15 +85,32 @@ export class PortfolioService {
   }
 
   private async getTokenPrice(symbol: string): Promise<number> {
+    const upper = symbol.toUpperCase()
+
+    // STT is the native Somnia token and is not reliably listed on CoinGecko
+    // (mapping it to 'ethereum' would incorrectly price it ~$3000). Operators
+    // must supply STT_USD_PRICE; fall back to 0 and warn once so it's obvious.
+    if (upper === 'STT') {
+      const price = getSttUsdPrice()
+      if (price === 0 && !sttPriceWarned) {
+        console.warn(
+          '[PortfolioService] STT_USD_PRICE is not set (or is 0); STT will be reported at $0. ' +
+          'Set STT_USD_PRICE to the real STT/USD price to value Somnia native balances.'
+        )
+        sttPriceWarned = true
+      }
+      return price
+    }
+
     // Simple coingecko free API lookup — cache aggressively
-    const cacheKey = `price:${symbol.toLowerCase()}`
+    const cacheKey = `price:${upper.toLowerCase()}`
     const cached = await cacheGet(cacheKey)
     if (cached) return parseFloat(cached)
 
     const idMap: Record<string, string> = {
-      ETH: 'ethereum', STT: 'ethereum', USDC: 'usd-coin', USDT: 'tether', DAI: 'dai',
+      ETH: 'ethereum', USDC: 'usd-coin', USDT: 'tether', DAI: 'dai',
     }
-    const id = idMap[symbol.toUpperCase()]
+    const id = idMap[upper]
     if (!id) return 0
 
     try {
@@ -102,5 +126,15 @@ export class PortfolioService {
     }
   }
 }
+
+function getSttUsdPrice(): number {
+  const raw = process.env.STT_USD_PRICE
+  if (raw === undefined || raw.trim() === '') return 0
+  const n = parseFloat(raw)
+  return Number.isFinite(n) ? n : 0
+}
+
+// Module-level flag so we only warn once about a missing STT price.
+let sttPriceWarned = false
 
 export const portfolioService = new PortfolioService()

@@ -75,7 +75,40 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
     }
   )
 
-  // Cancel order (requires authentication)
+  // Update order (e.g., after user signs on-chain createOrder)
+  app.patch<{ Params: { orderId: string }; Body: { txHash?: string; onchainOrderId?: number } }>(
+    '/:orderId',
+    { onRequest: withAuth },
+    async (req, reply) => {
+      const auth = (req as any).auth
+      const { txHash, onchainOrderId } = req.body
+
+      const order = await db.query.conditionalOrders.findFirst({
+        where: eq(conditionalOrders.id, req.params.orderId),
+      })
+      if (!order) {
+        return reply.code(404).send({ error: 'Order not found' })
+      }
+
+      if (!order.userId) {
+        return reply.code(403).send({ error: 'Forbidden: order is missing an owner' })
+      }
+
+      const user = await db.query.users.findFirst({
+        where: eq(users.id, order.userId),
+      })
+      if (!user || user.address !== auth.address) {
+        return reply.code(403).send({ error: 'Forbidden: order belongs to another user' })
+      }
+
+      const updateData: Record<string, any> = {}
+      if (txHash) updateData.txHash = txHash
+      if (onchainOrderId != null) updateData.onchainOrderId = onchainOrderId
+
+      await db.update(conditionalOrders).set(updateData).where(eq(conditionalOrders.id, req.params.orderId))
+      return { updated: true }
+    }
+  )
   app.delete<{ Params: { orderId: string }; Body: { address: string } }>(
     '/:orderId',
     { onRequest: withAuth },
@@ -83,7 +116,14 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
       const auth = (req as any).auth
       const { address } = req.body
 
-      if (auth.address !== address.toLowerCase()) {
+      let requestedAddress: string
+      try {
+        requestedAddress = validateAddress(address)
+      } catch (err: any) {
+        return reply.code(400).send({ error: err.message })
+      }
+
+      if (auth.address !== requestedAddress) {
         return reply.code(403).send({ error: 'Forbidden: can only cancel own orders' })
       }
 

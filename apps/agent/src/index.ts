@@ -2,6 +2,7 @@ import './env.js'
 import express from 'express'
 import cors from 'cors'
 import { chatHandler } from './agent/executor.js'
+import { conversationMemory } from './agent/memory.js'
 import { SUB_AGENT_CATALOG } from './agent/orchestrator.js'
 import { getAllowedOrigins } from './lib/cors.js'
 
@@ -9,7 +10,8 @@ const app = express()
 app.use(cors({ origin: getAllowedOrigins() }))
 app.use(express.json())
 
-app.post('/chat', chatHandler)
+// Inject the conversation-memory singleton so history persists per wallet context.
+app.post('/chat', (req, res) => chatHandler(req, res, conversationMemory))
 app.get('/subagents', (_, res) => res.json({ subagents: SUB_AGENT_CATALOG }))
 app.get('/health', (_, res) => res.json({ ok: true }))
 

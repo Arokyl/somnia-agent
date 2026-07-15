@@ -4,14 +4,19 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useAccount, useChainId, useSignMessage } from 'wagmi'
 import type { ExecutionPlan, OrchestrationPlan } from '@somnia-agent/shared'
 import SwapConfirmModal from './SwapConfirmModal'
+import OrderConfirmModal from './OrderConfirmModal'
 
-interface Message {
+export interface Message {
   role: 'user' | 'assistant'
   content: string
   plan?: ExecutionPlan
   orchestration?: OrchestrationPlan
   demo?: boolean
   reaction?: string
+  orderCreation?: {
+    unsignedTx: { to: string; data: string; value: string; gasLimit: string }
+    order: Record<string, any>
+  }
 }
 
 const REACTION_LABELS: Record<string, string> = {
@@ -41,6 +46,21 @@ const MONETARY_ACTION_PATTERN =
 
 function needsWalletSignature(command: string) {
   return MONETARY_ACTION_PATTERN.test(command)
+}
+
+function generateNonce(): string {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID()
+  }
+  return Array.from(new Uint8Array(16)).map(b => b.toString(16).padStart(2, '0')).join('')
+}
+
+function buildAuthMessage(address: string, nonce: string): string {
+  return JSON.stringify({
+    address,
+    nonce,
+    timestamp: Date.now(),
+  })
 }
 
 function renderInlineMarkdown(text: string): ReactNode {
@@ -156,6 +176,7 @@ export default function CommandBar({ address }: { address: string }) {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [pendingPlan, setPendingPlan] = useState<ExecutionPlan | null>(null)
+  const [pendingOrderCreation, setPendingOrderCreation] = useState<Message['orderCreation'] | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -177,7 +198,8 @@ export default function CommandBar({ address }: { address: string }) {
       const shouldSign = Boolean(walletAddress && needsWalletSignature(command))
 
       if (shouldSign) {
-        authMessage = `Arokyl monetary action review ${Date.now()}`
+        const nonce = generateNonce()
+        authMessage = buildAuthMessage(walletAddress ?? address, nonce)
         authSignature = await signMessageAsync({ message: authMessage })
       }
 
@@ -206,6 +228,7 @@ export default function CommandBar({ address }: { address: string }) {
           content: data.reply ?? 'I prepared an execution plan for review.',
           plan: data.plan,
           orchestration: data.orchestration,
+          orderCreation: data.orderCreation,
           demo: Boolean(data.demo),
           reaction: data.reaction,
         },
@@ -283,6 +306,37 @@ export default function CommandBar({ address }: { address: string }) {
                 <p className="message-text">{renderInlineMarkdown(msg.content)}</p>
                 {msg.orchestration && <OrchestrationSummary orchestration={msg.orchestration} />}
                 {msg.plan && <PlanSummary plan={msg.plan} onReview={() => setPendingPlan(msg.plan!)} />}
+                {msg.orderCreation && (
+                  <div className="plan-card">
+                    <div className="plan-head">
+                      <p className="eyebrow">Conditional order</p>
+                    </div>
+                    <div className="plan-grid">
+                      <div>
+                        <p className="muted">Token in</p>
+                        <p className="metric-value">{msg.orderCreation.order.tokenIn}</p>
+                      </div>
+                      <div>
+                        <p className="muted">Token out</p>
+                        <p className="metric-value">{msg.orderCreation.order.tokenOut}</p>
+                      </div>
+                      <div>
+                        <p className="muted">Amount</p>
+                        <p className="metric-value">{msg.orderCreation.order.amountIn}</p>
+                      </div>
+                      <div>
+                        <p className="muted">Condition</p>
+                        <p className="metric-value">{msg.orderCreation.order.condition.type} &lt; {msg.orderCreation.order.condition.value}</p>
+                      </div>
+                    </div>
+                    <div className="plan-actions">
+                      <span className="status-chip">Ready for wallet review</span>
+                      <button type="button" className="primary-button" onClick={() => setPendingOrderCreation(msg.orderCreation!)}>
+                        Create order
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -321,6 +375,9 @@ export default function CommandBar({ address }: { address: string }) {
 
       {pendingPlan && (
         <SwapConfirmModal plan={pendingPlan} address={address} onClose={() => setPendingPlan(null)} />
+      )}
+      {pendingOrderCreation && (
+        <OrderConfirmModal orderCreation={pendingOrderCreation} address={address} onClose={() => setPendingOrderCreation(null)} />
       )}
     </section>
   )

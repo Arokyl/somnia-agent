@@ -1,6 +1,27 @@
 import type OpenAI from 'openai'
+import { encodeFunctionData, parseUnits, zeroAddress } from 'viem'
 
 const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+const AUTOMATION_REGISTRY_ADDRESS = (process.env.AUTOMATION_REGISTRY_ADDRESS || '') as `0x${string}`
+
+const AUTOMATION_REGISTRY_ABI = [
+  {
+    type: 'function',
+    name: 'createOrder',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'tokenIn', type: 'address' },
+      { name: 'tokenOut', type: 'address' },
+      { name: 'amountIn', type: 'uint256' },
+      { name: 'minAmountOut', type: 'uint256' },
+      { name: 'maxGasPrice', type: 'uint256' },
+      { name: 'expiresAt', type: 'uint256' },
+      { name: 'aggregatorTarget', type: 'address' },
+      { name: 'aggregatorCalldata', type: 'bytes' },
+    ],
+    outputs: [{ name: 'orderId', type: 'uint256' }],
+  },
+] as const
 
 interface AuthContext {
   address: string
@@ -109,7 +130,47 @@ export const tools: OpenAI.Chat.ChatCompletionTool[] = [
       },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'return_plan',
+      description:
+        'Return the final reply and execution plan to the user. Call this exactly once when you have a complete plan ready and no further tool calls are needed. Do NOT respond with plan JSON in plain text — always use this tool.',
+      parameters: {
+        type: 'object',
+        properties: {
+          reply: {
+            type: 'string',
+            description: 'Plain-language reply to the user in a calm teacher voice.',
+          },
+          plan: {
+            type: 'object',
+            description:
+              'Structured ExecutionPlan object with intent, quote, gasAssessment, shouldExecuteNow, estimatedOutput, and warnings.',
+          },
+          warnings: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Human-readable risk warnings to surface to the user.',
+          },
+        },
+        required: ['reply', 'plan'],
+      },
+    },
+  },
 ]
+
+/** Marker returned by `executeTool` when the model invokes the structured `return_plan` tool. */
+export interface ReturnPlanResult {
+  __returnPlan: true
+  reply: string
+  plan: unknown
+  warnings: string[]
+}
+
+export function isReturnPlanResult(value: unknown): value is ReturnPlanResult {
+  return Boolean(value) && typeof value === 'object' && (value as ReturnPlanResult).__returnPlan === true
+}
 
 export async function executeTool(name: string, args: Record<string, any>): Promise<unknown> {
   switch (name) {
@@ -126,16 +187,82 @@ export async function executeTool(name: string, args: Record<string, any>): Prom
       return fetchApi(`/gas/${encodeURIComponent(args.chainId)}`, 'GET', undefined, args.auth)
 
     case 'schedule_order':
-      return fetchApi('/orders', 'POST', {
+      const registryAddress = AUTOMATION_REGISTRY_ADDRESS
+      const tokenIn = String(args.tokenIn).trim()
+      const tokenOut = String(args.tokenOut).trim()
+      const amountIn = String(args.amountIn)
+      const isNativeIn = ['eth', 'stt', 'native', '0x', ''].includes(tokenIn.toLowerCase())
+      const normalizedTokenIn = isNativeIn ? zeroAddress : (tokenIn as `0x${string}`)
+      const normalizedTokenOut = ['eth', 'stt', 'native', '0x', ''].includes(tokenOut.toLowerCase()) ? zeroAddress : (tokenOut as `0x${string}`)
+      const conditionType = String(args.conditionType)
+      const conditionValue = Number(args.conditionValue)
+      const expiresInHours = Number(args.expiresInHours ?? 24)
+      const expiresAt = Math.floor(Date.now() / 1000) + expiresInHours * 3600
+      const maxGasPrice = conditionType === 'maxGas' ? BigInt(Math.floor(conditionValue * 1e9)) : 0n
+
+      let unsignedTx: { to: string; data: string; value: string; gasLimit: string } | undefined
+      let orderCreationError: string | undefined
+
+      if (registryAddress && registryAddress.length === 42) {
+        try {
+          const amountInWei = parseUnits(amountIn, 18)
+          const data = encodeFunctionData({
+            abi: AUTOMATION_REGISTRY_ABI,
+            functionName: 'createOrder',
+            args: [
+              normalizedTokenIn,
+              normalizedTokenOut,
+              amountInWei,
+              0n,
+              maxGasPrice,
+              BigInt(expiresAt),
+              zeroAddress,
+              '0x',
+            ],
+          })
+          unsignedTx = {
+            to: registryAddress,
+            data,
+            value: '0',
+            gasLimit: '300000',
+          }
+        } catch (err: any) {
+          orderCreationError = err.message
+        }
+      } else {
+        orderCreationError = 'AUTOMATION_REGISTRY_ADDRESS is not configured'
+      }
+
+      const orderPayload = {
         address: args.address,
         chainId: args.chainId,
-        tokenIn: args.tokenIn,
-        tokenOut: args.tokenOut,
-        amountIn: args.amountIn,
-        condition: { type: args.conditionType, value: args.conditionValue },
+        tokenIn,
+        tokenOut,
+        amountIn,
+        condition: { type: conditionType, value: conditionValue },
         originalCommand: args.originalCommand,
-        expiresAt: new Date(Date.now() + (args.expiresInHours ?? 24) * 3600 * 1000).toISOString(),
-      }, args.auth)
+        expiresAt: new Date(Date.now() + expiresInHours * 3600 * 1000).toISOString(),
+      }
+
+      const apiResult = await fetchApi('/orders', 'POST', orderPayload, args.auth)
+
+      return {
+        order: apiResult,
+        orderCreation: unsignedTx
+          ? { unsignedTx, order: orderPayload }
+          : undefined,
+        orderCreationError,
+      }
+
+    case 'return_plan':
+      // Special tool: it does not call an external service, it simply returns the
+      // structured reply + plan so the executor can extract it reliably.
+      return {
+        __returnPlan: true,
+        reply: typeof args.reply === 'string' ? args.reply : '',
+        plan: args.plan,
+        warnings: Array.isArray(args.warnings) ? args.warnings.map(String) : [],
+      } satisfies ReturnPlanResult
 
     default:
       throw new Error(`Unknown tool: ${name}`)

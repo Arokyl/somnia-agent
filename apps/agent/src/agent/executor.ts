@@ -2,10 +2,15 @@ import OpenAI from 'openai'
 import type { Request, Response } from 'express'
 import { encodeFunctionData, isAddress, zeroAddress } from 'viem'
 import { SYSTEM_PROMPT } from './prompts/system.js'
-import { tools, executeTool } from './tools/index.js'
+import { tools, executeTool, isReturnPlanResult } from './tools/index.js'
 import { orchestrateSubAgents, summarizeOrchestration } from './orchestrator.js'
 import { CHAIN_NAMES } from '@somnia-agent/shared'
 import type { ExecutionPlan } from '@somnia-agent/shared'
+import {
+  conversationMemory,
+  type ConversationMemory,
+  type StoredMessage,
+} from './memory.js'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,6 +20,119 @@ const openaiModel = process.env.OPENAI_MODEL || 'gpt-4o-mini'
 const DEFAULT_SLIPPAGE_BPS = 50
 const DEFAULT_DEADLINE_SECONDS = 20 * 60
 
+// ---------------------------------------------------------------------------
+// Configurable model pricing
+// ---------------------------------------------------------------------------
+interface ModelPricing {
+  inputPer1k: number
+  outputPer1k: number
+}
+
+// Per-model lookup table. Values are USD per 1K tokens (input, output).
+// moonshotai/kimi-k2.6 uses NVIDIA NIM pricing: $0.60/M input, $1.80/M output.
+const PRICING_TABLE: Record<string, ModelPricing> = {
+  'nvidia/nemotron-3-ultra-550b-a55b': { inputPer1k: 0, outputPer1k: 0 },
+  'moonshotai/kimi-k2.6': { inputPer1k: 0.0006, outputPer1k: 0.0018 },
+  'gpt-4o-mini': { inputPer1k: 0.00015, outputPer1k: 0.0006 },
+}
+
+function resolvePricing(model: string): ModelPricing {
+  const raw = process.env.MODEL_PRICING
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw) as { input_per_1k?: unknown; output_per_1k?: unknown }
+      if (typeof parsed.input_per_1k === 'number' && typeof parsed.output_per_1k === 'number') {
+        return { inputPer1k: parsed.input_per_1k, outputPer1k: parsed.output_per_1k }
+      }
+      logJson('error', 'config.pricing.invalid', {
+        detail: 'MODEL_PRICING missing input_per_1k/output_per_1k; falling back to table',
+      })
+    } catch {
+      logJson('error', 'config.pricing.invalid', {
+        detail: 'MODEL_PRICING is not valid JSON; falling back to table',
+      })
+    }
+  }
+  return PRICING_TABLE[model] ?? PRICING_TABLE['gpt-4o-mini']
+}
+
+const PRICING = resolvePricing(openaiModel)
+
+// ---------------------------------------------------------------------------
+// Structured logging for observability
+// ---------------------------------------------------------------------------
+function logJson(level: 'info' | 'warn' | 'error', event: string, data: Record<string, unknown> = {}): void {
+  console.log(JSON.stringify({ level, event, ts: new Date().toISOString(), ...data }))
+}
+
+function round(n: number, digits = 6): number {
+  const f = 10 ** digits
+  return Math.round(n * f) / f
+}
+
+// ---------------------------------------------------------------------------
+// LLM call with retry + exponential backoff for transient errors
+// ---------------------------------------------------------------------------
+const MAX_RETRIES = 3
+
+async function callLLM(
+  params: OpenAI.Chat.ChatCompletionCreateParamsNonStreaming
+): Promise<OpenAI.Chat.ChatCompletion> {
+  let attempt = 0
+  while (true) {
+    try {
+      return await openai.chat.completions.create(params)
+    } catch (err: any) {
+      const status = err?.status ?? err?.response?.status
+      const type = err?.error?.type ?? err?.code
+      const isRateLimit = status === 429 || type === 'rate_limit_exceeded'
+      const isTransient =
+        isRateLimit ||
+        ['ECONNRESET', 'ETIMEDOUT', 'ECONNREFUSED', 'ECONNABORTED'].includes(err?.code) ||
+        /timeout|timed out/i.test(String(err?.message ?? ''))
+      if (!isTransient || attempt >= MAX_RETRIES) {
+        throw err
+      }
+      attempt++
+      const delay = Math.min(1000 * 2 ** (attempt - 1), 8000) + Math.random() * 500
+      logJson('warn', 'llm.retry', {
+        attempt,
+        maxRetries: MAX_RETRIES,
+        status,
+        type,
+        model: openaiModel,
+        error: String(err?.message ?? err),
+        delayMs: Math.round(delay),
+      })
+      await new Promise((r) => setTimeout(r, delay))
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Conversation memory summarizer (uses the same LLM)
+// ---------------------------------------------------------------------------
+async function summarizeConversation(_conversationId: string, messages: StoredMessage[]): Promise<string> {
+  const transcript = messages.map((m) => `${m.role}: ${m.content}`).join('\n')
+  const completion = await callLLM({
+    model: openaiModel,
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are a memory compressor for a DeFi trading assistant. Summarize the conversation below into a concise third-person note (under 200 words). Preserve: the user\'s goals, token preferences, amounts discussed, risk boundaries, pending plans, and any open questions. Drop filler and greeting chatter.',
+      },
+      { role: 'user', content: transcript },
+    ],
+    temperature: 0,
+    max_tokens: 400,
+  })
+  return completion.choices[0]?.message?.content?.trim() ?? ''
+}
+
+conversationMemory.setSummarizer(summarizeConversation)
+
+// ---------------------------------------------------------------------------
 const executionProxyAbi = [
   {
     type: 'function',
@@ -94,7 +212,7 @@ function getCommonReply(message?: string) {
   return null
 }
 
-export async function chatHandler(req: Request, res: Response) {
+export async function chatHandler(req: Request, res: Response, memory: ConversationMemory = conversationMemory) {
   const { message, walletContext, history = [] } = req.body as ChatRequest
 
   if (!message || !walletContext?.address) {
@@ -103,31 +221,61 @@ export async function chatHandler(req: Request, res: Response) {
 
   const { address, chainId, authMessage, authSignature } = walletContext
   const chainName = CHAIN_NAMES[chainId as keyof typeof CHAIN_NAMES] ?? `Chain ${chainId}`
+  const conversationId = `${address}:${chainId}`
+
   const orchestration = await orchestrateSubAgents({ message, address, chainId })
   const orchestrationSummary = summarizeOrchestration(orchestration)
   const commonReply = getCommonReply(message)
   if (commonReply) {
+    // Seed memory so even quick replies build context.
+    memory.addMessage(conversationId, 'user', message)
+    memory.addMessage(conversationId, 'assistant', commonReply.reply)
     return res.json({ ...commonReply, orchestration })
+  }
+
+  // Seed memory from any history provided by the client on a fresh conversation.
+  // Persisted memory is the source of truth thereafter, so we only seed when empty.
+  if (history.length && memory.getHistory(conversationId).length === 0) {
+    for (const m of history) memory.addMessage(conversationId, m.role, m.content)
   }
 
   // Build system prompt with current context
   const systemContent = SYSTEM_PROMPT
-    .replace('{datetime}',  new Date().toISOString())
-    .replace('{address}',   address)
-    .replace('{chainId}',   chainId.toString())
+    .replace('{datetime}', new Date().toISOString())
+    .replace('{address}', address)
+    .replace('{chainId}', chainId.toString())
     .replace('{chainName}', chainName)
     + orchestrationSummary
+
+  // Condense older context into a summary when the conversation is long.
+  const summary = await memory.summarizeHistory(conversationId)
+  const historyMessages = memory.getHistory(conversationId, 20)
 
   // Build message history
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
     { role: 'system', content: systemContent },
-    ...history.slice(-10).map((m) => ({ role: m.role, content: m.content })),
-    { role: 'user', content: message },
   ]
+  if (summary) {
+    messages.push({
+      role: 'system',
+      content: `Conversation summary (previous context, condensed):\n${summary}`,
+    })
+  }
+  for (const m of historyMessages) {
+    messages.push({ role: m.role, content: m.content })
+  }
+  messages.push({ role: 'user', content: message })
+
+  // Persist the user's turn now (assistant turn is added after the loop).
+  memory.addMessage(conversationId, 'user', message)
+
+  const auth =
+    authMessage && authSignature ? { address, message: authMessage, signature: authSignature } : undefined
 
   try {
     let reply = ''
     let plan: ExecutionPlan | undefined
+    let orderCreation: { unsignedTx: { to: string; data: string; value: string; gasLimit: string }; order: Record<string, any> } | undefined
     let iterations = 0
     const MAX_ITERATIONS = 6
     const MAX_COST_USD = 0.50 // Stop if cumulative API cost exceeds 50 cents
@@ -136,35 +284,32 @@ export async function chatHandler(req: Request, res: Response) {
 
     let cumulativeCostUsd = 0
     let cumulativeTokens = { input: 0, output: 0 }
-
-    // Pricing (as of 2024): gpt-4o-mini = $0.00015/1K input, $0.0006/1K output
-    const PRICE_INPUT_PER_1K = 0.00015
-    const PRICE_OUTPUT_PER_1K = 0.0006
+    let finalized = false
 
     // Agentic loop: keep calling until the model stops using tools
     while (iterations < MAX_ITERATIONS) {
       // Check timeout
       if (Date.now() - START_TIME > TIMEOUT_MS) {
-        console.warn(`Agent timeout after ${iterations} iterations`)
+        logJson('warn', 'agent.timeout', { iterations, conversationId })
         break
       }
 
       // Check cost limit
       if (cumulativeCostUsd > MAX_COST_USD) {
-        console.warn(`Agent cost limit exceeded: $${cumulativeCostUsd.toFixed(4)} > $${MAX_COST_USD}`)
+        logJson('warn', 'agent.cost_limit', { cumulativeCostUsd, maxCostUsd: MAX_COST_USD, conversationId })
         reply = 'Cost limit exceeded. Please try a simpler request.'
         break
       }
 
       iterations++
 
-      const completion = await openai.chat.completions.create({
+      const completion = await callLLM({
         model: openaiModel,
         messages,
         tools,
         tool_choice: 'auto',
         temperature: 0,
-        max_tokens:  1500,
+        max_tokens: 1500,
       })
 
       // Track token usage and cost
@@ -173,14 +318,22 @@ export async function chatHandler(req: Request, res: Response) {
         cumulativeTokens.output += completion.usage.completion_tokens
 
         const iterationCost =
-          (completion.usage.prompt_tokens / 1000) * PRICE_INPUT_PER_1K +
-          (completion.usage.completion_tokens / 1000) * PRICE_OUTPUT_PER_1K
+          (completion.usage.prompt_tokens / 1000) * PRICING.inputPer1k +
+          (completion.usage.completion_tokens / 1000) * PRICING.outputPer1k
 
         cumulativeCostUsd += iterationCost
 
-        console.log(
-          `Iteration ${iterations}: +${iterationCost.toFixed(4)}$ (cumulative: ${cumulativeCostUsd.toFixed(4)}$, tokens: ${cumulativeTokens.input}/${cumulativeTokens.output})`
-        )
+        logJson('info', 'agent.iteration', {
+          iteration: iterations,
+          model: openaiModel,
+          inputPer1k: PRICING.inputPer1k,
+          outputPer1k: PRICING.outputPer1k,
+          iterationCostUsd: round(iterationCost),
+          cumulativeCostUsd: round(cumulativeCostUsd),
+          inputTokens: cumulativeTokens.input,
+          outputTokens: cumulativeTokens.output,
+          conversationId,
+        })
       }
 
       const choice = completion.choices[0]
@@ -189,30 +342,88 @@ export async function chatHandler(req: Request, res: Response) {
       // Add assistant message to conversation
       messages.push(msg)
 
-      // If no tool calls, we're done
+      // If no tool calls, we're done (fallback: use the text reply as-is)
       if (!msg.tool_calls || msg.tool_calls.length === 0) {
         reply = msg.content ?? ''
-
-        // Try to extract plan JSON from the reply
-        const planMatch = reply.match(/\{[\s\S]*"plan"[\s\S]*\}/)
-        if (planMatch) {
-          try {
-            const parsed = JSON.parse(planMatch[0])
-            if (parsed.plan) {
-              plan  = attachExecutionProxyTx(parsed.plan, chainId)
-              reply = parsed.reply || reply
-            }
-          } catch {
-            // Not valid JSON — just use the text reply
-          }
-        }
         break
       }
 
       // Execute each tool call and add results back
       for (const toolCall of msg.tool_calls) {
+        if (toolCall.type !== 'function' || !toolCall.function) {
+          logJson('warn', 'agent.malformed_tool_call', {
+            detail: 'tool call missing function definition',
+            conversationId,
+          })
+          messages.push({
+            role: 'tool',
+            tool_call_id: toolCall.id ?? 'unknown',
+            content: JSON.stringify({ error: 'Malformed tool call: missing function definition.' }),
+          })
+          continue
+        }
+
         const toolName = toolCall.function.name
-        const toolArgs = JSON.parse(toolCall.function.arguments)
+
+        // Special structured tool: the model returns its final reply + plan here.
+        if (toolName === 'return_plan') {
+          let toolArgs: Record<string, any>
+          try {
+            toolArgs = JSON.parse(toolCall.function.arguments)
+          } catch (err: any) {
+            logJson('warn', 'agent.invalid_tool_args', { tool: toolName, error: err.message, conversationId })
+            messages.push({
+              role: 'tool',
+              tool_call_id: toolCall.id,
+              content: JSON.stringify({
+                error: `Invalid JSON arguments for return_plan: ${err.message}. Call return_plan again with valid JSON.`,
+              }),
+            })
+            continue
+          }
+
+          let result: unknown
+          try {
+            result = await executeTool('return_plan', toolArgs)
+          } catch (err: any) {
+            logJson('error', 'agent.tool_failed', { tool: toolName, error: err.message, conversationId })
+            messages.push({
+              role: 'tool',
+              tool_call_id: toolCall.id,
+              content: JSON.stringify({ error: `return_plan failed: ${err.message}` }),
+            })
+            continue
+          }
+
+          if (isReturnPlanResult(result)) {
+            const planData = {
+              ...(result.plan as Record<string, any>),
+              warnings: Array.isArray((result.plan as any)?.warnings)
+                ? (result.plan as any).warnings
+                : result.warnings,
+            }
+            reply = result.reply
+            plan = attachExecutionProxyTx(planData as ExecutionPlan, chainId)
+            finalized = true
+            break
+          }
+          continue
+        }
+
+        let toolArgs: Record<string, any>
+        try {
+          toolArgs = JSON.parse(toolCall.function.arguments)
+        } catch (err: any) {
+          logJson('warn', 'agent.invalid_tool_args', { tool: toolName, error: err.message, conversationId })
+          messages.push({
+            role: 'tool',
+            tool_call_id: toolCall.id,
+            content: JSON.stringify({
+              error: `Invalid JSON arguments for ${toolName}: ${err.message}. Please call the tool again with valid JSON arguments.`,
+            }),
+          })
+          continue
+        }
 
         let toolResult: string
         try {
@@ -220,25 +431,61 @@ export async function chatHandler(req: Request, res: Response) {
             ...toolArgs,
             address,
             chainId,
-            auth: authMessage && authSignature ? { address, message: authMessage, signature: authSignature } : undefined,
+            auth,
           })
           toolResult = JSON.stringify(result)
+
+          if (toolName === 'schedule_order' && result && typeof result === 'object' && 'orderCreation' in result) {
+            const oc = (result as any).orderCreation
+            if (oc?.unsignedTx) {
+              orderCreation = {
+                unsignedTx: {
+                  to: oc.unsignedTx.to,
+                  data: oc.unsignedTx.data,
+                  value: oc.unsignedTx.value,
+                  gasLimit: oc.unsignedTx.gasLimit,
+                },
+                order: oc.order,
+              }
+            }
+          }
         } catch (err: any) {
+          logJson('error', 'agent.tool_failed', { tool: toolName, error: err.message, conversationId })
           toolResult = JSON.stringify({ error: err.message })
         }
 
         messages.push({
-          role:         'tool',
+          role: 'tool',
           tool_call_id: toolCall.id,
-          content:      toolResult,
+          content: toolResult,
         })
       }
+
+      if (finalized) break
     }
 
-    return res.json({ reply, plan, orchestration, usage: { iterations, cumulativeCostUsd, cumulativeTokens } })
+    // Persist the assistant's final reply so the next request has context.
+    if (reply) memory.addMessage(conversationId, 'assistant', reply)
+
+    logJson('info', 'agent.completed', {
+      conversationId,
+      model: openaiModel,
+      iterations,
+      usedReturnPlan: finalized,
+      hasPlan: Boolean(plan),
+      cumulativeCostUsd: round(cumulativeCostUsd),
+      memorySize: memory.size(),
+    })
+
+    return res.json({ reply, plan, orderCreation, orchestration, usage: { iterations, cumulativeCostUsd, cumulativeTokens } })
   } catch (err: any) {
-    console.error('Agent error:', err)
-    return res.status(500).json({ error: 'Agent error', detail: err.message })
+    logJson('error', 'agent.error', {
+      conversationId,
+      model: openaiModel,
+      error: err?.message ?? String(err),
+      status: err?.status,
+    })
+    return res.status(500).json({ error: 'Agent error', detail: err?.message ?? String(err) })
   }
 }
 

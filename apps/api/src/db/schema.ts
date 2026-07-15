@@ -36,6 +36,8 @@ export const conditionalOrders = pgTable('conditional_orders', {
   condition:       jsonb('condition').notNull(),      // { type: 'maxGas', value: 30 }
   status:          text('status').default('active'),  // active | executed | cancelled | expired
   expiresAt:       timestamp('expires_at'),
+  txHash:          text('tx_hash'),                    // on-chain tx that executed the order
+  executedAt:      timestamp('executed_at'),
   originalCommand: text('original_command'),
   createdAt:       timestamp('created_at').defaultNow(),
 })

@@ -10,7 +10,7 @@ const BASE_RPC_FALLBACK = process.env.NEXT_PUBLIC_BASE_RPC_FALLBACK
 const ARB_RPC = process.env.NEXT_PUBLIC_ARB_RPC || 'https://rpc.ankr.com/arbitrum'
 const ARB_RPC_FALLBACK = process.env.NEXT_PUBLIC_ARB_RPC_FALLBACK
 
-type RpcClient = {
+export type RpcClient = {
   getGasPrice: ReturnType<typeof createPublicClient>['getGasPrice']
   getBlock: ReturnType<typeof createPublicClient>['getBlock']
   getFeeHistory: ReturnType<typeof createPublicClient>['getFeeHistory']

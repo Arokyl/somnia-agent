@@ -34,7 +34,7 @@ Required env vars:
 ```bash
 OPENAI_API_KEY=
 OPENAI_BASE_URL=https://integrate.api.nvidia.com/v1
-OPENAI_MODEL=moonshotai/kimi-k2.6
+OPENAI_MODEL=nvidia/nemotron-3-ultra-550b-a55b
 FRONTEND_URL=https://somnia-agent.vercel.app
 CORS_ORIGINS=https://somnia-agent.vercel.app
 API_URL=https://your-api-service.onrender.com
