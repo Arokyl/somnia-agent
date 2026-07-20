@@ -2,29 +2,29 @@ import { formatUnits, erc20Abi } from 'viem'
 import { getClient } from '../lib/rpc.js'
 import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis.js'
 import type { Portfolio, TokenBalance } from '@somnia-agent/shared'
+import { priceService } from './PriceService.js'
 
 // Minimal token list per chain (extend with your own token registry)
 // NOTE: The native Monad token is MON. Its address is the zero address on-chain.
-// MON is NOT listed on CoinGecko under a "monad" id, so we price it via the
-// MON_USD_PRICE env var (see getTokenPrice) instead of a CoinGecko lookup.
 export const TOKEN_LIST: Record<number, Array<{ address: string; symbol: string; name: string; decimals: number; logoURI?: string }>> = {
    10143: [  // Monad testnet — fill with actual deployed token addresses
-    { address: '0x0000000000000000000000000000000000000000', symbol: 'MON',  name: 'Monad',    decimals: 18 },
-    // USDC on Monad — placeholder until the canonical deployed address is confirmed.
-    // TODO: replace with the verified Monad USDC contract address.
-    { address: '0x0000000000000000000000000000000000000001', symbol: 'USDC', name: 'USD Coin',  decimals: 6 },
-    // TODO: add other known Monad testnet tokens once addresses are confirmed.
-  ],
-  1: [      // Ethereum mainnet
-    { address: '0x0000000000000000000000000000000000000000', symbol: 'ETH',  name: 'Ethereum',  decimals: 18 },
-    { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', symbol: 'USDC', name: 'USD Coin',  decimals: 6  },
-    { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', symbol: 'USDT', name: 'Tether',     decimals: 6  },
-    { address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', symbol: 'DAI',  name: 'Dai',       decimals: 18 },
-  ],
-  8453: [   // Base
-    { address: '0x0000000000000000000000000000000000000000', symbol: 'ETH',  name: 'Ethereum',  decimals: 18 },
-    { address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', symbol: 'USDC', name: 'USD Coin',  decimals: 6  },
-  ],
+     { address: '0x0000000000000000000000000000000000000000', symbol: 'MON',  name: 'Monad',    decimals: 18 },
+     { address: '0x0000000000000000000000000000000000000001', symbol: 'USDC', name: 'USD Coin',  decimals: 6 },
+     { address: '0x0000000000000000000000000000000000000002', symbol: 'USDT', name: 'Tether',     decimals: 6 },
+     { address: '0x0000000000000000000000000000000000000003', symbol: 'DAI',  name: 'Dai',       decimals: 18 },
+     { address: '0x0000000000000000000000000000000000000004', symbol: 'WETH', name: 'Wrapped ETH', decimals: 18 },
+   ],
+   1: [      // Ethereum mainnet
+     { address: '0x0000000000000000000000000000000000000000', symbol: 'ETH',  name: 'Ethereum',  decimals: 18 },
+     { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', symbol: 'USDC', name: 'USD Coin',  decimals: 6  },
+     { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', symbol: 'USDT', name: 'Tether',     decimals: 6  },
+     { address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', symbol: 'DAI',  name: 'Dai',       decimals: 18 },
+     { address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', symbol: 'WETH', name: 'Wrapped ETH', decimals: 18 },
+   ],
+   8453: [   // Base
+     { address: '0x0000000000000000000000000000000000000000', symbol: 'ETH',  name: 'Ethereum',  decimals: 18 },
+     { address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', symbol: 'USDC', name: 'USD Coin',  decimals: 6  },
+   ],
 }
 
 export class PortfolioService {
@@ -57,7 +57,7 @@ export class PortfolioService {
           if (rawBalance === 0n) return
 
           const formatted = formatUnits(rawBalance, token.decimals)
-          const usdPrice = await this.getTokenPrice(token.symbol)
+          const usdPrice = await priceService.getTokenPrice(token.symbol, chainId, token.address)
 
           balances.push({
             ...token,
@@ -83,58 +83,5 @@ export class PortfolioService {
     await cacheSetex(cacheKey, CACHE_TTL.PORTFOLIO, JSON.stringify(portfolio))
     return portfolio
   }
-
-  private async getTokenPrice(symbol: string): Promise<number> {
-    const upper = symbol.toUpperCase()
-
-    // MON is the native Monad token and is not reliably listed on CoinGecko
-    // (mapping it to 'ethereum' would incorrectly price it ~$3000). Operators
-    // must supply MON_USD_PRICE; fall back to 0 and warn once so it's obvious.
-    if (upper === 'MON') {
-      const price = getMonUsdPrice()
-      if (price === 0 && !monPriceWarned) {
-        console.warn(
-          '[PortfolioService] MON_USD_PRICE is not set (or is 0); MON will be reported at $0. ' +
-          'Set MON_USD_PRICE to the real MON/USD price to value Monad native balances.'
-        )
-        monPriceWarned = true
-      }
-      return price
-    }
-
-    // Simple coingecko free API lookup — cache aggressively
-    const cacheKey = `price:${upper.toLowerCase()}`
-    const cached = await cacheGet(cacheKey)
-    if (cached) return parseFloat(cached)
-
-    const idMap: Record<string, string> = {
-      ETH: 'ethereum', USDC: 'usd-coin', USDT: 'tether', DAI: 'dai',
-    }
-    const id = idMap[upper]
-    if (!id) return 0
-
-    try {
-      const res = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`
-      )
-      const data = await res.json()
-      const price = data[id]?.usd ?? 0
-      await cacheSetex(cacheKey, 60, price.toString())
-      return price
-    } catch {
-      return 0
-    }
-  }
-}
-
-function getMonUsdPrice(): number {
-  const raw = process.env.MON_USD_PRICE
-  if (raw === undefined || raw.trim() === '') return 0
-  const n = parseFloat(raw)
-  return Number.isFinite(n) ? n : 0
-}
-
-// Module-level flag so we only warn once about a missing MON price.
-let monPriceWarned = false
 
 export const portfolioService = new PortfolioService()

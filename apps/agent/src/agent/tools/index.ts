@@ -61,11 +61,11 @@ export const tools: OpenAI.Chat.ChatCompletionTool[] = [
     type: 'function',
     function: {
       name: 'get_market_price',
-      description: 'Get the current USD market price for a token symbol such as ETH, BTC, or MON.',
+      description: 'Get the current USD market price for any token symbol such as ETH, BTC, MON, USDC, SOL, etc.',
       parameters: {
         type: 'object',
         properties: {
-          symbol: { type: 'string', description: 'Token symbol, e.g. ETH, BTC, MON' },
+          symbol: { type: 'string', description: 'Token symbol, e.g. ETH, BTC, MON, SOL, USDC' },
         },
         required: ['symbol'],
       },

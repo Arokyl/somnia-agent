@@ -2,6 +2,7 @@ import { formatGwei, formatUnits, parseUnits } from 'viem'
 import { getClient } from '../lib/rpc.js'
 import { cacheGet, cacheSetex, CACHE_TTL } from '../lib/redis.js'
 import type { AggregatedQuote, Aggregator } from '@somnia-agent/shared'
+import { priceService } from './PriceService.js'
 
 interface QuoteRequest {
   tokenIn: string
@@ -295,7 +296,15 @@ export class QuoteService {
 
   private async estimateGasUsd(gasUnits: bigint, chainId: number): Promise<number> {
     let gasPriceGwei = 30
-    let ethPriceUsd = parseFloat(process.env.ETH_USD_PRICE || '3000')
+    let nativePriceUsd = await priceService.getTokenPrice('MON', chainId)
+
+    if (nativePriceUsd === 0) {
+      nativePriceUsd = await priceService.getTokenPrice('ETH', chainId)
+    }
+
+    if (nativePriceUsd === 0) {
+      nativePriceUsd = parseFloat(process.env.ETH_USD_PRICE || '3000')
+    }
 
     try {
       const client = getClient(chainId)
@@ -305,8 +314,8 @@ export class QuoteService {
       // Fallback to a reasonable default if the chain client is unavailable
     }
 
-    const gasEth = Number(gasUnits) * gasPriceGwei * 1e-9
-    return gasEth * ethPriceUsd
+    const gasNative = Number(gasUnits) * gasPriceGwei * 1e-9
+    return gasNative * nativePriceUsd
   }
 
   private parse1inchRoute(protocols: any[][]): AggregatedQuote['route'] {
