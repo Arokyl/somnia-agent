@@ -51,10 +51,10 @@ async function getMarketPrice(symbolParam: string): Promise<MarketPrice> {
   const symbol = symbolParam.trim().toUpperCase()
   if (!symbol) throw new Error('Missing symbol')
 
-  if (symbol === 'STT' || symbol === 'SOMI' || symbol === 'SOM') {
-    const stt = envPrice('STT')
-    if (stt) return { ...stt, symbol }
-    throw new Error('STT_USD_PRICE is not configured')
+  if (symbol === 'MON' || symbol === 'MONAD') {
+    const mon = envPrice('MON')
+    if (mon) return { ...mon, symbol }
+    throw new Error('MON_USD_PRICE is not configured')
   }
 
   try {

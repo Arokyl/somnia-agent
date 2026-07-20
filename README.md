@@ -1,6 +1,6 @@
 # Arokyl — AI-Powered DeFi Trading Agent
 
-An AI agent that helps users swap tokens on Somnia (and EVM chains) using natural language commands.
+An AI agent that helps users swap tokens on Monad (and EVM chains) using natural language commands.
 
 ## Quick Start
 
@@ -31,7 +31,7 @@ pnpm --filter @somnia-agent/api   dev   # Backend   → localhost:3001
 pnpm --filter @somnia-agent/agent dev   # AI Agent  → localhost:3002
 ```
 
-### 4. Deploy contracts (Somnia testnet)
+### 4. Deploy contracts (Monad testnet)
 ```bash
 cd packages/contracts
 
@@ -46,8 +46,8 @@ forge test -vvv
 # Deploy
 cd packages/contracts
 forge script script/Deploy.s.sol:Deploy \
-  --rpc-url "$SOMNIA_RPC" \
-  --chain-id 50312 \
+  --rpc-url "$MONAD_RPC" \
+  --chain-id 10143 \
   --broadcast \
   --legacy \
   --gas-limit 8000000 \
@@ -56,7 +56,7 @@ forge script script/Deploy.s.sol:Deploy \
 Or from repo root with pnpm:
 
 ```bash
-pnpm --filter @somnia-agent/contracts run deploy:somnia
+pnpm --filter @somnia-agent/contracts run deploy:monad
 ```
 
 ## Frontend Deployment
@@ -67,6 +67,7 @@ Deploy the frontend as a Vercel project with `apps/web` as the Root Directory. D
 
 ```
 somnia-agent/
+
 ├── apps/
 │   ├── web/       Next.js frontend (port 3000)
 │   ├── api/       Fastify backend  (port 3001)
@@ -101,7 +102,7 @@ Backend API (Fastify)
     ↓ builds execution plan
 Frontend (Next.js + wagmi)
     ↓ user reviews + signs
-ExecutionProxy.sol (Somnia)
+ExecutionProxy.sol (Monad)
     ↓ calls aggregator
 DEX / Liquidity Pools
 ```
@@ -119,6 +120,6 @@ See `.env.example` for all required variables. Required for MVP:
 
 ## Roadmap
 
-- **Phase 1 (current):** Single-chain swaps on Somnia, basic NL commands, no LangChain
+- **Phase 1 (current):** Single-chain swaps on Monad, basic NL commands, no LangChain
 - **Phase 2:** Conditional orders, multi-chain, full LangChain agent, scheduled execution
 - **Phase 3:** Smart contract audit, MEV protection, SDK extraction, white-label

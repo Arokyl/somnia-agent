@@ -19,14 +19,13 @@ const ZEROX_SUPPORTED_CHAIN_IDS = new Set([
 ])
 
 const DREAMDEX_BASE_URLS: Record<number, string> = {
-  50312: 'https://stg.api.dreamdex.io/v0',
-  5031: 'https://api.dreamdex.io/v0',
+  10143: 'https://stg.api.dreamdex.io/v0',
+  1014: 'https://api.dreamdex.io/v0',
 }
 
 const DREAMDEX_TOKEN_ALIASES: Record<string, string> = {
-  STT: 'SOMI',
-  SOMI: 'SOMI',
-  SOM: 'SOMI',
+  MON: 'MON',
+  MONAD: 'MON',
   USD: 'USDso',
   USDSO: 'USDso',
   USDC: 'USDso',
@@ -58,7 +57,7 @@ export function normalizeDreamDexToken(token: string): string | null {
   if (!trimmed) return null
 
   const upper = trimmed.toUpperCase()
-  return DREAMDEX_TOKEN_ALIASES[upper] ?? (['SOMI', 'USDso', 'WBTC', 'WETH'].includes(upper) ? upper : null)
+  return DREAMDEX_TOKEN_ALIASES[upper] ?? (['MON', 'USDso', 'WBTC', 'WETH'].includes(upper) ? upper : null)
 }
 
 export function resolveDreamDexRoute(tokenIn: string, tokenOut: string): DreamDexRouteStep[] | null {
@@ -203,8 +202,8 @@ export class QuoteService {
   }
 
   private unsupportedChainMessage(chainId: number) {
-    if (chainId === 50312) {
-      return 'No configured quote aggregator currently supports Somnia chain 50312. 0x does not list Somnia as a supported Swap API chain, so Somnia swaps need a Somnia-native DEX/router quote source.'
+    if (chainId === 10143) {
+      return 'No configured quote aggregator currently supports Monad chain 10143. 0x does not list Monad as a supported Swap API chain, so Monad swaps need a Monad-native DEX/router quote source.'
     }
 
     return `No configured quote aggregator is available for chain ${chainId}. Add a supported quote provider API key or switch to a supported chain.`

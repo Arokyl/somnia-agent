@@ -6,8 +6,8 @@ const demoHistory = [
   {
     id: 'demo-1',
     txHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-    chainId: 50312,
-    tokenIn: 'STT',
+    chainId: 10143,
+    tokenIn: 'MON',
     tokenOut: 'USDC',
     amountIn: '0.5',
     amountOut: '92.14',
@@ -16,14 +16,14 @@ const demoHistory = [
     priceImpact: 0.21,
     status: 'confirmed',
     executedAt: new Date(Date.now() - 1000 * 60 * 24).toISOString(),
-    aiIntent: 'Swap 0.5 STT to USDC when gas is optimal',
+    aiIntent: 'Swap 0.5 MON to USDC when gas is optimal',
   },
   {
     id: 'demo-2',
     txHash: '0x1111111111111111111111111111111111111111111111111111111111111111',
-    chainId: 50312,
+    chainId: 10143,
     tokenIn: 'USDC',
-    tokenOut: 'STT',
+    tokenOut: 'MON',
     amountIn: '50',
     amountOut: '27.16',
     aggregator: 'oneinch',
@@ -31,7 +31,7 @@ const demoHistory = [
     priceImpact: 0.12,
     status: 'pending',
     executedAt: new Date(Date.now() - 1000 * 60 * 52).toISOString(),
-    aiIntent: 'Buy STT with 50 USDC using the cheapest route',
+    aiIntent: 'Buy MON with 50 USDC using the cheapest route',
   },
 ]
 

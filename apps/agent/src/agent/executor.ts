@@ -559,7 +559,7 @@ function attachExecutionProxyTx(plan: ExecutionPlan, chainId: number): Execution
 function normalizeTokenAddress(value?: string): `0x${string}` | null {
   if (!value) return null
   const normalized = value.trim()
-  if (['eth', 'stt', 'native', '0x'].includes(normalized.toLowerCase())) return zeroAddress
+  if (['eth', 'mon', 'native', '0x'].includes(normalized.toLowerCase())) return zeroAddress
   return isAddress(normalized) ? normalized as `0x${string}` : null
 }
 

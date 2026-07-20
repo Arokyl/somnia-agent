@@ -12,9 +12,9 @@ via_ir = false
 runs = 1000
 
 [rpc_endpoints]
-somnia  = "${SOMNIA_RPC}"
+monad  = "${MONAD_RPC}"
 mainnet = "${ETH_RPC}"
 base    = "${BASE_RPC}"
 
 [etherscan]
-somnia = { key = "${SOMNIA_EXPLORER_KEY}", url = "https://shannon-explorer.somnia.network/api" }
+monad = { key = "${MONAD_EXPLORER_KEY}", url = "https://testnet.monadscan.com/api" }

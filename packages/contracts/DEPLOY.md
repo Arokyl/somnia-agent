@@ -1,4 +1,4 @@
-Deployment to Somnia Testnet (Foundry)
+Deployment to Monad Testnet (Foundry)
 
 Prerequisites
 - Foundry installed (https://book.getfoundry.sh/getting-started/installation)
@@ -8,11 +8,11 @@ Prerequisites
 Environment
 Create a file `.env` in `packages/contracts` or export these variables:
 
-- `SOMNIA_RPC` — Somnia RPC URL, e.g. `https://api.infra.testnet.somnia.network/`
-- `SOMNIA_RPC_FALLBACK` — optional fallback RPC URL, e.g. `https://dream-rpc.somnia.network`
+- `MONAD_RPC` — Monad RPC URL, e.g. `https://testnet-rpc.monad.xyz`
+- `MONAD_RPC_FALLBACK` — optional fallback RPC URL, e.g. `https://rpc.ankr.com/monad_testnet`
 - `DEPLOYER_PRIVATE_KEY` — Decimal private key value for Foundry `vm.envUint`
 - `PRIVATE_KEY` — Optional hex private key alias for other tools; not required by the deploy script
-- `SOMNIA_EXPLORER_KEY` — optional, for verification if supported
+- `MONAD_EXPLORER_KEY` — optional, for verification if supported
 - `FEE_VAULT` — optional fee recipient; defaults to deployer
 - `FEE_BPS` — optional fee basis points; defaults to `10`
 - `KEEPER_ADDRESS` — optional keeper address; defaults to deployer. If you want the standard keeper, set it to `0xdE093Bf57d77E49b77010F239A252A7D53dbFd5E`
@@ -30,8 +30,8 @@ Use Foundry's `forge script` to deploy `script/Deploy.s.sol`.
 ```bash
 cd packages/contracts
 forge script script/Deploy.s.sol:Deploy \
-  --rpc-url "$SOMNIA_RPC" \
-  --chain-id 50312 \
+  --rpc-url "$MONAD_RPC" \
+  --chain-id 10143 \
   --broadcast \
   --legacy \
   --gas-limit 8000000 \
@@ -41,7 +41,7 @@ forge script script/Deploy.s.sol:Deploy \
 Or from the repo root using pnpm:
 
 ```bash
-pnpm --filter @somnia-agent/contracts run deploy:somnia
+pnpm --filter @somnia-agent/contracts run deploy:monad
 ```
 
 This script prefers `DEPLOYER_PRIVATE_KEY` from environment because it uses `vm.envUint("DEPLOYER_PRIVATE_KEY")`.

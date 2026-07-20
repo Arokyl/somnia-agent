@@ -7,7 +7,7 @@ export const portfolioRoutes: FastifyPluginAsync = async (app) => {
     '/:address',
     async (req, reply) => {
       const { address } = req.params
-      const chainId = parseInt(req.query.chainId || '50312')
+      const chainId = parseInt(req.query.chainId || '10143')
       
       try {
         // Validate address format

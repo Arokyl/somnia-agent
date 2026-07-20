@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /// @title ExecutionProxy
-/// @notice Main entry point for AI agent swap execution on Somnia.
+/// @notice Main entry point for AI agent swap execution on Monad.
 ///         Users approve this contract to spend their tokens; the AI agent
 ///         builds calldata from an approved aggregator, the user signs and
 ///         broadcasts the transaction directly — this contract never holds funds.
@@ -20,7 +20,7 @@ contract ExecutionProxy is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardU
 
     uint256 public constant MAX_FEE_BPS      = 50;    // 0.5% max protocol fee
     uint256 public constant MAX_SLIPPAGE_BPS = 1000;  // 10% hard cap — anything higher reverts
-    address public constant NATIVE           = address(0); // sentinel for native token (ETH/STT)
+    address public constant NATIVE           = address(0); // sentinel for native token (ETH/MON)
 
     // ─── State ──────────────────────────────────────────────────────────────
 

@@ -61,11 +61,11 @@ export const tools: OpenAI.Chat.ChatCompletionTool[] = [
     type: 'function',
     function: {
       name: 'get_market_price',
-      description: 'Get the current USD market price for a token symbol such as ETH, BTC, or STT.',
+      description: 'Get the current USD market price for a token symbol such as ETH, BTC, or MON.',
       parameters: {
         type: 'object',
         properties: {
-          symbol: { type: 'string', description: 'Token symbol, e.g. ETH, BTC, STT' },
+          symbol: { type: 'string', description: 'Token symbol, e.g. ETH, BTC, MON' },
         },
         required: ['symbol'],
       },
@@ -208,9 +208,9 @@ export async function executeTool(name: string, args: Record<string, any>): Prom
       const tokenIn = String(args.tokenIn).trim()
       const tokenOut = String(args.tokenOut).trim()
       const amountIn = String(args.amountIn)
-      const isNativeIn = ['eth', 'stt', 'native', '0x', ''].includes(tokenIn.toLowerCase())
+      const isNativeIn = ['eth', 'mon', 'native', '0x', ''].includes(tokenIn.toLowerCase())
       const normalizedTokenIn = isNativeIn ? zeroAddress : (tokenIn as `0x${string}`)
-      const normalizedTokenOut = ['eth', 'stt', 'native', '0x', ''].includes(tokenOut.toLowerCase()) ? zeroAddress : (tokenOut as `0x${string}`)
+      const normalizedTokenOut = ['eth', 'mon', 'native', '0x', ''].includes(tokenOut.toLowerCase()) ? zeroAddress : (tokenOut as `0x${string}`)
       const conditionType = String(args.conditionType)
       const conditionValue = Number(args.conditionValue)
       const expiresInHours = Number(args.expiresInHours ?? 24)

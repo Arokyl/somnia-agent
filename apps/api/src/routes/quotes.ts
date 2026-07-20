@@ -8,7 +8,7 @@ export const quotesRoutes: FastifyPluginAsync = async (app) => {
       chainId?: string; tokenInDecimals?: string; tokenOutDecimals?: string
     }
   }>('/', async (req, reply) => {
-    const { tokenIn, tokenOut, amountIn, chainId = '50312', tokenInDecimals = '18', tokenOutDecimals = '18' } = req.query
+    const { tokenIn, tokenOut, amountIn,       chainId = '10143', tokenInDecimals = '18', tokenOutDecimals = '18' } = req.query
     if (!tokenIn || !tokenOut || !amountIn) {
       return reply.status(400).send({ error: 'Missing required params: tokenIn, tokenOut, amountIn' })
     }

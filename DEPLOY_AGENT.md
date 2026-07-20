@@ -11,8 +11,8 @@ Create `.env` files for services (examples below).
 apps/api/.env.example
 ```
 API_PORT=3001
-NEXT_PUBLIC_SOMNIA_RPC=https://api.infra.testnet.somnia.network/
-NEXT_PUBLIC_SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
+NEXT_PUBLIC_MONAD_RPC=https://testnet-rpc.monad.xyz
+NEXT_PUBLIC_MONAD_RPC_FALLBACK=https://rpc.ankr.com/monad_testnet
 NEXT_PUBLIC_ETH_RPC=https://mainnet.infura.io/v3/YOUR_KEY
 NEXT_PUBLIC_ETH_RPC_FALLBACK=https://eth-mainnet.alchemyapi.io/v2/YOUR_KEY
 REDIS_URL=redis://localhost:6379
@@ -30,8 +30,8 @@ OPENAI_MODEL=nvidia/nemotron-3-ultra-550b-a55b
 AGENT_PORT=4000
 API_URL=https://api.yourdomain.com
 WALLET_PRIVATE_KEY=0x...
-SOMNIA_RPC=https://api.infra.testnet.somnia.network/
-SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
+MONAD_RPC=https://testnet-rpc.monad.xyz
+MONAD_RPC_FALLBACK=https://rpc.ankr.com/monad_testnet
 ```
 
 Steps (example using pm2)
@@ -48,15 +48,15 @@ cd apps/web && pnpm build
 
 # Start with PM2 (or use systemd)
 pm install -g pm2
-pm2 start dist/index.js --name somnia-api --cwd apps/api --env production
-pm2 start dist/index.js --name somnia-agent --cwd apps/agent --env production
+pm2 start dist/index.js --name monad-api --cwd apps/api --env production
+pm2 start dist/index.js --name monad-agent --cwd apps/agent --env production
 # For Next.js (web) use `next start` or a Vercel deployment
 ```
 
 Systemd unit (example for `apps/api`)
 ```
 [Unit]
-Description=Somnia API
+Description=Monad API
 After=network.target
 
 [Service]
@@ -72,7 +72,7 @@ WantedBy=multi-user.target
 ```
 
 Verification
-- Monitor logs (`pm2 logs` or `journalctl -u somnia-api`)
+- Monitor logs (`pm2 logs` or `journalctl -u monad-api`)
 - Check health endpoint: `GET /health`
 
 If you want, I can generate ready-to-run `systemd` unit files for each service and a `docker-compose.yml` for local staging. Which would you prefer?

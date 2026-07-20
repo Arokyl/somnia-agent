@@ -1,8 +1,8 @@
 import { createPublicClient, http, defineChain } from 'viem'
 import { mainnet, base, arbitrum } from 'viem/chains'
 
-const SOMNIA_RPC = process.env.SOMNIA_RPC || process.env.NEXT_PUBLIC_SOMNIA_RPC || 'https://api.infra.testnet.somnia.network/'
-const SOMNIA_RPC_FALLBACK = process.env.SOMNIA_RPC_FALLBACK || process.env.NEXT_PUBLIC_SOMNIA_RPC_FALLBACK
+const MONAD_RPC = process.env.MONAD_RPC || process.env.NEXT_PUBLIC_MONAD_RPC || 'https://testnet-rpc.monad.xyz'
+const MONAD_RPC_FALLBACK = process.env.MONAD_RPC_FALLBACK || process.env.NEXT_PUBLIC_MONAD_RPC_FALLBACK
 const ETH_RPC = process.env.NEXT_PUBLIC_ETH_RPC || 'https://rpc.ankr.com/eth'
 const ETH_RPC_FALLBACK = process.env.NEXT_PUBLIC_ETH_RPC_FALLBACK
 const BASE_RPC = process.env.NEXT_PUBLIC_BASE_RPC || 'https://rpc.ankr.com/base'
@@ -54,19 +54,19 @@ function createFailoverClient(chain: ReturnType<typeof defineChain>, urls: Array
   }) as unknown as RpcClient
 }
 
-export const somnia = defineChain({
-  id: 50312,
-  name: 'Somnia',
-  nativeCurrency: { name: 'STT', symbol: 'STT', decimals: 18 },
+export const monad = defineChain({
+  id: 10143,
+  name: 'Monad',
+  nativeCurrency: { name: 'MON', symbol: 'MON', decimals: 18 },
   rpcUrls: {
-    default: { http: [SOMNIA_RPC] },
+    default: { http: [MONAD_RPC] },
   },
 })
 
 export const clients: Record<number, RpcClient> = {
-  [somnia.id]: createFailoverClient(somnia, [
-    SOMNIA_RPC,
-    SOMNIA_RPC_FALLBACK,
+  [monad.id]: createFailoverClient(monad, [
+    MONAD_RPC,
+    MONAD_RPC_FALLBACK,
   ]),
   [mainnet.id]: createFailoverClient(mainnet, [
     ETH_RPC,

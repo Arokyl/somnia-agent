@@ -1,7 +1,7 @@
 // ─── Chain configs ───────────────────────────────────────────────────────────
 
 export const CHAIN_IDS = {
-  SOMNIA: 50312,
+  MONAD: 10143,
   ETHEREUM: 1,
   BASE: 8453,
   ARBITRUM: 42161,
@@ -10,7 +10,7 @@ export const CHAIN_IDS = {
 export type ChainId = (typeof CHAIN_IDS)[keyof typeof CHAIN_IDS]
 
 export const CHAIN_NAMES: Record<ChainId, string> = {
-  [CHAIN_IDS.SOMNIA]: 'Somnia',
+  [CHAIN_IDS.MONAD]: 'Monad',
   [CHAIN_IDS.ETHEREUM]: 'Ethereum',
   [CHAIN_IDS.BASE]: 'Base',
   [CHAIN_IDS.ARBITRUM]: 'Arbitrum',

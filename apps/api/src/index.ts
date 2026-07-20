@@ -60,7 +60,7 @@ async function main() {
   const registryAddress = process.env.AUTOMATION_REGISTRY_ADDRESS
   if (keeperPrivateKey && registryAddress) {
     try {
-      const chainId = parseInt(process.env.KEEPER_CHAIN_ID || process.env.CHAIN_ID || '50312')
+      const chainId = parseInt(process.env.KEEPER_CHAIN_ID || process.env.CHAIN_ID || '10143')
       const rpc = getClient(chainId)
       keeper = new ConditionalOrderKeeper(db, rpc, {
         registryAddress: registryAddress as `0x${string}`,

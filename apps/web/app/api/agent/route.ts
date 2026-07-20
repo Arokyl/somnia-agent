@@ -6,25 +6,25 @@ const allowDemoAgent =
 
 const demoPlan = {
   intent: {
-    tokenIn: 'STT',
+    tokenIn: 'MON',
     tokenOut: 'USDC',
     amountIn: '0.1',
     amountType: 'exact',
     urgency: 'high',
     conditions: [],
-    raw: 'Swap 0.1 STT to USDC at the cheapest gas',
+    raw: 'Swap 0.1 MON to USDC at the cheapest gas',
   },
   quote: {
     aggregator: 'odos',
     amountIn: '100000000000000000',
-    tokenIn: 'STT',
+    tokenIn: 'MON',
     tokenOut: 'USDC',
     amountOut: '18420000',
     amountOutFormatted: '18.42',
     priceImpact: 0.18,
     gasEstimate: '142000',
     gasEstimateUsd: 0.04,
-    route: [{ protocol: 'Somnia DEX', tokenIn: 'STT', tokenOut: 'USDC', share: 100 }],
+    route: [{ protocol: 'Monad DEX', tokenIn: 'MON', tokenOut: 'USDC', share: 100 }],
     effectiveRate: 18.38,
   },
   gasAssessment: {

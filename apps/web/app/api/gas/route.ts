@@ -12,7 +12,7 @@ const demoGas = {
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
-  const chainId = searchParams.get('chainId') || '50312'
+  const chainId = searchParams.get('chainId') || '10143'
   const apiUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
 
   if (apiUrl) {

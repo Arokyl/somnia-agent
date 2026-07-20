@@ -50,9 +50,9 @@ export default function SystemHealth() {
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
         <div>
           <h2 className="panel-title">System status</h2>
-          <p className="panel-subtitle">Agent, API, and Somnia runtime configuration.</p>
+          <p className="panel-subtitle">Agent, API, and Monad runtime configuration.</p>
         </div>
-        <span className="status-chip">Chain 50312</span>
+        <span className="status-chip">Chain 10143</span>
       </div>
 
       <div className="health-list">
@@ -63,7 +63,7 @@ export default function SystemHealth() {
       <div className="intro-card" style={{ marginTop: '1rem' }}>
         <p className="metric-label">Primary RPC</p>
         <p className="mono" style={{ marginTop: '0.55rem', wordBreak: 'break-all' }}>
-          {health?.rpc.primary || 'https://api.infra.testnet.somnia.network/'}
+          {health?.rpc.primary || 'https://testnet-rpc.monad.xyz'}
         </p>
       </div>
     </div>

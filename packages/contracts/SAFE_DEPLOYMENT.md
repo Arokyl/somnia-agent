@@ -1,6 +1,6 @@
 # Safe Deployment Guide for `ExecutionProxy`
 
-This guide documents a safer deployment workflow for `ExecutionProxy` on Somnia.
+This guide documents a safer deployment workflow for `ExecutionProxy` on Monad.
 Follow each step and verify before moving to the next.
 
 ## Step A: Deploy implementation only
@@ -72,8 +72,8 @@ From `packages/contracts`, run:
 
 ```bash
 forge script script/Deploy.s.sol:Deploy \
-  --rpc-url "$SOMNIA_RPC" \
-  --chain-id 50312 \
+  --rpc-url "$MONAD_RPC" \
+  --chain-id 10143 \
   --broadcast \
   --legacy \
   --gas-limit 8000000 \
@@ -83,7 +83,7 @@ forge script script/Deploy.s.sol:Deploy \
 Or from repo root:
 
 ```bash
-pnpm --filter @somnia-agent/contracts run deploy:somnia
+pnpm --filter @somnia-agent/contracts run deploy:monad
 ```
 
 ## Final note

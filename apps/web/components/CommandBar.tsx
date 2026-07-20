@@ -3,8 +3,13 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useAccount, useChainId, useSignMessage } from 'wagmi'
 import type { ExecutionPlan, OrchestrationPlan } from '@somnia-agent/shared'
+import { motion, AnimatePresence } from 'framer-motion'
 import SwapConfirmModal from './SwapConfirmModal'
 import OrderConfirmModal from './OrderConfirmModal'
+import { Button } from '@/components/ui/Button'
+import { GlassCard } from '@/components/ui/GlassCard'
+import { Badge } from '@/components/ui/Badge'
+import { Copy, RefreshCw, Check, User, Bot } from 'lucide-react'
 
 export interface Message {
   role: 'user' | 'assistant'
@@ -30,7 +35,7 @@ const REACTION_LABELS: Record<string, string> = {
 const EXAMPLE_COMMANDS = [
   'Hello, what can you help me do?',
   'Teach me how to review a swap safely',
-  'Compare routes for 0.5 STT to USDC',
+  'Compare routes for 0.5 MON to USDC',
   'Wait until gas is below 8 gwei before swapping',
 ]
 
@@ -73,8 +78,11 @@ function renderInlineMarkdown(text: string): ReactNode {
     if (match.index > lastIndex) {
       nodes.push(text.slice(lastIndex, match.index))
     }
-
-    nodes.push(<strong key={`${match.index}-${match[1]}`}>{match[1]}</strong>)
+    nodes.push(
+      <strong key={`${match.index}-${match[1]}`} className="font-semibold text-white">
+        {match[1]}
+      </strong>
+    )
     lastIndex = pattern.lastIndex
   }
 
@@ -89,38 +97,52 @@ function PlanSummary({ plan, onReview }: { plan: ExecutionPlan; onReview: () => 
   const hasExecutableTx = Boolean(plan.unsignedTx)
 
   return (
-    <div className="plan-card">
-      <div className="plan-head">
-        <p className="eyebrow">Execution plan</p>
-      </div>
-      <div className="plan-grid">
-        <div>
-          <p className="muted">Route</p>
-          <p className="metric-value">{plan.quote?.aggregator ?? 'Pending'}</p>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="mt-4"
+    >
+      <GlassCard className="p-5">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-semibold text-primary uppercase tracking-wider">Execution Plan</p>
+          <Badge variant={hasExecutableTx ? 'success' : 'info'} size="sm">
+            {hasExecutableTx ? 'Ready for review' : 'Plan only'}
+          </Badge>
         </div>
-        <div>
-          <p className="muted">Receive</p>
-          <p className="metric-value success">{plan.estimatedOutput ?? '-'}</p>
+
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div>
+            <p className="text-xs text-gray-500 mb-1">Route</p>
+            <p className="text-sm font-medium text-white">{plan.quote?.aggregator ?? 'Pending'}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 mb-1">Receive</p>
+            <p className="text-sm font-medium text-success">{plan.estimatedOutput ?? '-'}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 mb-1">Gas</p>
+            <p className="text-sm font-medium text-white">
+              {plan.gasAssessment?.currentBaseFeeGwei?.toFixed(1) ?? '-'} gwei
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="muted">Gas</p>
-          <p className="metric-value">{plan.gasAssessment?.currentBaseFeeGwei?.toFixed(1) ?? '-'} gwei</p>
-        </div>
-      </div>
-      {plan.warnings?.length > 0 && (
-        <div className="plan-head">
-          {plan.warnings.map((warning) => (
-            <p key={warning} className="warning">{warning}</p>
-          ))}
-        </div>
-      )}
-      <div className="plan-actions">
-        <span className="status-chip">{hasExecutableTx ? 'Ready for wallet review' : 'Plan review only'}</span>
-        <button type="button" className="primary-button" onClick={onReview}>
-          Review plan
-        </button>
-      </div>
-    </div>
+
+        {plan.warnings?.length > 0 && (
+          <div className="space-y-2 mb-4">
+            {plan.warnings.map((warning) => (
+              <div key={warning} className="p-3 rounded-lg bg-warning/10 border border-warning/20 text-warning text-xs">
+                {warning}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <Button onClick={onReview} className="w-full" size="sm">
+          Review Plan
+        </Button>
+      </GlassCard>
+    </motion.div>
   )
 }
 
@@ -128,17 +150,24 @@ function AgentSignal({ reaction, demo }: { reaction?: string; demo?: boolean }) 
   const label = reaction ? REACTION_LABELS[reaction] ?? reaction : demo ? 'Demo route' : 'Live reasoning'
 
   return (
-    <div className="agent-signal" aria-label={`Agent response signal: ${label}`}>
-      <div className="signal-core">
-        <span />
-        <span />
-        <span />
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10"
+    >
+      <div className="relative w-5 h-5">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-accent animate-ping opacity-20" />
+        <div className="relative w-5 h-5 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+          <Bot size={12} className="text-white" />
+        </div>
       </div>
       <div>
-        <p className="signal-label">{label}</p>
-        <p className="signal-caption">{reaction ? 'Common response handled instantly' : 'Wallet-safe planning layer'}</p>
+        <p className="text-xs font-semibold text-white leading-tight">{label}</p>
+        <p className="text-[10px] text-gray-400 leading-tight">
+          {reaction ? 'Instant response' : 'Wallet-safe planning'}
+        </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -146,25 +175,209 @@ function OrchestrationSummary({ orchestration }: { orchestration: OrchestrationP
   const activeRuns = orchestration.runs.filter((run) => run.status === 'completed')
 
   return (
-    <div className="orchestration-card">
-      <div className="plan-head">
-        <p className="eyebrow">Subagent orchestration</p>
-        <p className="orchestration-meta">
-          {orchestration.mode} mode | {orchestration.depth} depth | {activeRuns.length} active
-        </p>
-      </div>
-      <div className="subagent-grid">
-        {activeRuns.map((run) => (
-          <div className="subagent-tile" key={run.id}>
-            <div className="subagent-row">
-              <strong>{run.name}</strong>
-              <span>{Math.round(run.confidence * 100)}%</span>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="mt-4"
+    >
+      <GlassCard className="p-5">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-semibold text-accent uppercase tracking-wider">Subagent Orchestration</p>
+          <p className="text-xs text-gray-500">
+            {orchestration.mode} · {orchestration.depth} · {activeRuns.length} active
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          {activeRuns.map((run) => (
+            <div key={run.id} className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.08]">
+              <div className="flex items-center justify-between mb-2">
+                <strong className="text-sm text-white">{run.name}</strong>
+                <span className="text-xs font-semibold text-primary">
+                  {Math.round(run.confidence * 100)}%
+                </span>
+              </div>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                {run.findings[0]?.detail ?? run.goal}
+              </p>
             </div>
-            <p>{run.findings[0]?.detail ?? run.goal}</p>
-          </div>
-        ))}
+          ))}
+        </div>
+      </GlassCard>
+    </motion.div>
+  )
+}
+
+function TypingIndicator() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex items-start gap-3"
+    >
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+        <Bot size={16} className="text-white" />
       </div>
-    </div>
+      <GlassCard className="px-4 py-3">
+        <div className="flex items-center gap-1.5">
+          <motion.div
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-2 h-2 rounded-full bg-primary"
+          />
+          <motion.div
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
+            className="w-2 h-2 rounded-full bg-primary"
+          />
+          <motion.div
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+            className="w-2 h-2 rounded-full bg-primary"
+          />
+        </div>
+      </GlassCard>
+    </motion.div>
+  )
+}
+
+function MessageBubble({ msg, onReview }: { msg: Message; onReview: (plan: ExecutionPlan) => void }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(msg.content)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleRegenerate = () => {
+    // Regenerate logic would go here
+    console.log('Regenerate:', msg)
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className={`flex items-start gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
+    >
+      {/* Avatar */}
+      <div
+        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+          msg.role === 'user'
+            ? 'bg-gradient-to-br from-accent to-primary'
+            : 'bg-gradient-to-br from-primary to-accent'
+        }`}
+      >
+        {msg.role === 'user' ? (
+          <User size={16} className="text-white" />
+        ) : (
+          <Bot size={16} className="text-white" />
+        )}
+      </div>
+
+      {/* Message content */}
+      <div className={`flex-1 ${msg.role === 'user' ? 'flex justify-end' : ''}`}>
+        <GlassCard
+          className={`p-4 max-w-[85%] ${
+            msg.role === 'user'
+              ? 'bg-gradient-to-br from-primary/20 to-accent/10 border-primary/20'
+              : 'bg-white/[0.03] border-white/[0.08]'
+          }`}
+        >
+          {/* Message header */}
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs font-semibold text-gray-400">
+              {msg.role === 'user' ? 'You' : 'ArokylAI'}
+            </p>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleCopy}
+                className="p-1 rounded hover:bg-white/[0.1] text-gray-500 hover:text-white transition-colors"
+                aria-label="Copy message"
+              >
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+              </button>
+              {msg.role === 'assistant' && (
+                <button
+                  onClick={handleRegenerate}
+                  className="p-1 rounded hover:bg-white/[0.1] text-gray-500 hover:text-white transition-colors"
+                  aria-label="Regenerate response"
+                >
+                  <RefreshCw size={14} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Message text */}
+          <div className="text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">
+            {renderInlineMarkdown(msg.content)}
+          </div>
+
+          {/* Agent signal */}
+          {msg.role === 'assistant' && <AgentSignal reaction={msg.reaction} demo={msg.demo} />}
+
+          {/* Orchestration summary */}
+          {msg.orchestration && <OrchestrationSummary orchestration={msg.orchestration} />}
+
+          {/* Plan summary */}
+          {msg.plan && <PlanSummary plan={msg.plan} onReview={() => onReview(msg.plan!)} />}
+
+          {/* Order creation */}
+          {msg.orderCreation && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4"
+            >
+              <GlassCard className="p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-xs font-semibold text-warning uppercase tracking-wider">
+                    Conditional Order
+                  </p>
+                  <Badge variant="warning" size="sm">
+                    Pending
+                  </Badge>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">Token In</p>
+                    <p className="text-sm font-medium text-white">{msg.orderCreation.order.tokenIn}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">Token Out</p>
+                    <p className="text-sm font-medium text-white">{msg.orderCreation.order.tokenOut}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">Amount</p>
+                    <p className="text-sm font-medium text-white">{msg.orderCreation.order.amountIn}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">Condition</p>
+                    <p className="text-sm font-medium text-white">
+                      {msg.orderCreation.order.condition.type} &lt;{' '}
+                      {msg.orderCreation.order.condition.value}
+                    </p>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => {}}
+                  className="w-full"
+                  size="sm"
+                >
+                  Create Order
+                </Button>
+              </GlassCard>
+            </motion.div>
+          )}
+        </GlassCard>
+      </div>
+    </motion.div>
   )
 }
 
@@ -178,6 +391,7 @@ export default function CommandBar({ address }: { address: string }) {
   const [pendingPlan, setPendingPlan] = useState<ExecutionPlan | null>(null)
   const [pendingOrderCreation, setPendingOrderCreation] = useState<Message['orderCreation'] | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -249,136 +463,145 @@ export default function CommandBar({ address }: { address: string }) {
   }
 
   return (
-    <section className="chat-panel" id="somnia-agent-chat">
-      <div className="chat-header">
-        <div className="chat-header-row">
+    <div className="flex flex-col h-full">
+      {/* Chat header */}
+      <div className="p-6 border-b border-white/[0.08]">
+        <div className="flex items-center justify-between">
           <div>
-            <p className="eyebrow">AI Agent Chat</p>
-            <h2 className="chat-title">Command the agent. Sign only for money moves.</h2>
-            <p className="chat-copy">
-              Ask naturally. Education, wallet checks, and route comparisons do not request a signature; swaps, orders, transfers, and approvals do.
+            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">AI Agent Chat</p>
+            <h3 className="text-2xl font-bold text-white mb-1">Command the agent</h3>
+            <p className="text-sm text-gray-400">
+              Sign only for money moves. Education and route comparison are free.
             </p>
           </div>
-          <div className="network-card">
-            <p className="muted">Network</p>
-            <p className="mono">{chainId === 50312 ? 'Somnia 50312' : `Chain ${chainId}`}</p>
-            <span className="network-pulse">Ready</span>
+          <div className="hidden sm:flex items-center gap-2">
+            <Badge variant="success" size="md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
+              </span>
+              Monad Testnet
+            </Badge>
           </div>
         </div>
       </div>
 
-      <div className="chat-body">
+      {/* Chat body */}
+      <div className="flex-1 overflow-y-auto p-6">
         {messages.length === 0 && (
-          <div className="empty-chat">
-            <div className="intro-card">
-              <h3 className="panel-title">{isConnected ? 'Start with a natural command' : 'Try the agent, then connect'}</h3>
-              <p className="panel-subtitle">
-                Ask for guidance, wallet checks, route comparison, or gas timing without signing. Monetary actions ask for wallet review.
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl mx-auto"
+          >
+            <GlassCard className="p-6 mb-6">
+              <h4 className="text-lg font-semibold text-white mb-2">
+                {isConnected ? 'Start with a natural command' : 'Try the agent, then connect'}
+              </h4>
+              <p className="text-sm text-gray-400 mb-6">
+                Ask for guidance, wallet checks, route comparison, or gas timing without signing.
+                Monetary actions ask for wallet review.
               </p>
-              <div className="signal-strip" aria-label="Agent safeguards">
+
+              <div className="grid grid-cols-2 gap-3">
                 {SAFETY_SIGNALS.map(([label, detail]) => (
-                  <span key={label}>
-                    <strong>{label}</strong>
-                    <small>{detail}</small>
-                  </span>
+                  <div key={label} className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.08]">
+                    <p className="text-xs font-semibold text-white mb-1">{label}</p>
+                    <p className="text-xs text-gray-400">{detail}</p>
+                  </div>
                 ))}
               </div>
-            </div>
-            <div className="prompt-grid">
-              {EXAMPLE_COMMANDS.map((cmd) => (
-                <button key={cmd} type="button" className="prompt-button" onClick={() => sendCommand(cmd)}>
-                  <span />
-                  {cmd}
-                </button>
+            </GlassCard>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {EXAMPLE_COMMANDS.map((cmd, i) => (
+                <motion.button
+                  key={cmd}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => sendCommand(cmd)}
+                  className="text-left p-4 rounded-xl border border-white/[0.08] bg-white/[0.03]
+                    hover:bg-white/[0.06] hover:border-primary/20
+                    transition-all duration-200 group"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <span className="text-sm">💬</span>
+                    </div>
+                    <p className="text-sm text-gray-300 group-hover:text-white transition-colors leading-relaxed">
+                      {cmd}
+                    </p>
+                  </div>
+                </motion.button>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
-        <div className="message-list">
-          {messages.map((msg, index) => (
-            <div key={`${msg.role}-${index}`} className={`message-wrap ${msg.role === 'user' ? 'user' : ''}`}>
-              <div className={`message-card ${msg.role === 'user' ? 'user' : 'assistant'}`}>
-                <div className="message-head">
-                  <p className="message-meta">{msg.role === 'user' ? 'You' : 'Arokyl'}</p>
-                  {msg.role === 'assistant' && <AgentSignal reaction={msg.reaction} demo={msg.demo} />}
-                </div>
-                <p className="message-text">{renderInlineMarkdown(msg.content)}</p>
-                {msg.orchestration && <OrchestrationSummary orchestration={msg.orchestration} />}
-                {msg.plan && <PlanSummary plan={msg.plan} onReview={() => setPendingPlan(msg.plan!)} />}
-                {msg.orderCreation && (
-                  <div className="plan-card">
-                    <div className="plan-head">
-                      <p className="eyebrow">Conditional order</p>
-                    </div>
-                    <div className="plan-grid">
-                      <div>
-                        <p className="muted">Token in</p>
-                        <p className="metric-value">{msg.orderCreation.order.tokenIn}</p>
-                      </div>
-                      <div>
-                        <p className="muted">Token out</p>
-                        <p className="metric-value">{msg.orderCreation.order.tokenOut}</p>
-                      </div>
-                      <div>
-                        <p className="muted">Amount</p>
-                        <p className="metric-value">{msg.orderCreation.order.amountIn}</p>
-                      </div>
-                      <div>
-                        <p className="muted">Condition</p>
-                        <p className="metric-value">{msg.orderCreation.order.condition.type} &lt; {msg.orderCreation.order.condition.value}</p>
-                      </div>
-                    </div>
-                    <div className="plan-actions">
-                      <span className="status-chip">Ready for wallet review</span>
-                      <button type="button" className="primary-button" onClick={() => setPendingOrderCreation(msg.orderCreation!)}>
-                        Create order
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+        {/* Messages */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          <AnimatePresence>
+            {messages.map((msg, index) => (
+              <MessageBubble
+                key={index}
+                msg={msg}
+                onReview={(plan) => setPendingPlan(plan)}
+              />
+            ))}
+          </AnimatePresence>
 
-          {loading && (
-            <div className="message-wrap">
-              <div className="message-card">
-                <p className="message-meta">Arokyl</p>
-                <div className="thinking-row">
-                  <span />
-                  <span />
-                  <span />
-                  <p>Analyzing route, risk, and gas...</p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        <div ref={bottomRef} />
-      </div>
-
-      <div className="input-shell">
-        <div className="input-row">
-          <input
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            onKeyDown={(event) => event.key === 'Enter' && sendCommand(input)}
-            placeholder="Ask the agent to swap, compare routes, or wait for cheaper gas..."
-            className="agent-input"
-          />
-          <button type="button" className="primary-button" onClick={() => sendCommand(input)} disabled={loading || !input.trim()}>
-            Ask
-          </button>
+          {loading && <TypingIndicator />}
+          <div ref={bottomRef} />
         </div>
       </div>
 
+      {/* Input area */}
+      <div className="p-4 border-t border-white/[0.08]">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex gap-3">
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={(event) => event.key === 'Enter' && !event.shiftKey && (event.preventDefault(), sendCommand(input))}
+              placeholder="Ask the agent to swap, compare routes, or wait for cheaper gas..."
+              className="flex-1 px-4 py-3 rounded-xl
+                bg-white/[0.04] border border-white/[0.08]
+                text-white placeholder:text-gray-500
+                backdrop-blur-sm
+                transition-all duration-200 ease-out
+                focus:outline-none focus:border-primary/50 focus:bg-white/[0.06]
+                focus:shadow-[0_0_0_3px_rgba(109,93,252,0.15)]
+                disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
+            />
+            <Button
+              onClick={() => sendCommand(input)}
+              disabled={loading || !input.trim()}
+              glow
+            >
+              Send
+            </Button>
+          </div>
+          <p className="text-xs text-gray-500 mt-2 text-center">
+            ArokylAI can make mistakes. Verify important information. Signatures only for monetary actions.
+          </p>
+        </div>
+      </div>
+
+      {/* Modals */}
       {pendingPlan && (
         <SwapConfirmModal plan={pendingPlan} address={address} onClose={() => setPendingPlan(null)} />
       )}
       {pendingOrderCreation && (
-        <OrderConfirmModal orderCreation={pendingOrderCreation} address={address} onClose={() => setPendingOrderCreation(null)} />
+        <OrderConfirmModal
+          orderCreation={pendingOrderCreation}
+          address={address}
+          onClose={() => setPendingOrderCreation(null)}
+        />
       )}
-    </section>
+    </div>
   )
 }

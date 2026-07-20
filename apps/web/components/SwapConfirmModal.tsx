@@ -4,6 +4,10 @@ import { useMemo, useState } from 'react'
 import { useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { erc20Abi, zeroAddress } from 'viem'
 import type { ExecutionPlan } from '@somnia-agent/shared'
+import { motion, AnimatePresence } from 'framer-motion'
+import { GlassCard } from '@/components/ui/GlassCard'
+import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/Badge'
 
 interface Props {
   plan: ExecutionPlan
@@ -83,127 +87,173 @@ export default function SwapConfirmModal({ plan, address, onClose }: Props) {
   }
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal-card">
-        <div className="modal-head">
-          <h2 className="panel-title">
-            {step === 'done' ? 'Swap Complete' : step === 'error' ? 'Transaction Issue' : canExecute ? 'Confirm Swap' : 'Review Plan'}
-          </h2>
-          <button type="button" onClick={onClose} className="icon-button" aria-label="Close review modal">x</button>
-        </div>
-
-        {step === 'review' && (
-          <div>
-            <div className="review-box">
-              <div className="review-row">
-                <span className="muted">You send</span>
-                <span>{plan.intent.amountIn} {plan.intent.tokenIn}</span>
-              </div>
-              <div className="review-row">
-                <span className="muted">You receive</span>
-                <span className="success">{plan.estimatedOutput}</span>
-              </div>
-              <div className="review-row">
-                <span className="muted">Best route</span>
-                <span>{plan.quote?.aggregator}</span>
-              </div>
-              <div className="review-row">
-                <span className="muted">Price impact</span>
-                <span className={plan.quote?.priceImpact > 1 ? 'warning' : ''}>
-                  {plan.quote?.priceImpact?.toFixed(3)}%
-                </span>
-              </div>
-              <div className="review-row">
-                <span className="muted">Gas estimate</span>
-                <span>
-                  {plan.gasAssessment?.currentBaseFeeGwei?.toFixed(1)} gwei
-                  {' '}(~${plan.quote?.gasEstimateUsd?.toFixed(2)})
-                </span>
-              </div>
-            </div>
-
-            {computedWarnings.length > 0 && (
-              <div className="safe-list">
-                {computedWarnings.map((warning) => (
-                  <p key={warning} className="warning-box">
-                    {warning}
-                  </p>
-                ))}
-              </div>
-            )}
-
-            <div className="modal-actions">
+    <AnimatePresence>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          onClick={onClose}
+        />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-white/[0.1] bg-surface/95 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.5)]"
+        >
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-white">
+                {step === 'done' ? 'Swap Complete' : step === 'error' ? 'Transaction Issue' : canExecute ? 'Confirm Swap' : 'Review Plan'}
+              </h2>
               <button
                 type="button"
                 onClick={onClose}
-                className="secondary-button"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/[0.06] border border-white/[0.1] text-gray-400 hover:bg-white/[0.1] hover:text-white hover:border-white/[0.2] transition-all"
               >
-                Close
-              </button>
-              <button
-                type="button"
-                onClick={handleExecute}
-                disabled={!canExecute}
-                className="primary-button"
-              >
-                {canExecute ? 'Confirm Swap' : 'No transaction yet'}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
               </button>
             </div>
-          </div>
-        )}
 
-        {step === 'approving' && (
-          <div className="center-state">
-            <div className="spinner" />
-            <p>Approving token...</p>
-            <p className="muted">Confirm in your wallet.</p>
-          </div>
-        )}
-
-        {step === 'executing' && (
-          <div className="center-state">
-            <div className="spinner" />
-            <p>Executing swap...</p>
-            <p className="muted">Confirm in your wallet.</p>
-          </div>
-        )}
-
-        {step === 'done' && (
-          <div className="center-state">
-            <p>{isConfirming ? 'Waiting for confirmation...' : 'Your swap was submitted successfully.'}</p>
-            {txHash && (
-              <a
-                href={`https://shannon-explorer.somnia.network/tx/${txHash}`}
-                target="_blank"
-                rel="noreferrer"
-                className="success"
+            {step === 'review' && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-4"
               >
-                View on explorer
-              </a>
-            )}
-            <button
-              type="button"
-              onClick={onClose}
-              className="primary-button"
-            >
-              Done
-            </button>
-          </div>
-        )}
+                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">You send</span>
+                    <span className="text-sm font-medium text-white">
+                      {plan.intent.amountIn} {plan.intent.tokenIn}
+                    </span>
+                  </div>
+                  <div className="h-px bg-white/[0.06]" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">You receive</span>
+                    <span className="text-sm font-medium text-success">{plan.estimatedOutput}</span>
+                  </div>
+                  <div className="h-px bg-white/[0.06]" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">Best route</span>
+                    <span className="text-sm font-medium text-white">{plan.quote?.aggregator}</span>
+                  </div>
+                  <div className="h-px bg-white/[0.06]" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">Price impact</span>
+                    <span className={plan.quote?.priceImpact > 1 ? 'text-warning' : 'text-white'}>
+                      {plan.quote?.priceImpact?.toFixed(3)}%
+                    </span>
+                  </div>
+                  <div className="h-px bg-white/[0.06]" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">Gas estimate</span>
+                    <span className="text-sm font-medium text-white">
+                      {plan.gasAssessment?.currentBaseFeeGwei?.toFixed(1)} gwei
+                      {' '}(~${plan.quote?.gasEstimateUsd?.toFixed(2)})
+                    </span>
+                  </div>
+                </div>
 
-        {step === 'error' && (
-          <div className="center-state">
-            <p className="error-box">{errorMsg}</p>
-            <button
-              type="button"
-              onClick={() => setStep('review')}
-              className="secondary-button"
-            >
-              Back to review
-            </button>
+                {computedWarnings.length > 0 && (
+                  <div className="space-y-2">
+                    {computedWarnings.map((warning) => (
+                      <div key={warning} className="p-3 rounded-lg bg-warning/10 border border-warning/20 text-warning text-xs">
+                        {warning}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex gap-3 pt-2">
+                  <Button onClick={onClose} variant="secondary" className="flex-1">
+                    Close
+                  </Button>
+                  <Button onClick={handleExecute} disabled={!canExecute} className="flex-1">
+                    {canExecute ? 'Confirm Swap' : 'No transaction yet'}
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+
+            {step === 'approving' && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-8"
+              >
+                <div className="w-12 h-12 mx-auto mb-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                <p className="text-white font-medium mb-1">Approving token...</p>
+                <p className="text-sm text-gray-400">Confirm in your wallet</p>
+              </motion.div>
+            )}
+
+            {step === 'executing' && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-8"
+              >
+                <div className="w-12 h-12 mx-auto mb-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                <p className="text-white font-medium mb-1">Executing swap...</p>
+                <p className="text-sm text-gray-400">Confirm in your wallet</p>
+              </motion.div>
+            )}
+
+            {step === 'done' && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-8"
+              >
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-success/20 border border-success/30 flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-success">
+                    <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <p className="text-white font-medium mb-2">
+                  {isConfirming ? 'Waiting for confirmation...' : 'Your swap was submitted successfully.'}
+                </p>
+                {txHash && (
+                  <a
+                    href={`https://testnet.monadvision.com/tx/${txHash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block mt-3 text-sm text-primary hover:text-accent transition-colors"
+                  >
+                    View on explorer →
+                  </a>
+                )}
+                <div className="mt-6">
+                  <Button onClick={onClose} className="w-full">
+                    Done
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+
+            {step === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-4"
+              >
+                <div className="p-4 rounded-xl bg-error/10 border border-error/20 text-error text-sm">
+                  {errorMsg}
+                </div>
+                <Button onClick={() => setStep('review')} variant="secondary" className="w-full">
+                  Back to review
+                </Button>
+              </motion.div>
+            )}
           </div>
-        )}
+        </motion.div>
       </div>
-    </div>
+    </AnimatePresence>
   )
 }

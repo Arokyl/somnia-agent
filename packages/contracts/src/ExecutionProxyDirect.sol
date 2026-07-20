@@ -10,7 +10,7 @@ interface IERC20Direct {
 }
 
 /// @title ExecutionProxyDirect
-/// @notice Non-upgradeable Somnia deployment variant of ExecutionProxy.
+/// @notice Non-upgradeable Monad deployment variant of ExecutionProxy.
 /// @dev Keeps the swap/admin behavior while avoiding UUPS/proxy deployment bytecode.
 contract ExecutionProxyDirect {
     uint256 public constant MAX_FEE_BPS = 50;

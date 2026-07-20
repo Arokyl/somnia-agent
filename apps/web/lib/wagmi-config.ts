@@ -3,21 +3,21 @@ import { mainnet, base, arbitrum } from 'wagmi/chains'
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 import { http } from 'wagmi'
 
-const SOMNIA_RPC = process.env.NEXT_PUBLIC_SOMNIA_RPC || 'https://api.infra.testnet.somnia.network/'
-const SOMNIA_EXPLORER_URL = process.env.NEXT_PUBLIC_SOMNIA_EXPLORER_URL || 'https://shannon-explorer.somnia.network'
+const MONAD_RPC = process.env.NEXT_PUBLIC_MONAD_RPC || 'https://testnet-rpc.monad.xyz'
+const MONAD_EXPLORER_URL = process.env.NEXT_PUBLIC_MONAD_EXPLORER_URL || 'https://testnet.monadvision.com'
 
-export const somnia = defineChain({
-  id: 50312,
-  name: 'Somnia',
-  nativeCurrency: { name: 'STT', symbol: 'STT', decimals: 18 },
+export const monad = defineChain({
+  id: 10143,
+  name: 'Monad',
+  nativeCurrency: { name: 'MON', symbol: 'MON', decimals: 18 },
   rpcUrls: {
-    default: { http: [SOMNIA_RPC] },
-    public: { http: [SOMNIA_RPC] },
+    default: { http: [MONAD_RPC] },
+    public: { http: [MONAD_RPC] },
   },
   blockExplorers: {
     default: {
-      name: 'Somnia Explorer',
-      url: SOMNIA_EXPLORER_URL,
+      name: 'Monad Explorer',
+      url: MONAD_EXPLORER_URL,
     },
   },
   testnet: true,
@@ -26,9 +26,9 @@ export const somnia = defineChain({
 export const wagmiConfig = getDefaultConfig({
   appName: 'Arokyl',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo-project-id',
-  chains: [somnia, mainnet, base, arbitrum],
+  chains: [monad, mainnet, base, arbitrum],
   transports: {
-    [somnia.id]: http(SOMNIA_RPC),
+    [monad.id]: http(MONAD_RPC),
     [mainnet.id]: http(process.env.NEXT_PUBLIC_ETH_RPC),
     [base.id]: http(process.env.NEXT_PUBLIC_BASE_RPC),
     [arbitrum.id]: http(process.env.NEXT_PUBLIC_ARB_RPC),
@@ -36,4 +36,4 @@ export const wagmiConfig = getDefaultConfig({
   ssr: true,
 })
 
-export const SUPPORTED_CHAINS = [somnia, mainnet, base, arbitrum]
+export const SUPPORTED_CHAINS = [monad, mainnet, base, arbitrum]

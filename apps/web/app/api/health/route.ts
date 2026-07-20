@@ -49,9 +49,9 @@ export async function GET() {
     api,
     agent,
     rpc: {
-      primary: process.env.NEXT_PUBLIC_SOMNIA_RPC || null,
-      fallback: process.env.NEXT_PUBLIC_SOMNIA_RPC_FALLBACK || null,
-      chainId: 50312,
+      primary: process.env.NEXT_PUBLIC_MONAD_RPC || null,
+      fallback: process.env.NEXT_PUBLIC_MONAD_RPC_FALLBACK || null,
+      chainId: 10143,
     },
   })
 }

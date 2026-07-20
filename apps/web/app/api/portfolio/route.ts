@@ -4,16 +4,16 @@ const AUTH_HEADERS = ['x-user-address', 'x-message', 'x-signature']
 
 const demoPortfolio = {
   address: '0xDemo000000000000000000000000000000000000',
-  chainId: 50312,
+  chainId: 10143,
   totalUsdValue: 4286.78,
   updatedAt: new Date().toISOString(),
   tokens: [
     {
       address: '0x0000000000000000000000000000000000000000',
-      symbol: 'STT',
-      name: 'Somnia Test Token',
+      symbol: 'MON',
+      name: 'Monad',
       decimals: 18,
-      chainId: 50312,
+      chainId: 10143,
       balance: '1825000000000000000000',
       balanceFormatted: '1825.00',
       balanceUsd: 3358.0,
@@ -23,7 +23,7 @@ const demoPortfolio = {
       symbol: 'USDC',
       name: 'USD Coin',
       decimals: 6,
-      chainId: 50312,
+      chainId: 10143,
       balance: '928780000',
       balanceFormatted: '928.78',
       balanceUsd: 928.78,
@@ -34,7 +34,7 @@ const demoPortfolio = {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const address = searchParams.get('address')
-  const chainId = searchParams.get('chainId') || '50312'
+  const chainId = searchParams.get('chainId') || '10143'
   const apiUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
 
   if (!address) return NextResponse.json({ ok: false, error: 'Missing address' }, { status: 400 })

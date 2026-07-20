@@ -1,10 +1,10 @@
 FRONTEND_URL=https://somnia-agent.vercel.app
 CORS_ORIGINS=https://somnia-agent.vercel.app
 DATABASE_URL=
-SOMNIA_RPC=https://api.infra.testnet.somnia.network/
-SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
-SOMNIA_CHAIN_ID=50312
-SOMNIA_EXPLORER_URL=https://shannon-explorer.somnia.network
+MONAD_RPC=https://testnet-rpc.monad.xyz
+MONAD_RPC_FALLBACK=https://rpc.ankr.com/monad_testnet
+MONAD_CHAIN_ID=10143
+MONAD_EXPLORER_URL=https://testnet.monadvision.com
 DREAMDEX_API_URL=https://stg.api.dreamdex.io/v0
 DREAMDEX_PUBLIC_WS_URL=wss://stg.api.dreamdex.io/v0/ws/public
 DREAMDEX_APP_URL=https://app.dreamdex.io

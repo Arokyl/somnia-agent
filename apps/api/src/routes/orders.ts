@@ -38,7 +38,7 @@ export const ordersRoutes: FastifyPluginAsync = async (app) => {
     { onRequest: withAuth },
     async (req, reply) => {
       const auth = (req as any).auth
-      const { address, tokenIn, tokenOut, amountIn, condition, originalCommand, expiresAt, chainId = 50312 } = req.body
+      const { address, tokenIn, tokenOut, amountIn, condition, originalCommand, expiresAt, chainId = 10143 } = req.body
 
       let requestedAddress: string
       try {

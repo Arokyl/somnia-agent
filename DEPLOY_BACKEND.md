@@ -38,9 +38,9 @@ OPENAI_MODEL=nvidia/nemotron-3-ultra-550b-a55b
 FRONTEND_URL=https://somnia-agent.vercel.app
 CORS_ORIGINS=https://somnia-agent.vercel.app
 API_URL=https://your-api-service.onrender.com
-SOMNIA_RPC=https://api.infra.testnet.somnia.network/
-SOMNIA_CHAIN_ID=50312
-SOMNIA_EXPLORER_URL=https://shannon-explorer.somnia.network
+MONAD_RPC=https://testnet-rpc.monad.xyz
+MONAD_CHAIN_ID=10143
+MONAD_EXPLORER_URL=https://testnet.monadvision.com
 EXECUTION_PROXY_ADDRESS=0xdBA2b47E8348b79422B736c4017336f44d2ff0a6
 MARKET_NEWS_API_URL=
 MARKET_NEWS_API_KEY=
@@ -73,9 +73,9 @@ Required env vars:
 FRONTEND_URL=https://somnia-agent.vercel.app
 CORS_ORIGINS=https://somnia-agent.vercel.app
 DATABASE_URL=
-SOMNIA_RPC=https://api.infra.testnet.somnia.network/
-SOMNIA_CHAIN_ID=50312
-SOMNIA_EXPLORER_URL=https://shannon-explorer.somnia.network
+MONAD_RPC=https://testnet-rpc.monad.xyz
+MONAD_CHAIN_ID=10143
+MONAD_EXPLORER_URL=https://testnet.monadvision.com
 ETH_USD_PRICE=3000
 ```
 

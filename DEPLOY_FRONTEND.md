@@ -19,14 +19,14 @@ You can copy from `deploy-env.frontend.example`.
 
 ```bash
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=
-NEXT_PUBLIC_SOMNIA_RPC=https://api.infra.testnet.somnia.network/
-NEXT_PUBLIC_SOMNIA_RPC_FALLBACK=https://dream-rpc.somnia.network
-NEXT_PUBLIC_SOMNIA_CHAIN_ID=50312
-NEXT_PUBLIC_SOMNIA_EXPLORER_URL=https://shannon-explorer.somnia.network
+NEXT_PUBLIC_MONAD_RPC=https://testnet-rpc.monad.xyz
+NEXT_PUBLIC_MONAD_RPC_FALLBACK=https://rpc.ankr.com/monad_testnet
+NEXT_PUBLIC_MONAD_CHAIN_ID=10143
+NEXT_PUBLIC_MONAD_EXPLORER_URL=https://testnet.monadvision.com
 NEXT_PUBLIC_ETH_RPC=https://rpc.ankr.com/eth
 NEXT_PUBLIC_BASE_RPC=https://rpc.ankr.com/base
 NEXT_PUBLIC_ARB_RPC=https://rpc.ankr.com/arbitrum
-NEXT_PUBLIC_EXECUTION_PROXY_SOMNIA=0xdBA2b47E8348b79422B736c4017336f44d2ff0a6
+NEXT_PUBLIC_EXECUTION_PROXY_MONAD=0xdBA2b47E8348b79422B736c4017336f44d2ff0a6
 NEXT_PUBLIC_EXECUTION_PROXY_ETH=0x
 ```
 
