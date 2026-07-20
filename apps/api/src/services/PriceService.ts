@@ -33,7 +33,7 @@ const COINGECKO_IDS: Record<string, string> = {
   USDC: 'usd-coin',
   USDT: 'tether',
   DAI: 'dai',
-  MON: 'monad',  // may not exist on CoinGecko yet, handled by fallback
+  MON: 'monad',
 }
 
 const COINGECKO_CHAIN_IDS: Record<number, string> = {
@@ -44,7 +44,59 @@ const COINGECKO_CHAIN_IDS: Record<number, string> = {
   42161: 'arbitrum-one',
   43114: 'avalanche',
   8453: 'base',
-  10143: 'monad-testnet',  // may not exist on CoinGecko yet
+  10143: 'monad-testnet',
+}
+
+const FALLBACK_PRICES: Record<string, number> = {
+  BTC: 65000,
+  ETH: 3200,
+  WETH: 3200,
+  BNB: 600,
+  SOL: 145,
+  MATIC: 0.6,
+  POL: 0.6,
+  ARB: 0.85,
+  OP: 2.2,
+  AVAX: 35,
+  LINK: 14,
+  UNI: 7.5,
+  AAVE: 95,
+  MKR: 2800,
+  COMP: 52,
+  SUSHI: 1.2,
+  CRV: 0.35,
+  LDO: 1.8,
+  PEPE: 0.00001,
+  SHIB: 0.000025,
+  DOGE: 0.12,
+  WBTC: 65000,
+  USDC: 1,
+  USDT: 1,
+  DAI: 1,
+  MON: 0.25,
+}
+
+async function fetchWithRetry(url: string, retries = 2, delayMs = 500): Promise<Response> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url)
+      if (res.ok) return res
+      if (res.status === 429 && attempt < retries) {
+        const wait = delayMs * Math.pow(2, attempt)
+        await new Promise((r) => setTimeout(r, wait))
+        continue
+      }
+      return res
+    } catch {
+      if (attempt < retries) {
+        const wait = delayMs * Math.pow(2, attempt)
+        await new Promise((r) => setTimeout(r, wait))
+        continue
+      }
+      throw new Error(`Failed after ${retries + 1} attempts`)
+    }
+  }
+  throw new Error('Unreachable')
 }
 
 export class PriceService {
@@ -60,6 +112,12 @@ export class PriceService {
     if (envPrice > 0) {
       await cacheSetex(cacheKey, CACHE_TTL.PRICE, envPrice.toString())
       return envPrice
+    }
+
+    const fallback = FALLBACK_PRICES[upper]
+    if (fallback > 0) {
+      await cacheSetex(cacheKey, CACHE_TTL.PRICE, fallback.toString())
+      return fallback
     }
 
     if (contractAddress && contractAddress !== '0x0000000000000000000000000000000000000000') {
@@ -91,6 +149,16 @@ export class PriceService {
 
     const env = this.getEnvPriceObj(upper)
     if (env) return env
+
+    const fallback = FALLBACK_PRICES[upper]
+    if (fallback > 0) {
+      return {
+        symbol,
+        priceUsd: fallback,
+        source: 'local-fallback',
+        updatedAt: new Date().toISOString(),
+      }
+    }
 
     const defiLlama = await this.tryDefiLlamaObj(upper)
     if (defiLlama) return defiLlama
@@ -125,7 +193,7 @@ export class PriceService {
 
     const coinKey = `coingecko:${id}`
     try {
-      const res = await fetch(`https://coins.llama.fi/prices/current/${coinKey}`)
+      const res = await fetchWithRetry(`https://coins.llama.fi/prices/current/${coinKey}`)
       if (!res.ok) return 0
       const data = await res.json() as { coins?: Record<string, { price?: number; timestamp?: number }> }
       const coin = data.coins?.[coinKey]
@@ -142,7 +210,7 @@ export class PriceService {
 
     const coinKey = `coingecko:${id}`
     try {
-      const res = await fetch(`https://coins.llama.fi/prices/current/${coinKey}`)
+      const res = await fetchWithRetry(`https://coins.llama.fi/prices/current/${coinKey}`)
       if (!res.ok) return null
       const data = await res.json() as { coins?: Record<string, { price?: number; timestamp?: number }> }
       const coin = data.coins?.[coinKey]
@@ -167,7 +235,7 @@ export class PriceService {
 
     try {
       const url = `https://api.coingecko.com/api/v3/simple/token_prices/${cgChain}?contract_addresses=${address}&vs_currencies=usd`
-      const res = await fetch(url)
+      const res = await fetchWithRetry(url)
       if (!res.ok) return 0
       const data = await res.json() as Record<string, { usd?: number }>
       const key = address.toLowerCase()
@@ -183,7 +251,7 @@ export class PriceService {
     if (!id) return 0
 
     try {
-      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`)
+      const res = await fetchWithRetry(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`)
       if (!res.ok) return 0
       const data = await res.json() as Record<string, { usd?: number }>
       if (data[id]?.usd && Number.isFinite(data[id].usd)) return data[id].usd
@@ -198,7 +266,7 @@ export class PriceService {
     if (!id) return null
 
     try {
-      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`)
+      const res = await fetchWithRetry(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`)
       if (!res.ok) return null
       const data = await res.json() as Record<string, { usd?: number }>
       if (data[id]?.usd && Number.isFinite(data[id].usd)) {

@@ -74,6 +74,21 @@ export const tools: OpenAI.Chat.ChatCompletionTool[] = [
   {
     type: 'function',
     function: {
+      name: 'get_market_analysis',
+      description: 'Get technical analysis for a token including trend, support/resistance, volatility, liquidity score, and trading recommendation. Use this when the user asks about market conditions, whether to buy/sell, or wants analysis.',
+      parameters: {
+        type: 'object',
+        properties: {
+          symbol: { type: 'string', description: 'Token symbol, e.g. ETH, BTC, MON' },
+          chainId: { type: 'number', description: 'Chain ID (optional, defaults to current chain)' },
+        },
+        required: ['symbol'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
       name: 'get_quote',
       description: 'Get the best swap quote for a token pair. Returns amountOut, price impact, gas cost, and which aggregator is cheapest.',
       parameters: {
@@ -193,6 +208,11 @@ export async function executeTool(name: string, args: Record<string, any>): Prom
 
     case 'get_market_price':
       return fetchApi(`/market/price/${encodeURIComponent(String(args.symbol))}`, 'GET', undefined, args.auth)
+
+    case 'get_market_analysis':
+      const chainId = args.chainId ? String(args.chainId) : ''
+      const qs = chainId ? `?chainId=${encodeURIComponent(chainId)}` : ''
+      return fetchApi(`/market/analysis/${encodeURIComponent(String(args.symbol))}${qs}`, 'GET', undefined, args.auth)
 
     case 'get_quote':
       return fetchApi(`/quotes?${quoteParams(args)}`, 'GET', undefined, args.auth).then((data: any) => data.bestQuote)

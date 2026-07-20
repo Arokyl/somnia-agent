@@ -42,5 +42,6 @@ export const CACHE_TTL = {
   GAS: 15,        // seconds
   QUOTE: 30,
   PORTFOLIO: 60,
+  PRICE: 120,     // 2 minutes — reduce external API pressure
   SESSION: 86400, // 24h
 }

@@ -83,5 +83,6 @@ export class PortfolioService {
     await cacheSetex(cacheKey, CACHE_TTL.PORTFOLIO, JSON.stringify(portfolio))
     return portfolio
   }
+}
 
 export const portfolioService = new PortfolioService()
